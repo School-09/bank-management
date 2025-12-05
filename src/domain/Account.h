@@ -29,7 +29,7 @@ namespace domain
         virtual bool withdraw(double amount) = 0;
 
         virtual bool canWithdraw(double amount) const;
-        //Getters
+        // Getters
         string getId() const;
         string getUserId() const;
         double getBalance() const;

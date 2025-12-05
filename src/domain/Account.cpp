@@ -22,7 +22,7 @@ namespace domain
         }
         else
         {
-            std::cerr << "Deposit amount must be positive." << std::endl;
+            std::cerr << "Số tiền gửi phải là số dương.\n";
         }
     }
 
