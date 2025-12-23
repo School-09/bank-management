@@ -1,0 +1,16 @@
+#ifndef _MENUPRINTER_H_
+#define _MENUPRINTER_H_
+
+#include <iostream>
+using std::cout;
+
+class MenuPrinter {
+public:
+    static void printAuthMenu();
+
+    static void printUserMenu();
+    static void printResetPasswordStep2();
+};
+
+
+#endif
