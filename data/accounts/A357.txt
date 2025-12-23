@@ -1,0 +1,7 @@
+Id: 357
+UserId: 41
+Balance: 50000
+Active: false
+CreatedAt: 2025-12-18 22:53:11
+Type: CHECKING
+OverdraftLimit: 0
