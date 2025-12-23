@@ -8,10 +8,3 @@ $ g++ -std=c++23 main.cpp application/*.cpp application/controllers/*.cpp domain
 
 $ ./debug/app
 ```
-
-*TODO*
-- dùng expected
-- nâng cấp lên c++23
-- dùng namespace
-- dùng regular expression
-- lỗi session nhiều hơn 1 file
