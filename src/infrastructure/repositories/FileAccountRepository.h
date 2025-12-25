@@ -19,7 +19,7 @@ private:
     string _folder;
 
 private:
-    shared_ptr<Account> createUserByType(const string& type);
+    shared_ptr<Account> createAccountByType(const string& type);
     shared_ptr<Account> loadFromFile(const string& path);
     string getPath(const string& id) const;
 

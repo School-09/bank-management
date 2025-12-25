@@ -1,27 +1,31 @@
-#include "Account.h"
+#include "Notification.h"
 
-void Account::increaseBalance(double amount) {
-    _balance += amount;
+shared_ptr<Notification> Notification::create(
+    const string& userId,
+    const string& message
+) {
+    auto nf = std::make_shared<Notification>();
+    nf->_id = std::to_string(std::rand());
+    nf->_userId = userId;
+    nf->_message = message;
+    nf->_createdAt = TimeUtil::toString(time(nullptr));
+    nf->_read = false;
+    return nf;
 }
 
-void Account::decreaseBalance(double amount) {
-    _balance -= amount;
-}
-
-string Account::serialize() const {
+string Notification::serialize() const {
     std::ostringstream oss;
 
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
-    oss << "Balance: " << _balance << "\n";
-    oss << "Active: " << (_active ? "true" : "false") << "\n";
+    oss << "Message: " << _message << "\n";
     oss << "CreatedAt: " << _createdAt << "\n";
-    oss << "Type: " << getType() << "\n"; // visit
+    oss << "Read: " << std::to_string(_read) << "\n";
 
     return oss.str();
 }
 
-void Account::deserialize(const vector<string>& lines) {
+void Notification::deserialize(const vector<string>& lines) {
     // 1. Định nghĩa các hành động (Action) cho mỗi Key
     std::map<string, std::function<void(const string&)>> handlers = {
         {"Id", [this](const string& val) { 
@@ -30,17 +34,14 @@ void Account::deserialize(const vector<string>& lines) {
         {"UserId", [this](const string& val) { 
             _userId = val; 
         }},
-        {"Balance", [this](const string& val) { 
-            _balance = stod(val); 
-        }},
-        {"Active", [this](const string& val) { 
-            _active = (val == "true" ? true : false); 
+        {"Message", [this](const string& val) { 
+            _message = val; 
         }},
         {"CreatedAt", [this](const string& val) { 
             _createdAt = val; 
         }},
-        {"Type", [this](const string& val) { 
-            _type = (val == "SAVING" ? AccountType::SAVING : AccountType::CHECKING); 
+        {"Read", [this](const string& val) { 
+            _read = (val == "true"); 
         }}
     };
 

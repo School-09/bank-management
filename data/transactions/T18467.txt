@@ -1,0 +1,7 @@
+Id: 18467
+UserId: 41
+FromAccountId: 
+ToAccountId: 99
+Amount: 50000.000000
+Type: Deposit
+CreatedAt: 2025-12-25 01:28:12

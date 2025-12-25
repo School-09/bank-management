@@ -41,6 +41,8 @@ public:
     virtual string getType() const = 0;
 
 public:
+    void increaseBalance(double amount);
+    void decreaseBalance(double amount);
     // business rule
     virtual bool canWithdraw(double amount) const = 0;
 

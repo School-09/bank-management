@@ -7,9 +7,13 @@ using std::cout;
 class MenuPrinter {
 public:
     static void printAuthMenu();
+    static void printResetPasswordStep2();
 
     static void printUserMenu();
-    static void printResetPasswordStep2();
+    static void printAccountMenu();
+    static void printTransactionMenu();
+    static void printCardMenu();
+    static void printAdminMenu();
 };
 
 

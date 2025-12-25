@@ -4,11 +4,13 @@
 #include <string>
 
 namespace Paths {
-    inline const std::string DATA_ROOT    = "../data";
-    inline const std::string USERS        = DATA_ROOT + "/users";
-    inline const std::string SESSIONS     = DATA_ROOT + "/sessions";
-    inline const std::string TOKENS       = DATA_ROOT + "/tokens";
-    inline const std::string ACCOUNTS     = DATA_ROOT + "/accounts";
+    inline const std::string DATA_ROOT      = "../data";
+    inline const std::string USERS          = DATA_ROOT + "/users";
+    inline const std::string SESSIONS       = DATA_ROOT + "/sessions";
+    inline const std::string TOKENS         = DATA_ROOT + "/tokens";
+    inline const std::string ACCOUNTS       = DATA_ROOT + "/accounts";
+    inline const std::string TRANSACTIONS   = DATA_ROOT + "/transactions";
+    inline const std::string NOTIFICATIONS  = DATA_ROOT + "/notifications";
 }
 
 #endif

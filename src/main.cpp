@@ -14,6 +14,8 @@ namespace fs = std::filesystem;
 #include "infrastructure/repositories/FileSessionRepository.h"
 #include "infrastructure/repositories/FileResetPasswordRepository.h"
 #include "infrastructure/repositories/FileAccountRepository.h"
+#include "infrastructure/repositories/FileTransactionRepository.h"
+#include "infrastructure/repositories/FileNotificationRepository.h"
 
 /* =========================
    USE CASES
@@ -25,13 +27,17 @@ namespace fs = std::filesystem;
 #include "usecase/account/GetAccountUseCase.h"
 #include "usecase/account/CreateAccountUseCase.h"
 #include "usecase/account/CloseAccountUseCase.h"
+#include "usecase/transaction/DepositUseCase.h"
+#include "usecase/transaction/WithdrawUseCase.h"
+#include "usecase/transaction/TransferUseCase.h"
 
 /* =========================
    APPLICATION
    ========================= */
+#include "application/controllers/MenuController.h"   
 #include "application/controllers/AuthController.h"
 #include "application/controllers/AccountController.h"
-#include "application/controllers/MenuController.h"
+#include "application/controllers/TransactionController.h"
 
 
 int main() {
@@ -42,6 +48,8 @@ int main() {
    fs::create_directories(Paths::SESSIONS);
    fs::create_directories(Paths::TOKENS);
    fs::create_directories(Paths::ACCOUNTS);
+   fs::create_directories(Paths::TRANSACTIONS);
+   fs::create_directories(Paths::NOTIFICATIONS);
 
    /* =========================
       INFRASTRUCTURE
@@ -50,6 +58,8 @@ int main() {
    auto sessionRepo = make_shared<FileSessionRepository>(Paths::SESSIONS);
    auto resetRepo   = make_shared<FileResetPasswordRepository>(Paths::TOKENS);
    auto accountRepo = make_shared<FileAccountRepository>(Paths::ACCOUNTS);
+   auto transactionRepo = make_shared<FileTransactionRepository>(Paths::TRANSACTIONS);
+   auto notificationRepo = make_shared<FileNotificationRepository>(Paths::NOTIFICATIONS);
 
    /* =========================
       USE CASES
@@ -63,26 +73,37 @@ int main() {
    auto createAccountUseCase = make_shared<CreateAccountUseCase>(accountRepo);
    auto closeAccountUseCase  = make_shared<CloseAccountUseCase>(accountRepo);
 
+   auto depositUseCase  = make_shared<DepositUseCase>(accountRepo, transactionRepo, notificationRepo);
+   auto withdrawUseCase  = make_shared<WithdrawUseCase>(accountRepo, transactionRepo, notificationRepo);
+   auto transferUseCase  = make_shared<TransferUseCase>(accountRepo, transactionRepo, notificationRepo);
+
    /* =========================
       CONTROLLER
       ========================= */
+      
    auto authController = make_shared<AuthController>(
       registerUseCase,
       loginUseCase,
       logoutUseCase,
       resetUseCase
    );
-
    auto accountController = make_shared<AccountController>(
       getAccountsUseCase,
       createAccountUseCase,
       closeAccountUseCase,
       sessionRepo
    );
+   auto transactionController = make_shared<TransactionController>(
+      depositUseCase,
+      withdrawUseCase,
+      transferUseCase,
+      sessionRepo
+   );
 
    auto menuController = make_shared<MenuController>(
       authController,
-      accountController
+      accountController,
+      transactionController
    );
 
    /* =========================
