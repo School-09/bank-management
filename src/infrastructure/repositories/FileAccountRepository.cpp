@@ -12,7 +12,7 @@ string FileAccountRepository::getPath(const string& id) const {
     return _folder + "/A" + id + ".txt";
 }
 
-shared_ptr<Account> FileAccountRepository::createUserByType(const string& type) {
+shared_ptr<Account> FileAccountRepository::createAccountByType(const string& type) {
     if (type == "SAVING") return make_shared<SavingAccount> (SavingAccount());
     if (type == "CHECKING") return make_shared<CheckingAccount>( CheckingAccount());
     throw std::runtime_error("Unknown account type: " + type);
@@ -27,7 +27,7 @@ shared_ptr<Account> FileAccountRepository::loadFromFile(const string& path) {
     // dòng đầu là AccountType: X
     auto pos = lines[5].find(":");
     accountType = lines[5].substr(pos + 2);
-    shared_ptr<Account> acc = createUserByType(accountType); // TODO factory
+    shared_ptr<Account> acc = createAccountByType(accountType); // TODO factory
     if (!acc) return nullptr;
 
     acc->deserialize(lines);

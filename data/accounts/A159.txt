@@ -1,6 +1,6 @@
 Id: 159
 UserId: 41
-Balance: 500000
+Balance: 600000
 Active: true
 CreatedAt: 2025-12-18 22:35:06
 Type: SAVING
