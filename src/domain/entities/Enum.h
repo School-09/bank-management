@@ -20,7 +20,8 @@ enum class Role {
 
 enum class AccountType {
     SAVING,
-    CHECKING
+    CHECKING,
+    CREDIT
 };
 
 
@@ -29,6 +30,11 @@ enum class TransactionType {
     DEPOSIT, 
     WITHDRAW, 
     TRANSFER 
+};
+
+enum class CardType { 
+    DEBIT,
+    CREDIT
 };
 
 // Loại tiền tệ (nếu cần)

@@ -14,7 +14,8 @@ string FileAccountRepository::getPath(const string& id) const {
 
 shared_ptr<Account> FileAccountRepository::createAccountByType(const string& type) {
     if (type == "SAVING") return make_shared<SavingAccount> (SavingAccount());
-    if (type == "CHECKING") return make_shared<CheckingAccount>( CheckingAccount());
+    if (type == "CHECKING") return make_shared<CheckingAccount>(CheckingAccount());
+    if (type == "CREDIT") return make_shared<CreditAccount>(CreditAccount());
     throw std::runtime_error("Unknown account type: " + type);
 }
 

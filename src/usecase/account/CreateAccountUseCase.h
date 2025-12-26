@@ -5,6 +5,7 @@
 #include "../../domain/entities/Account.h"
 #include "../../domain/entities/SavingAccount.h"
 #include "../../domain/entities/CheckingAccount.h"
+#include "../../domain/entities/CreditAccount.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
 #include <stdexcept>

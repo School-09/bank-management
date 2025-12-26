@@ -4,7 +4,7 @@
 #include "AuthController.h"
 #include "AccountController.h"
 #include "TransactionController.h"
-//#include "CardController.h"
+#include "CardController.h"
 #include "../MenuPrinter.h"
 #include "../OptionEnum.h"
 #include <memory>
@@ -15,16 +15,18 @@ private:
     shared_ptr<AuthController> _authController;
     shared_ptr<AccountController> _accountController;
     shared_ptr<TransactionController> _transactionController;
-    //shared_ptr<CardController> _cardController;
+    shared_ptr<CardController> _cardController;
 
 public:
     MenuController(
         shared_ptr<AuthController> authCtrl,
         shared_ptr<AccountController> accCtrl,
-        shared_ptr<TransactionController> transactionController
+        shared_ptr<TransactionController> transactionController,
+        shared_ptr<CardController> cardController
     ) : _authController(authCtrl),
         _accountController(accCtrl),
-        _transactionController(transactionController) {}
+        _transactionController(transactionController),
+        _cardController(cardController) {}
 
 public:
     void runAuthMenu();

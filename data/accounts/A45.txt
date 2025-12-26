@@ -1,0 +1,8 @@
+Id: 45
+UserId: 41
+Balance: 100000
+Active: true
+CreatedAt: 2025-12-26 17:23:00
+Type: CREDIT
+CreditLimit: 0
+Used: 0

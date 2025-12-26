@@ -55,8 +55,11 @@ void MenuPrinter::printCardMenu() {
     cout << "\n======= CARD MANAGE ========\n";
     cout << "1. Create card\n";
     cout << "2. List my cards\n";
-    cout << "3. Close card\n";
-    cout << "4. Logout\n";
+    cout << "3. Delete card\n";
+    cout << "4. Block card\n";
+    cout << "5. Unblock card\n";
+    cout << "6. Pay with card\n";
+    cout << "7. Logout\n";
     cout << "0. Back\n";
     cout << "==========================\n";
     cout << "Choose: ";

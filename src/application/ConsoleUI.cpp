@@ -7,6 +7,10 @@ string ConsoleUI::inputString(const string& label) {
     return s;
 }
 
+void ConsoleUI::print(const string& message) {
+    cout << format("{}\n", message);
+}
+
 void ConsoleUI::showMessage(const string& msg) {
     cout << msg << "\n";
 }

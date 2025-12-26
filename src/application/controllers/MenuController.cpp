@@ -121,16 +121,25 @@ void MenuController::runCardMenu() {
         CardMenuOption option = static_cast<CardMenuOption> (stoi(choice));
 
         if (option == CardMenuOption::CREATE_CARD) {
-            //_cardController->c();
+            _cardController->createCard();
         }
         else if (option == CardMenuOption::LIST_CARDS) {
-            //_cardController->s();
+            _cardController->listCards();
         }
-        else if (option == CardMenuOption::CLOSE_CARD) {
-            //_cardController->c();
+        else if (option == CardMenuOption::DELETE_CARD) {
+            _cardController->deleteCard();
+        }
+        else if (option == CardMenuOption::BLOCK_CARD) {
+            _cardController->blockCard();
+        }
+        else if (option == CardMenuOption::UNBLOCK_CARD) {
+            _cardController->unblockCard();
+        }
+        else if (option == CardMenuOption::PAY_WITH_CARD) {
+            _cardController->payWithCard();
         }
         else if (option == CardMenuOption::LOGOUT) {
-            //_cardController->l();
+            _authController->logoutAction();
         }
         else if (option == CardMenuOption::BACK) {
             break;

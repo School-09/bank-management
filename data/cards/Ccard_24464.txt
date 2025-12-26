@@ -1,0 +1,8 @@
+Id: card_24464
+UserId: 41
+AccountId: 99
+CardNumber: 9704-6281-2145-6705
+ExpiredAt: 12/29
+CVV: 727
+Blocked: false
+Type: DEBIT
