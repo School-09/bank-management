@@ -1,0 +1,8 @@
+Id: card_19169
+UserId: 41
+AccountId: credit_acc_26500
+CardNumber: 9704-3358-3478-7724
+ExpiredAt: 12/29
+CVV: 962
+Blocked: false
+Type: CREDIT

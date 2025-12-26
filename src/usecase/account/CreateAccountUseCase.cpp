@@ -16,6 +16,9 @@ shared_ptr<Account> CreateAccountUseCase::execute(
     } 
     else if (type == "CHECKING") {
         acc = make_shared<CheckingAccount> (CheckingAccount());
+    }
+    else if (type == "CREDIT") {
+        acc = make_shared<CreditAccount> (CreditAccount());
     } 
     else {
         throw std::runtime_error("Invalid account type");

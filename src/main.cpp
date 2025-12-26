@@ -16,6 +16,7 @@ namespace fs = std::filesystem;
 #include "infrastructure/repositories/FileAccountRepository.h"
 #include "infrastructure/repositories/FileTransactionRepository.h"
 #include "infrastructure/repositories/FileNotificationRepository.h"
+#include "infrastructure/repositories/FileCardRepository.h"
 
 /* =========================
    USE CASES
@@ -30,6 +31,11 @@ namespace fs = std::filesystem;
 #include "usecase/transaction/DepositUseCase.h"
 #include "usecase/transaction/WithdrawUseCase.h"
 #include "usecase/transaction/TransferUseCase.h"
+#include "usecase/card/CreateCardUseCase.h"
+#include "usecase/card/ListCardUseCase.h"
+#include "usecase/card/DeleteCardUseCase.h"
+#include "usecase/card/BlockCardUseCase.h"
+#include "usecase/card/CardPaymentUseCase.h"
 
 /* =========================
    APPLICATION
@@ -38,6 +44,7 @@ namespace fs = std::filesystem;
 #include "application/controllers/AuthController.h"
 #include "application/controllers/AccountController.h"
 #include "application/controllers/TransactionController.h"
+#include "application/controllers/CardController.h"
 
 
 int main() {
@@ -50,6 +57,7 @@ int main() {
    fs::create_directories(Paths::ACCOUNTS);
    fs::create_directories(Paths::TRANSACTIONS);
    fs::create_directories(Paths::NOTIFICATIONS);
+   fs::create_directories(Paths::CARDS);
 
    /* =========================
       INFRASTRUCTURE
@@ -60,6 +68,7 @@ int main() {
    auto accountRepo = make_shared<FileAccountRepository>(Paths::ACCOUNTS);
    auto transactionRepo = make_shared<FileTransactionRepository>(Paths::TRANSACTIONS);
    auto notificationRepo = make_shared<FileNotificationRepository>(Paths::NOTIFICATIONS);
+   auto cardRepo    = make_shared<FileCardRepository>(Paths::CARDS);
 
    /* =========================
       USE CASES
@@ -76,6 +85,12 @@ int main() {
    auto depositUseCase  = make_shared<DepositUseCase>(accountRepo, transactionRepo, notificationRepo);
    auto withdrawUseCase  = make_shared<WithdrawUseCase>(accountRepo, transactionRepo, notificationRepo);
    auto transferUseCase  = make_shared<TransferUseCase>(accountRepo, transactionRepo, notificationRepo);
+
+   auto createCardUseCase = make_shared<CreateCardUseCase>(cardRepo, accountRepo);
+   auto listCardUseCase   = make_shared<ListCardUseCase>(cardRepo);
+   auto deleteCardUseCase = make_shared<DeleteCardUseCase>(cardRepo, accountRepo);
+   auto blockCardUseCase  = make_shared<BlockCardUseCase>(cardRepo, accountRepo);
+   auto cardPaymentUseCase = make_shared<CardPaymentUseCase>(cardRepo, accountRepo, transactionRepo); // add notificatonRepo
 
    /* =========================
       CONTROLLER
@@ -99,11 +114,19 @@ int main() {
       transferUseCase,
       sessionRepo
    );
-
+   auto cardController = make_shared<CardController>(
+      createCardUseCase,
+      listCardUseCase,
+      deleteCardUseCase,
+      blockCardUseCase,
+      cardPaymentUseCase,
+      sessionRepo
+   );
    auto menuController = make_shared<MenuController>(
       authController,
       accountController,
-      transactionController
+      transactionController,
+      cardController
    );
 
    /* =========================

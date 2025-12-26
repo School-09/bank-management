@@ -1,0 +1,8 @@
+Id: credit_acc_26500
+UserId: 41
+Balance: 0
+Active: true
+CreatedAt: 
+Type: CREDIT
+CreditLimit: 1e+07
+Used: 0

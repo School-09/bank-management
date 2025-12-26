@@ -17,7 +17,7 @@ void AccountController::showAccounts() {
         cout << "\n=== YOUR ACCOUNTS ===\n";
 
         if (accounts.empty())
-            cout << "No accounts found.\n";
+            cout << "No accounts found.\n";cout << "No accounts found.\n";
 
         for (shared_ptr<Account> acc : accounts) {
             cout << "ID: " << acc->getId() << "\n";
@@ -41,7 +41,7 @@ void AccountController::createAccount() {
         cout << "Enter account id: ";
         getline(cin, id);
 
-        cout << "Account type (SAVING / CHECKING): ";
+        cout << "Account type (SAVING / CHECKING / CREDIT): ";
         getline(cin, type);
 
         cout << "Initial balance: ";

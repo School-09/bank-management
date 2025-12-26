@@ -11,6 +11,7 @@ namespace Paths {
     inline const std::string ACCOUNTS       = DATA_ROOT + "/accounts";
     inline const std::string TRANSACTIONS   = DATA_ROOT + "/transactions";
     inline const std::string NOTIFICATIONS  = DATA_ROOT + "/notifications";
+    inline const std::string CARDS          = DATA_ROOT + "/cards";
 }
 
 #endif
