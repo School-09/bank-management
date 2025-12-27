@@ -14,11 +14,15 @@ using std::string;
 
 class DebitCard : public Card {
 public:
-    string getType() const override { return "Debit"; }
+    ~DebitCard() override = default;
+
+    string getType() const override { return "DebitCard"; }
     string getLinkedAccountId() const override { return _accountId; }
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
+
+    string toString() const override { return "Debit Card"; };
 };
 
 #endif

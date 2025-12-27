@@ -6,6 +6,7 @@
 class Admin : public User {
 public:
     Admin() = default;
+    ~Admin() override = default;
 
     Admin(const string& id,
          const string& username,
@@ -18,14 +19,14 @@ public:
         : User(id, username, passwordHash, fullName, email, phone, status, Role::ADMIN)
     {}
 
-    ~Admin() override = default;
-
     string getType() const override {
         return "Admin";
     }
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
+
+    string toString() const override { return "Admin"; };
 };
 
 #endif

@@ -2,7 +2,7 @@ Id: 41
 Username: school
 PasswordHash: c359fb12feabd1d4
 FullName: Dang Nhat Truong
-Email: dnt946@gmail.com
-Phone: 0123456789
+Email: dnt@gmail.com
+Phone: 123456789
 Status: Unlock
 Role: Customer

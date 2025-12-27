@@ -19,7 +19,6 @@ private:
     string _folder;
 
 private:
-    shared_ptr<User> createUserByType(const string& type);
     shared_ptr<User> loadFromFile(const string& path);
     string getPath(const string& id) const;
 

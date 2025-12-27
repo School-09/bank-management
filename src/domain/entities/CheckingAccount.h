@@ -14,13 +14,14 @@ private:
 
 public:
     CheckingAccount() : _overdraftLimit(0) {}
+    ~CheckingAccount() override = default;
 
 public:
     void setOverdraftLimit(double limit) { _overdraftLimit = limit; }
     double getOverdraftLimit() const { return _overdraftLimit; }
 
     string getType() const override {
-        return "CHECKING";
+        return "CheckingAccount";
     }
 
 public:
@@ -30,6 +31,8 @@ public:
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
+
+    string toString() const override { return "Checking Account"; };
 };
 
 #endif

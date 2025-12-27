@@ -3,7 +3,7 @@
 string CreditCard::serialize() const {
     std::ostringstream oss;
     oss << Card::serialize();
-    oss << "Type: " << "CREDIT" << "\n";
+    oss << "Type: " << "CreditCard" << "\n";
     return oss.str();
 }
 

@@ -1,6 +1,8 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+#include "Object.h"
+
 #include "../../infrastructure/utils/FileUtils.h"
 
 #include <string>
@@ -11,7 +13,7 @@
 using std::string;
 using std::vector;
 
-class Session {
+class Session : public Object{
 private:
     string _sessionId;
     string _userId;
@@ -49,6 +51,8 @@ public:
     // ========= FILE SERIALIZATION  =========
     virtual string serialize() const;
     virtual void deserialize(const vector<string>& lines);
+
+    string toString() const override { return "Session"; };
 
     bool isExpired() const;
 };

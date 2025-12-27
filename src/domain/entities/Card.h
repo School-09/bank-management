@@ -1,6 +1,8 @@
 #ifndef _CARD_H_
 #define _CARD_H_
 
+#include "Object.h"
+
 #include "../../infrastructure/utils/FileUtils.h"
 
 #include <iostream>
@@ -12,7 +14,7 @@
 using std::vector;
 using std::string;
 
-class Card {
+class Card : public Object{
 protected:
     string _id;
     string _userId;
@@ -43,6 +45,8 @@ public:
     // ===== PERSISTENCE =====
     virtual string serialize() const = 0;
     virtual void deserialize(const vector<string>& lines) = 0;
+
+    virtual string toString() const override { return "Card"; };
 };
 
 #endif

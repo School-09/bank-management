@@ -18,7 +18,7 @@ class FileCardRepository : public ICardRepository {
 private:
     string _folder;
 
-    shared_ptr<Card> createCardByType(const string& type);
+private:
     shared_ptr<Card> loadFromFile(const string& path);
     string getPath(const string& id) const;
 
