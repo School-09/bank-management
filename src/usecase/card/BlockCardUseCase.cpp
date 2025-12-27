@@ -1,5 +1,7 @@
 #include "BlockCardUseCase.h"
+
 #include <stdexcept>
+
 
 void BlockCardUseCase::execute(
     const string& userId,

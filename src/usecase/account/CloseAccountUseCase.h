@@ -2,11 +2,11 @@
 #define _CLOSEACCOUNTUSECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
-#include "../../domain/entities/Account.h"
 
 #include <stdexcept>
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class CloseAccountUseCase {
 private:

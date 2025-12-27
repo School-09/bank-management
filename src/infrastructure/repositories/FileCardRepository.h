@@ -2,17 +2,10 @@
 #define _FILECARDREPOSITORY_H_
 
 #include "../../domain/repositories/ICardRepository.h"
-#include "../../domain/entities/DebitCard.h"
-#include "../../domain/entities/CreditCard.h"
-#include "../utils/FileUtils.h"
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-namespace filesystem = std::filesystem;
+
 
 class FileCardRepository : public ICardRepository {
 private:

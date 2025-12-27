@@ -1,4 +1,9 @@
 #include "CreateAccountUseCase.h"
+#include "../../domain/entities/SavingAccount.h"
+#include "../../domain/entities/CheckingAccount.h"
+#include "../../domain/entities/CreditAccount.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+
 
 shared_ptr<Account> CreateAccountUseCase::execute(
     const string& id,

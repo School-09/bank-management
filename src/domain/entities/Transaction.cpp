@@ -1,4 +1,12 @@
 #include "Transaction.h"
+#include "../../infrastructure/utils/FileUtils.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+
+#include <sstream>
+#include <stdexcept>
+#include <map>
+#include <functional>
+
 
 // ================= FACTORY =================
 

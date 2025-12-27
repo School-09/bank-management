@@ -4,6 +4,7 @@
 #include "../entities/SavingAccount.h"
 #include "../entities/CreditAccount.h"
 
+
 void registerAccountTypes() {
     AccountFactory::instance().registerType(
         "CheckingAccount",

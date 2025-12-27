@@ -2,17 +2,10 @@
 #define _FILEUSERREPOSITORY_H_
 
 #include "../../domain/repositories/IUserRepository.h"
-#include "../../domain/entities/User.h"
-#include "../../domain/entities/Admin.h"
-#include "../../domain/entities/Customer.h"
-#include "../utils/FileUtils.h"
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-namespace filesystem = std::filesystem;
+
 
 class FileUserRepository : public IUserRepository {
 private:

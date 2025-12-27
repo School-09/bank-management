@@ -1,4 +1,6 @@
 #include "LoginUseCase.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+
 
 Session LoginUseCase::login(const string& username, const string& password) {
     shared_ptr<User> user = _userRepo->findByUsername(username);

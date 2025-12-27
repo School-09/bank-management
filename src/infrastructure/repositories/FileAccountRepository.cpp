@@ -1,5 +1,16 @@
 #include "FileAccountRepository.h"
+#include "../../domain/entities/SavingAccount.h"
+#include "../../domain/entities/CheckingAccount.h"
+#include "../../domain/entities/CreditAccount.h"
 #include "../../domain/factories/AccountFactory.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
+namespace filesystem = std::filesystem;
+
 
 FileAccountRepository::FileAccountRepository(const string& folderPath)
     : _folder(folderPath)

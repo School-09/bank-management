@@ -1,4 +1,11 @@
 #include "FileTransactionRepository.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
+
 
 string FileTransactionRepository::getPath(const string& id) const {
     return _folder + "/T" + id + ".txt";

@@ -1,4 +1,12 @@
 #include "FileSessionRepository.h"
+#include "../utils/FileUtils.h"
+
+#include <iostream>
+#include <filesystem>
+#include <fstream>
+#include <stdexcept>
+namespace filesystem = std::filesystem;
+
 
 string FileSessionRepository::getPath(const string& id) const {
     return _folder + "/S" + id + ".txt";

@@ -1,5 +1,6 @@
 #include "CloseAccountUseCase.h"
 
+
 void CloseAccountUseCase::execute(
     const string& accountId,
     const string& userId

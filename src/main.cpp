@@ -3,7 +3,7 @@
 #include <memory>
 using std::cin, std::cout;
 using std::shared_ptr, std::make_shared;
-namespace fs = std::filesystem;
+namespace filesystem = std::filesystem;
 
 #include "application/config/Paths.h"
 
@@ -55,13 +55,13 @@ int main() {
    /* =========================
       PREPARE DATA FOLDERS
       ========================= */
-   fs::create_directories(Paths::USERS);
-   fs::create_directories(Paths::SESSIONS);
-   fs::create_directories(Paths::TOKENS);
-   fs::create_directories(Paths::ACCOUNTS);
-   fs::create_directories(Paths::TRANSACTIONS);
-   fs::create_directories(Paths::NOTIFICATIONS);
-   fs::create_directories(Paths::CARDS);
+   filesystem::create_directories(Paths::USERS);
+   filesystem::create_directories(Paths::SESSIONS);
+   filesystem::create_directories(Paths::TOKENS);
+   filesystem::create_directories(Paths::ACCOUNTS);
+   filesystem::create_directories(Paths::TRANSACTIONS);
+   filesystem::create_directories(Paths::NOTIFICATIONS);
+   filesystem::create_directories(Paths::CARDS);
 
    /* =========================
       INFRASTRUCTURE

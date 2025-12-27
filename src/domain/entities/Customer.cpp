@@ -1,4 +1,10 @@
 #include "Customer.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 string Customer::serialize() const {
     std::ostringstream oss;

@@ -1,4 +1,13 @@
 #include "ResetPasswordToken.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <ctime>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
+#include <map>
+#include <functional>
+
 
 bool ResetPasswordToken::isExpired() const {
     if (_expiredAt.empty())

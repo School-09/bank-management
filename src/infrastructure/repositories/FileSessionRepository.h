@@ -2,14 +2,7 @@
 #define _FILESESSIONREPOSITORY_H_
 
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../../domain/entities/Session.h"
-#include "../utils/FileUtils.h"
 
-#include <iostream>
-#include <filesystem>
-#include <fstream>
-#include <stdexcept>
-namespace filesystem = std::filesystem;
 
 class FileSessionRepository : public ISessionRepository {
 private:

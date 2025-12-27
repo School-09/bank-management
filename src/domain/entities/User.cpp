@@ -1,4 +1,11 @@
 #include "User.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <iomanip>
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 static string hashPassword(const string& raw) {
     const uint64_t FNV_prime = 1099511628211u;

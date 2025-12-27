@@ -1,5 +1,7 @@
 #include "ListCardUseCase.h"
+
 #include <stdexcept>
+
 
 vector<shared_ptr<Card>> ListCardUseCase::execute(const string& userId) {
     if (userId.empty())

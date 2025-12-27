@@ -1,4 +1,10 @@
 #include "Account.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 void Account::increaseBalance(double amount) {
     _balance += amount;

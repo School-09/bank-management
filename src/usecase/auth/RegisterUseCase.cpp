@@ -1,4 +1,7 @@
 #include "RegisterUseCase.h"
+#include "../../domain/entities/Admin.h"
+#include "../../domain/entities/Customer.h"
+
 
 shared_ptr<User>RegisterUseCase::execute(
     const string& username,

@@ -1,5 +1,14 @@
 #include "FileUserRepository.h"
+#include "../../domain/entities/Admin.h"
+#include "../../domain/entities/Customer.h"
 #include "../../domain/factories/UserFactory.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
+
 
 shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);

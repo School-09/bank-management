@@ -1,5 +1,10 @@
 #include "CreditAccount.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <map>
+#include <functional>
 #include <stdexcept>
+
 
 bool CreditAccount::canSpend(double amount) const {
     if (amount <= 0) return false;

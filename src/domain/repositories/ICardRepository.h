@@ -2,8 +2,10 @@
 #define _ICARDREPOSITORY_H_
 
 #include "../entities/Card.h"
+
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class ICardRepository {
 public:

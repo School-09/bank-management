@@ -4,14 +4,12 @@
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ITransactionRepository.h"
 #include "../../domain/repositories/INotificationRepository.h"
-#include "../../domain/entities/Account.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Notification.h"
 
 #include <stdexcept>
 #include <exception>
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class DepositUseCase {
 private:

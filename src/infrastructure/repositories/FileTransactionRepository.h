@@ -1,15 +1,11 @@
 #ifndef _FILETRANSACTIONREPOSITORY_H_
 #define _FILETRANSACTIONREPOSITORY_H_
 
-#include "../../domain/entities/Transaction.h"
 #include "../../domain/repositories/ITransactionRepository.h"
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-namespace filesystem = std::filesystem;
+
 
 class FileTransactionRepository : public ITransactionRepository {
 private:

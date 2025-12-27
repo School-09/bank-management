@@ -3,6 +3,7 @@
 #include "../entities/DebitCard.h"
 #include "../entities/CreditCard.h"
 
+
 void registerCardTypes() {
     CardFactory::instance().registerType(
         "DebitCard",

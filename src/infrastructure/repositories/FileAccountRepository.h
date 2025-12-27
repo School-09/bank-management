@@ -2,18 +2,10 @@
 #define _FILE_ACCOUNT_REPOSITORY_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
-#include "../../domain/entities/SavingAccount.h"
-#include "../../domain/entities/CheckingAccount.h"
-#include "../../domain/entities/CreditAccount.h"
-#include "../utils/FileUtils.h"
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-namespace filesystem = std::filesystem;
+
 
 class FileAccountRepository : public IAccountRepository {
 private:

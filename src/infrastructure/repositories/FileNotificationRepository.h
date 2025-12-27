@@ -1,15 +1,11 @@
 #ifndef _FILENOTIFICATIONREPOSITORY_H_
 #define _FILENOTIFICATIONREPOSITORY_H_
 
-#include "../../domain/entities/Notification.h"
 #include "../../domain/repositories/INotificationRepository.h"
 
-#include <filesystem>
-#include <fstream>
-#include <sstream>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-namespace filesystem = std::filesystem;
+
 
 class FileNotificationRepository : public INotificationRepository {
 private:

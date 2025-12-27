@@ -2,11 +2,7 @@
 #define _CUSTOMER_H_
 
 #include "User.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
-#include <sstream>
-#include <map>
-#include <functional>
 
 class Customer : public User {
 private:

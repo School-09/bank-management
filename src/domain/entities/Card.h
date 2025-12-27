@@ -3,16 +3,12 @@
 
 #include "Object.h"
 
-#include "../../infrastructure/utils/FileUtils.h"
-
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 #include <string>
-#include <map>
-#include <functional>
+#include <vector>
 using std::vector;
 using std::string;
+
 
 class Card : public Object{
 protected:

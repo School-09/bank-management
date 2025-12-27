@@ -2,16 +2,14 @@
 #define _ACCOUNT_H_
 
 #include "Object.h"
-
 #include "Enum.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
+#include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
-#include <functional>
+#include <vector>
 using std::string;
 using std::vector;
+
 
 class Account : public Object{
 protected:

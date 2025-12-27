@@ -2,8 +2,10 @@
 #define _I_ACCOUNT_REPOSITORY_H_
 
 #include "../entities/Account.h"
+
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class IAccountRepository {
 public:

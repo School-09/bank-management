@@ -1,4 +1,10 @@
 #include "CheckingAccount.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 string CheckingAccount::serialize() const {
     std::ostringstream oss;

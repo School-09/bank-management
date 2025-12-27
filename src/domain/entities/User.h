@@ -2,18 +2,14 @@
 #define _USER_H_
 
 #include "Object.h"
-
 #include "Enum.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 #include <string>
-#include <map>
-#include <functional>
+#include <vector>
 using std::vector;
 using std::string;
+
 
 class User : public Object {
 protected:

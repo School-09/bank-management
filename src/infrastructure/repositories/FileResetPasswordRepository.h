@@ -2,11 +2,7 @@
 #define _FILERESETPASSWORDREPOSITORY_H_
 
 #include "../../domain/repositories/IResetPasswordRepository.h"
-#include "../../domain/entities/ResetPasswordToken.h"
-#include "../utils/FileUtils.h"
 
-#include <filesystem>
-namespace filesystem = std::filesystem;
 
 class FileResetPasswordRepository : public IResetPasswordRepository {
 private:

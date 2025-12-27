@@ -2,11 +2,9 @@
 #define _LISTCARDUSECASE_H_
 
 #include "../../domain/repositories/ICardRepository.h"
-#include "../../domain/entities/Card.h"
 
-#include <memory>
 #include <vector>
-using std::shared_ptr;
+#include <memory>
 using std::vector;
 using std::shared_ptr, std::make_shared;
 

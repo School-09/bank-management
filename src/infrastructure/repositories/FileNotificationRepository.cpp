@@ -1,4 +1,11 @@
 #include "FileNotificationRepository.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
+
 
 string FileNotificationRepository::getPath(const string& id) const {
     return _folder + "/N" + id + ".txt";

@@ -10,6 +10,7 @@ using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
 
+
 class IUserRepository {
 public:
     virtual ~IUserRepository() = default;

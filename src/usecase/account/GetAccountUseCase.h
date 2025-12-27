@@ -2,12 +2,12 @@
 #define _GETACCOUNTUSECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
-#include "../../domain/entities/Account.h"
 
 #include <vector>
 #include <memory>
 using std::vector;
 using std::shared_ptr, std::make_shared;
+
 
 class GetAccountUseCase {
 private:

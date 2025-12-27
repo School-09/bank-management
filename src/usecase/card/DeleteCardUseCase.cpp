@@ -1,5 +1,7 @@
 #include "DeleteCardUseCase.h"
+
 #include <stdexcept>
+
 
 void DeleteCardUseCase::execute(
     const string& userId,

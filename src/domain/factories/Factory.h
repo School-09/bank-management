@@ -8,6 +8,7 @@
 #include <memory>
 #include <mutex>
 
+
 template<typename Base, typename... Args>
 class Factory {
 public:

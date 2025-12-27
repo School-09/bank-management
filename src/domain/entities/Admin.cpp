@@ -1,5 +1,6 @@
 #include "Admin.h"
 
+
 string Admin::serialize() const {
     return User::serialize(); // không thêm gì
 }

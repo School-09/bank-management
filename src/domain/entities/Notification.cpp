@@ -1,4 +1,11 @@
 #include "Notification.h"
+#include "../../infrastructure/utils/FileUtils.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 shared_ptr<Notification> Notification::create(
     const string& userId,

@@ -3,15 +3,11 @@
 
 #include "Object.h"
 
-#include "../../infrastructure/utils/FileUtils.h"
-
 #include <string>
-#include <sstream>
 #include <vector>
-#include <map>
-#include <functional>
 using std::string;
 using std::vector;
+
 
 class Session : public Object{
 private:

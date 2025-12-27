@@ -2,10 +2,7 @@
 #define _CHECKING_ACCOUNT_H_
 
 #include "Account.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
-#include <map>
-#include <functional>
 
 // --- Tài khoản Thanh toán (Dùng thường xuyên) ---
 class CheckingAccount : public Account {

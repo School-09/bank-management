@@ -3,13 +3,12 @@
 
 #include "../../domain/repositories/IUserRepository.h"
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../../domain/entities/Session.h"
-#include "../../infrastructure/utils/TimeUtils.h"
 
 #include <stdexcept>
 #include <ctime>
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class LoginUseCase {
 private:

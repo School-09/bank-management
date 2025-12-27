@@ -4,13 +4,11 @@
 #include "Card.h"
 
 #include <iostream>
-#include <iomanip>
-#include <sstream>
 #include <string>
-#include <map>
-#include <functional>
+#include <vector>
 using std::vector;
 using std::string;
+
 
 class CreditCard : public Card {
 public:

@@ -2,13 +2,11 @@
 #define _REGISTERUSECASE_H_
 
 #include "../../domain/repositories/IUserRepository.h"
-#include "../../domain/entities/User.h"
-#include "../../domain/entities/Admin.h"
-#include "../../domain/entities/Customer.h"
 
 #include <stdexcept>
 #include <memory>
 using std::shared_ptr, std::make_shared;
+
 
 class RegisterUseCase {
 private:

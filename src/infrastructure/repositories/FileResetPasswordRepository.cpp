@@ -1,4 +1,9 @@
 #include "FileResetPasswordRepository.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+namespace filesystem = std::filesystem;
+
 
 string FileResetPasswordRepository::getPath(const string& id) const {
     return _folder + "/P" + id + ".txt";

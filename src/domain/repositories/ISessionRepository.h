@@ -2,12 +2,14 @@
 #define I_SESSION_REPOSITORY_H_
 
 #include "../entities/Session.h"
+
 #include <string>
 #include <vector>
 #include <memory>
 using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
+
 
 class ISessionRepository {
 public:

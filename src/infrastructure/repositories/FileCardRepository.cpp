@@ -1,5 +1,15 @@
 #include "FileCardRepository.h"
+#include "../../domain/entities/DebitCard.h"
+#include "../../domain/entities/CreditCard.h"
 #include "../../domain/factories/CardFactory.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
+namespace filesystem = std::filesystem;
+
 
 FileCardRepository::FileCardRepository(const string& folderPath)
     : _folder(folderPath)

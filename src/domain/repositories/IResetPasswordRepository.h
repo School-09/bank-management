@@ -2,13 +2,14 @@
 #define I_RESET_PASSWORD_REPOSITORY_H_
 
 #include "../entities/ResetPasswordToken.h"
+
 #include <string>
 #include <vector>
 #include <memory>
-using std::shared_ptr, std::make_shared;
-
 using std::string;
 using std::vector;
+using std::shared_ptr, std::make_shared;
+
 
 class IResetPasswordRepository {
 public:

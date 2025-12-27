@@ -3,6 +3,7 @@
 #include "../entities/Admin.h"
 #include "../entities/Customer.h"
 
+
 void registerUserTypes() {
     UserFactory::instance().registerType(
         "Admin",

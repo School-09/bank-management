@@ -1,6 +1,13 @@
 #include "Card.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
 #include <ctime>
 #include <cstdlib>
+#include <iomanip>
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 static std::string genId(const std::string& prefix) {
     return prefix + "_" + std::to_string(std::rand());

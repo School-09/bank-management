@@ -4,6 +4,7 @@
 #include "../../domain/repositories/ICardRepository.h"
 #include "../../domain/repositories/IAccountRepository.h"
 
+
 class BlockCardUseCase {
 private:
     shared_ptr<ICardRepository> _cardRepo;

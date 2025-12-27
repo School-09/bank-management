@@ -1,4 +1,10 @@
 #include "Session.h"
+#include "../../infrastructure/utils/FileUtils.h"
+
+#include <sstream>
+#include <map>
+#include <functional>
+
 
 string Session::serialize() const {
     std::ostringstream oss;

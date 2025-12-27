@@ -4,6 +4,7 @@
 #include "Factory.h"
 #include "../entities/User.h"
 
+
 using UserFactory = Factory<User>;
 
 #endif

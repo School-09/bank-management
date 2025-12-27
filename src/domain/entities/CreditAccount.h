@@ -2,10 +2,7 @@
 #define _CREDITACCOUNT_H_
 
 #include "Account.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
-#include <map>
-#include <functional>
 
 // --- Tài khoản tín dụng ---
 class CreditAccount : public Account {
