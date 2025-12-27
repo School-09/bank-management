@@ -1,6 +1,8 @@
 #ifndef RESET_PASSWORD_TOKEN_H
 #define RESET_PASSWORD_TOKEN_H
 
+#include "Object.h"
+
 #include "../../infrastructure/utils/FileUtils.h"
 
 #include <string>
@@ -14,7 +16,7 @@
 using std::string;
 using std::vector;
 
-class ResetPasswordToken {
+class ResetPasswordToken : public Object{
 private:
     string _tokenId;
     string _userId;
@@ -57,6 +59,8 @@ public:
     // ======= SERIALIZATION =======
     virtual string serialize() const;
     virtual void deserialize(const vector<string>& lines);
+
+    string toString() const override { return "Reset Password Token"; };
 
     bool isExpired() const;
 };

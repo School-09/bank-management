@@ -1,10 +1,5 @@
 #include "FileUserRepository.h"
-
-shared_ptr<User> FileUserRepository::createUserByType(const string& type) { // TODO factory
-    if (type == "Admin") return make_shared<Admin> (Admin());
-    if (type == "Customer") return make_shared<Customer> (Customer());
-    return nullptr;
-}
+#include "../../domain/factories/UserFactory.h"
 
 shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);
@@ -14,9 +9,11 @@ shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
 
     // dòng đầu là UserType: X
     auto pos = lines[7].find(":");
+    if (pos == string::npos) return nullptr;
+
     userType = lines[7].substr(pos + 2);
 
-    shared_ptr<User> user = createUserByType(userType); // TODO factory
+    auto user = UserFactory::instance().create(userType);
     if (!user) return nullptr;
 
     user->deserialize(lines);

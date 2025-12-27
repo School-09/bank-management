@@ -1,4 +1,5 @@
 #include "FileCardRepository.h"
+#include "../../domain/factories/CardFactory.h"
 
 FileCardRepository::FileCardRepository(const string& folderPath)
     : _folder(folderPath)
@@ -12,12 +13,6 @@ string FileCardRepository::getPath(const string& id) const {
     return _folder + "/C" + id + ".txt";
 }
 
-shared_ptr<Card> FileCardRepository::createCardByType(const string& type) {
-    if (type == "DEBIT") return make_shared<DebitCard> (DebitCard());
-    if (type == "CREDIT") return make_shared<CreditCard>(CreditCard());
-    throw std::runtime_error("Unknown card type: " + type);
-}
-
 shared_ptr<Card> FileCardRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);
     if (lines.empty()) return nullptr;
@@ -26,8 +21,11 @@ shared_ptr<Card> FileCardRepository::loadFromFile(const string& path) {
 
     // dòng đầu là AccountType: X
     auto pos = lines[7].find(":");
+    if (pos == string::npos) return nullptr;
+
     cardType = lines[7].substr(pos + 2);
-    shared_ptr<Card> card = createCardByType(cardType); // TODO factory
+
+    auto card = CardFactory::instance().create(cardType);
     if (!card) return nullptr;
 
     card->deserialize(lines);

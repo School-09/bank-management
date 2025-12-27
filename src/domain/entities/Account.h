@@ -1,6 +1,8 @@
 #ifndef _ACCOUNT_H_
 #define _ACCOUNT_H_
 
+#include "Object.h"
+
 #include "Enum.h"
 #include "../../infrastructure/utils/FileUtils.h"
 
@@ -11,7 +13,7 @@
 using std::string;
 using std::vector;
 
-class Account {
+class Account : public Object{
 protected:
     string _id;
     string _userId;
@@ -22,6 +24,7 @@ protected:
 
 public:
     Account() : _balance(0), _active(true) {}
+    virtual ~Account() = default;
 
 public:
     // getters
@@ -49,6 +52,8 @@ public:
     // persistence
     virtual string serialize() const = 0;
     virtual void deserialize(const vector<string>& lines) = 0;
+
+    virtual string toString() const override { return "Account"; };
 };
 
 #endif

@@ -16,13 +16,14 @@ private:
 
 public:
     SavingAccount() : _interestRate(0.05) {}
+    ~SavingAccount() override = default;
 
 public:
     void setInterestRate(double rate) { _interestRate = rate; }
     double getInterestRate() const { return _interestRate; }
 
     string getType() const override {
-        return "SAVING";
+        return "SavingAccount";
     }
 
 public:
@@ -32,6 +33,8 @@ public:
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
+
+    string toString() const override { return "Saving Account"; };
 };
 
 #endif

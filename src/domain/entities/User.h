@@ -1,6 +1,8 @@
 #ifndef _USER_H_
 #define _USER_H_
 
+#include "Object.h"
+
 #include "Enum.h"
 #include "../../infrastructure/utils/FileUtils.h"
 
@@ -13,7 +15,7 @@
 using std::vector;
 using std::string;
 
-class User {
+class User : public Object {
 protected:
     string _id;
     string _username;
@@ -76,6 +78,8 @@ public:
     // =========== FILE SERIALIZATION ===========
     virtual string serialize() const = 0;
     virtual void deserialize(const vector<string>& lines) = 0;
+
+    virtual string toString() const override { return "User"; };
 };
 
 #endif

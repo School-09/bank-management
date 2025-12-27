@@ -4,7 +4,7 @@
 string DebitCard::serialize() const {
     std::ostringstream oss;
     oss << Card::serialize();
-    oss << "Type: " << "DEBIT" << "\n";
+    oss << "Type: " << "DebitCard" << "\n";
     return oss.str();
 }
 

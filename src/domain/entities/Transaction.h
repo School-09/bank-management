@@ -1,6 +1,8 @@
 #ifndef _TRANSACTION_H_
 #define _TRANSACTION_H_
 
+#include "Object.h"
+
 #include "../../infrastructure/utils/FileUtils.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
@@ -16,7 +18,7 @@ using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
 
-class Transaction {
+class Transaction : public Object{
 private:
     string _id;
     string _fromAccountId;   // rỗng với deposit
@@ -59,6 +61,8 @@ public:
     // ===== persistence =====
     string serialize() const;
     void deserialize(const vector<string>& lines);
+
+    string toString() const override { return "Transaction"; };
 };
 
 #endif

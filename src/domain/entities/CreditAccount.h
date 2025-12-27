@@ -15,13 +15,14 @@ private:
 
 public:
     CreditAccount() : _used(0), _creditLimit(0) {}
+    ~CreditAccount() override = default;
 
 public:
     void setCreditLimit(double limit) { _creditLimit = limit; }
     double getCredittLimit() const { return _creditLimit; }
 
     string getType() const override {
-        return "CREDIT";
+        return "CreditAccount";
     }
 
 public:
@@ -35,6 +36,8 @@ public:
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
+
+    string toString() const override { return "Credit Account"; };
 };
 
 #endif
