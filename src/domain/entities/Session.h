@@ -14,18 +14,8 @@ private:
     string _expiredAt;
 
 public:
-    Session() = default;
-
-    Session(const string& sessionId,
-            const string& userId,
-            const string& createdAt,
-            const string& expiredAt
-    ) : _sessionId(sessionId),
-        _userId(userId),
-        _createdAt(createdAt),
-        _expiredAt(expiredAt) {}
-
-    virtual ~Session() = default;
+    Session(string userId);
+    ~Session() = default;
 
 public:
     bool isExpired() const;

@@ -1,0 +1,7 @@
+DebitCard
+Id: 18467
+UserId: 41
+AccountId: 6334
+CardNumber: 24CTT1-2169-9500-7334
+ExpiredAt: 2035-12-31 16:39:51
+Status: active

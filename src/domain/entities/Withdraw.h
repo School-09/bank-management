@@ -8,7 +8,10 @@ private:
     string _fromAccountId;
     
 public:
-    Withdraw() : Transaction() {}
+    Withdraw(
+        string userId, int amount, 
+        string fromAccountId
+    );
 
 public:
     string serialize() const override;

@@ -9,13 +9,16 @@
 #include <functional>
 
 static std::string genCardNumber() {
-    return "24CTT1-" + std::to_string(1000 + std::rand() % 9000) +
+    return "2026-" + std::to_string(1000 + std::rand() % 9000) +
            "-" + std::to_string(1000 + std::rand() % 9000) +
            "-" + std::to_string(1000 + std::rand() % 9000);
 }
 
 Card::Card(
-) : _id(std::to_string(std::rand())),
+    string id, string userId, string accountId
+) : _id(id),
+    _userId(userId),
+    _accountId(accountId),
     _cardNumber(genCardNumber()),
     _createdAt(TimeUtils::toString(time(nullptr))),
     _expiredAt(TimeUtils::toString(time(nullptr) + 315360000)), // 10 năm

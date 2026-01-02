@@ -1,4 +1,12 @@
 #include "Transfer.h"
+#include "../../infrastructure/utils/IdUtils.h"
+
+Transfer::Transfer(
+    string userId, int amount,
+    string fromAccountId, string toAccountId
+) : Transaction(IdUtils::newTransactionId(), userId, amount),
+    _fromAccountId(fromAccountId),
+    _toAccountId(toAccountId) {}
 
 string Transfer::serialize() const {
     std::ostringstream oss;

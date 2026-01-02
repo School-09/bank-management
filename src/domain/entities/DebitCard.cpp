@@ -1,9 +1,14 @@
 #include "DebitCard.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <sstream>
 #include <regex>
 #include <map>
 #include <functional>
+
+DebitCard::DebitCard(
+    string id, string userId, string accountId
+) : Card(IdUtils::newDebitCardId(), userId, accountId) {}
 
 void DebitCard::accept(CardVisitor& visitor) { 
     visitor.visit(*this); 

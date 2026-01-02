@@ -1,9 +1,14 @@
 #include "CreditCard.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <regex>
 #include <sstream>
 #include <map>
 #include <functional>
+
+CreditCard::CreditCard(
+    string id, string userId, string accountId
+) : Card(IdUtils::newCreditCardId(), userId, accountId) {}
 
 void CreditCard::accept(CardVisitor& visitor) { 
     visitor.visit(*this); 

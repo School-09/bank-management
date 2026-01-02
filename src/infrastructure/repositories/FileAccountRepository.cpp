@@ -56,6 +56,7 @@ shared_ptr<Account> FileAccountRepository::findByAccountId(const string& account
     if (!filesystem::exists(path)) return nullptr;
     return loadFromFile(path);
 }
+
 vector<shared_ptr<Account>> FileAccountRepository::findByUserId(const string& userId) {
     vector<shared_ptr<Account>> res;
 

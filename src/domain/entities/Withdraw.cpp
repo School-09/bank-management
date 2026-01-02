@@ -1,4 +1,11 @@
 #include "Withdraw.h"
+#include "../../infrastructure/utils/IdUtils.h"
+
+Withdraw::Withdraw(
+    string userId, int amount,
+    string fromAccountId
+) : Transaction(IdUtils::newTransactionId(), userId, amount),
+    _fromAccountId(fromAccountId) {}
 
 string Withdraw::serialize() const {
     std::ostringstream oss;

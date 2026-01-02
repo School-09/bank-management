@@ -1,4 +1,11 @@
 #include "Deposit.h"
+#include "../../infrastructure/utils/IdUtils.h"
+
+Deposit::Deposit(
+    string userId, int amount,
+    string toAccountId
+) : Transaction(IdUtils::newTransactionId(), userId, amount),
+    _toAccountId(toAccountId) {}
 
 string Deposit::serialize() const {
     std::ostringstream oss;

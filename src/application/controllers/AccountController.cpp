@@ -68,9 +68,28 @@ void AccountController::closeAccount() {
         cout << "Enter account id to close: ";
         getline(cin, accountId);
 
-        _closeAccountUC->execute(accountId, userId);
+        _closeAccountUC->execute(accountId, userId, true);
 
         cout << "Account closed successfully.\n";
+    }
+    catch (std::exception& e) {
+        cout << "Error: " << e.what() << "\n";
+    }
+}
+
+void AccountController::openAccount() {
+    try {  
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
+
+        string accountId;
+        cout << "Enter account id to open: ";
+        getline(cin, accountId);
+
+        _closeAccountUC->execute(accountId, userId, false);
+
+        cout << "Account opened successfully.\n";
     }
     catch (std::exception& e) {
         cout << "Error: " << e.what() << "\n";

@@ -37,6 +37,7 @@ public:
     void showAccounts();
     void createAccount();
     void closeAccount();
+    void openAccount();
 
 public:
     // Rule of Three

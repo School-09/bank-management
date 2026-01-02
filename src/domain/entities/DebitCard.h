@@ -5,6 +5,7 @@
 
 class DebitCard : public Card {
 public:
+    DebitCard(string id, string userId, string accountId);
     ~DebitCard() override = default;
 
 public: // Visitor Pattern

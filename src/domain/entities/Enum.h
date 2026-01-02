@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctime>
 
-// Trạng thái chung
+// Trạng thái 
 enum class Status { 
     ACTIVE, 
     LOCKED 

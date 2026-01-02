@@ -18,11 +18,10 @@ private:
     bool _read;
 
 public:
-    static shared_ptr<Notification> create(
-        const string& userId,
-        const string& message
-    );
+    Notification(string userId, string message);
+    ~Notification() = default;
 
+public:
     string serialize() const;
     void deserialize(const vector<string>& lines);
     

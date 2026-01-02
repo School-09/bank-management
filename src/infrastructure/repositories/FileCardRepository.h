@@ -24,6 +24,7 @@ public:
     
     shared_ptr<Card> findByCardId(const string& cardId) override;
     vector<shared_ptr<Card>> findByUserId(const string& userId) override;
+    vector<shared_ptr<Card>> findByAccountId(const string& accountId) override;
 
 };
 

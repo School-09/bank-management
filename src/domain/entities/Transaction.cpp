@@ -2,7 +2,10 @@
 #include "../../infrastructure/utils/TimeUtils.h"
 
 Transaction::Transaction(
-) : _id(std::to_string(std::rand())),
+    string id, string userId, int amount
+) : _id(id),
+    _userId(userId),
+    _amount(amount),
     _createdAt(TimeUtils::toString(time(nullptr))) {}
 
 string Transaction::serialize() const {

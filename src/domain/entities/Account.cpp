@@ -1,11 +1,19 @@
 #include "Account.h"
 #include "../../infrastructure/utils/FileUtils.h"
+#include "../../infrastructure/utils/TimeUtils.h"
 
 #include <iomanip>
 #include <sstream>
 #include <regex>
 #include <map>
 #include <functional>
+
+Account::Account(
+    string id, string userId
+) : _id(id),
+    _userId(userId),
+    _createdAt(TimeUtils::toString(time(nullptr))),
+    _status(Status::ACTIVE) {}
 
 string Account::serialize() const {
     std::ostringstream oss;

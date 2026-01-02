@@ -85,7 +85,7 @@ int main() {
 
    auto getAccountsUseCase   = make_shared<GetAccountUseCase>(accountRepo);
    auto createAccountUseCase = make_shared<CreateAccountUseCase>(accountRepo);
-   auto closeAccountUseCase  = make_shared<CloseAccountUseCase>(accountRepo);
+   auto closeAccountUseCase  = make_shared<CloseAccountUseCase>(accountRepo, cardRepo);
 
    auto depositUseCase  = make_shared<DepositUseCase>(accountRepo, transactionRepo, notificationRepo);
    auto withdrawUseCase  = make_shared<WithdrawUseCase>(accountRepo, transactionRepo, notificationRepo);

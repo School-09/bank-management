@@ -9,7 +9,10 @@ private:
     string _toAccountId;
     
 public:
-    Transfer() : Transaction() {}
+    Transfer(
+        string userId, int amount, 
+        string fromAccountId, string toAccountId
+    );
 
 public:
     string serialize() const override;

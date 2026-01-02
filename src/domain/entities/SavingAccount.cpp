@@ -1,5 +1,6 @@
 #include "SavingAccount.h"
 #include "../../infrastructure/utils/TimeUtils.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <cmath>
 #include <sstream>
@@ -8,6 +9,12 @@
 #include <regex>
 #include <map>
 #include <functional>
+
+SavingAccount::SavingAccount(
+    string userId, int balance
+) : Account(IdUtils::newSavingAccountId(), userId),
+    _balance(balance),
+    _interestRate(0.05) {}
 
 void SavingAccount::accept(AccountVisitor& visitor) { 
     visitor.visit(*this); 
@@ -58,7 +65,7 @@ int SavingAccount::getBalance() {
 string SavingAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << "CheckingAccount\n";
+    oss << "SavingAccount\n";
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
     oss << "Balance: " << _balance << "\n";

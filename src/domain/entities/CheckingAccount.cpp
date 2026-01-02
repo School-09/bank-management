@@ -1,9 +1,15 @@
 #include "CheckingAccount.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <sstream>
 #include <regex>
 #include <map>
 #include <functional>
+
+CheckingAccount::CheckingAccount(
+    string userId, int balance
+) : Account(IdUtils::newCheckingAccountId(), userId),
+    _balance(balance) {}
 
 void CheckingAccount::accept(AccountVisitor& visitor) { 
     visitor.visit(*this); 

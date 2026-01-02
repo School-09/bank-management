@@ -9,7 +9,7 @@ private:
     float _interestRate;    // Lãi suất (%/ngày) ->  giả sử
 
 public:
-    SavingAccount() : _interestRate(0.05) {}
+    SavingAccount(string userId, int balance);
     ~SavingAccount() override = default;
 
 public: // Visitor Pattern

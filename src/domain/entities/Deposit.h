@@ -8,7 +8,10 @@ private:
     string _toAccountId;
 
 public:
-    Deposit() : Transaction() {}
+    Deposit(
+        string userId, int amount, 
+        string toAccountId
+    );
 
 public:
     string serialize() const override;

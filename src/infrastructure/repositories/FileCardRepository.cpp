@@ -55,12 +55,25 @@ shared_ptr<Card> FileCardRepository::findByCardId(const string& cardId) {
     if (!filesystem::exists(path)) return nullptr;
     return loadFromFile(path);
 }
+
 vector<shared_ptr<Card>> FileCardRepository::findByUserId(const string& userId) {
     vector<shared_ptr<Card>> res;
 
     for (auto& f : filesystem::directory_iterator(_folder)) {
         shared_ptr<Card> card = loadFromFile(f.path().string());
         if (card && card->getUserId() == userId)
+            res.push_back(card);
+    }
+
+    return res;
+}
+
+vector<shared_ptr<Card>> FileCardRepository::findByAccountId(const string& accountId) {
+    vector<shared_ptr<Card>> res;
+
+    for (auto& f : filesystem::directory_iterator(_folder)) {
+        shared_ptr<Card> card = loadFromFile(f.path().string());
+        if (card && card->getAccountId() == accountId)
             res.push_back(card);
     }
 

@@ -17,6 +17,7 @@ public:
 
     virtual shared_ptr<Card> findByCardId(const string& id) = 0;
     virtual vector<shared_ptr<Card>> findByUserId(const string& userId) = 0;
+    virtual vector<shared_ptr<Card>> findByAccountId(const string& accountId) = 0;
     
 };
 

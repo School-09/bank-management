@@ -9,7 +9,7 @@ private:
     int _used; // đã dùng
 
 public:
-    CreditAccount() : _used(0), _creditLimit(0) {}
+    CreditAccount(string userId, int creditLimit);
     ~CreditAccount() override = default;
 
 public: // Visitor Pattern

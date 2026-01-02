@@ -6,6 +6,20 @@
 #include <map>
 #include <functional>
 
+User::User(
+    string id,
+    string username,
+    string rawPassword,
+    string fullName,
+    string email,
+    string phone
+) : _id(id),
+    _username(username),
+    _passwordHash(hashPassword(rawPassword)),
+    _fullName(fullName),
+    _email(email),
+    _phone(phone) {}
+
 static string hashPassword(const string& raw) { // TODO: hash rồi thì ko nhớ pass để test
     const uint64_t FNV_prime = 1099511628211u;
     const uint64_t offset_basis = 1469598103934665603u;

@@ -1,10 +1,17 @@
 #include "CreditAccount.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <sstream>
 #include <map>
 #include <regex>
 #include <functional>
 #include <stdexcept>
+
+CreditAccount::CreditAccount(
+    string userId, int creditLimit
+) : Account(IdUtils::newCreditAccountId(), userId),
+    _creditLimit(creditLimit),
+    _used(0) {}
 
 void CreditAccount::accept(AccountVisitor& visitor) { 
     visitor.visit(*this); 

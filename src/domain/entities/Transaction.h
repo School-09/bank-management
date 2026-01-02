@@ -21,7 +21,7 @@ protected:
     string _createdAt;
 
 public:
-    Transaction();
+    Transaction(string id, string userId, int amount);
     virtual ~Transaction() = default;
 
 public:

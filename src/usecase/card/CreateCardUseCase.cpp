@@ -13,6 +13,11 @@ shared_ptr<Card> CreateCardUseCase::execute(
     const string& accountId,
     const string& typeCard
 ) {
+    auto cards = _cardRepo->findByAccountId(accountId);
+    if (cards.size() >= 5) {
+        throw std::runtime_error("Each account can have at most 5 cards.");
+    }
+
     string type = StringUtils::normalizeString(typeCard);
 
     auto acc = _accountRepo->findByAccountId(accountId);

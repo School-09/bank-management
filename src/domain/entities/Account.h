@@ -18,7 +18,7 @@ protected:
     Status _status;
 
 public:
-    Account() : _status(Status::ACTIVE) {}
+    Account(string id, string userId);
     virtual ~Account() = default;
 
 public: // Visitor Pattern
@@ -45,6 +45,7 @@ public:
     void setUserId(const string& userId) { _userId = userId; }
     void setCreatedAt(const string& createdAt) { _createdAt = createdAt; }
     void deActivate() { _status = Status::LOCKED; }
+    void activate() { _status = Status::ACTIVE; }
 
 };
 

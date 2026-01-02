@@ -5,17 +5,15 @@
 
 class Customer : public User {
 public:
-    Customer() = default;
+    Customer(
+        string id,
+        string username,
+        string rawPassword,
+        string fullName,
+        string email,
+        string phone
+    );
     ~Customer() override = default;
-
-    Customer(const string& id,
-             const string& username,
-             const string& passwordHash,
-             const string& fullName,
-             const string& email,
-             const string& phone,
-             Status status
-    ) : User(id, username, passwordHash, fullName, email, phone, status) {}
 
 public: // Visitor Pattern
     void accept(UserVisitor& visitor) override;

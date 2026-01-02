@@ -32,8 +32,9 @@ void MenuPrinter::printAdminMenu() {
 void MenuPrinter::printAdminAccountMenu() {
     cout << "\n======= ACCOUNT MANAGE ========\n";
     cout << "1. Create account\n";
-    cout << "2. Close account\n";
-    cout << "3. Logout\n";
+    cout << "2. Open account\n";
+    cout << "3. Close account\n";
+    cout << "4. Logout\n";
     cout << "0. Back\n";
     cout << "==========================\n";
     cout << "Choose: ";
@@ -42,10 +43,10 @@ void MenuPrinter::printAdminAccountMenu() {
 void MenuPrinter::printAdminCardMenu() {
     cout << "\n======= CARD MANAGE ========\n";
     cout << "1. Create card\n";
-    cout << "3. Delete card\n";
-    cout << "4. Block card\n";
-    cout << "5. Unblock card\n";
-    cout << "7. Logout\n";
+    cout << "2. Delete card\n";
+    cout << "3. Block card\n";
+    cout << "4. Unblock card\n";
+    cout << "5. Logout\n";
     cout << "0. Back\n";
     cout << "==========================\n";
     cout << "Choose: ";

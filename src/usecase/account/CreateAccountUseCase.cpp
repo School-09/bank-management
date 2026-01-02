@@ -7,7 +7,10 @@ shared_ptr<Account> CreateAccountUseCase::execute(
     const string& userId,
     const string& typeAcc
 ) {
-    // TODO: đếm số acc đã tạo, giới hạn 10 acc chp 1 user
+    auto accounts = _accountRepo->findByUserId(userId);
+    if (accounts.size() >= 10) {
+        throw std::runtime_error("Each user can have at most 10 accounts.");
+    }
 
     string type = StringUtils::normalizeString(typeAcc);
     auto acc = AccountFactory::instance().create(type);

@@ -5,17 +5,15 @@
 
 class Admin : public User {
 public:
-    Admin() = default;
+    Admin(
+        string id,
+        string username,
+        string rawPassword,
+        string fullName,
+        string email,
+        string phone
+    );
     ~Admin() override = default;
-
-    Admin(const string& id,
-          const string& username,
-          const string& passwordHash,
-          const string& fullName,
-          const string& email,
-          const string& phone,
-          Status status
-    ) : User(id, username, passwordHash, fullName, email, phone, status) {}
 
 public: // Visitor Pattern
     void accept(UserVisitor& visitor) override;

@@ -8,7 +8,7 @@ private:
     int _balance; // số dư
 
 public:
-    CheckingAccount() = default;
+    CheckingAccount(string userId, int balance);
     ~CheckingAccount() override = default;
 
 public: // Visitor Pattern

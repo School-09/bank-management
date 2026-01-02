@@ -21,7 +21,7 @@ protected:
     Status _status;
 
 public:
-    Card();
+    Card(string id, string userId, string accountId);
     virtual ~Card() = default;
 
 public: // Visitor Pattern

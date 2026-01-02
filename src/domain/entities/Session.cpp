@@ -1,4 +1,6 @@
 #include "Session.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <ctime>
 #include <sstream>
@@ -6,6 +8,13 @@
 #include <map>
 #include <functional>
 #include <filesystem>
+
+Session::Session(
+    string userId
+) : _userId(userId),
+    _sessionId(IdUtils::newSessionId()),
+    _createdAt(TimeUtils::toString(time(nullptr))),
+    _expiredAt(TimeUtils::toString(time(nullptr) + 3600)) {}
 
 bool Session::isExpired() const {
     if (_expiredAt.empty()) return true;

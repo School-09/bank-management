@@ -21,23 +21,15 @@ protected:
     Status _status; // TODO: đăng nhập cùng 1 username sai quá 3 lần sẽ khóa, đợi admin mở khóa
 
 public:
-    User() = default;
+    User(
+        string id,
+        string username,
+        string rawPassword,
+        string fullName,
+        string email,
+        string phone
+    );
     virtual ~User() = default;
-
-    User(const string& id,
-         const string& username,
-         const string& passwordHash,
-         const string& fullName,
-         const string& email,
-         const string& phone,
-         Status status
-    ) : _id(id),
-        _username(username),
-        _passwordHash(passwordHash),
-        _fullName(fullName),
-        _email(email),
-        _phone(phone),
-        _status(status) {}
 
 public: // Visitor Pattern
     virtual void accept(UserVisitor& visitor) = 0;
