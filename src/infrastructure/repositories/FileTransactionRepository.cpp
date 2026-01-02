@@ -1,34 +1,40 @@
 #include "FileTransactionRepository.h"
+#include "../../domain/entities/Deposit.h"
+#include "../../domain/entities/Withdraw.h"
+#include "../../domain/entities/Transfer.h"
+#include "../../domain/factories/TransactionFactory.h"
+#include "../utils/FileUtils.h"
+#include "../utils/StringUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
+
+FileTransactionRepository::FileTransactionRepository(const string& folderPath) 
+    : _folder(folderPath) {
+    if (!filesystem::exists(_folder)) {
+        filesystem::create_directories(_folder);
+    }
+}
 
 string FileTransactionRepository::getPath(const string& id) const {
     return _folder + "/T" + id + ".txt";
-}
-
-shared_ptr<Transaction> FileTransactionRepository::createTransactionByType(const string& type) { // TODO factory
-    if (type == "Deposit") return Transaction::createDeposit("", "", 0);
-    if (type == "Withdraw") return Transaction::createWithdraw("", "", 0);
-    if (type == "Transfer") return Transaction::createTransfer("", "", "", 0);
-    return nullptr;
 }
 
 shared_ptr<Transaction> FileTransactionRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);
     if (lines.empty()) return nullptr;
 
-    string transactionType;
+    string transactionType = StringUtils::normalizeString(lines[0]);
 
-    // dòng đầu là AccountType: X
-    auto pos = lines[5].find(":");
-    transactionType = lines[5].substr(pos + 2);
-    shared_ptr<Transaction> trans = createTransactionByType(transactionType); // TODO factory
+    auto trans = TransactionFactory::instance().create(transactionType);
     if (!trans) return nullptr;
+
+    lines.erase(lines.begin());
 
     trans->deserialize(lines);
     return trans;
-}
-
-FileTransactionRepository::FileTransactionRepository(const string& folderPath) : _folder(folderPath) {
-    filesystem::create_directories(_folder); // TODO check file exist
 }
 
 void FileTransactionRepository::save(shared_ptr<Transaction> tx) {

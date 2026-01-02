@@ -1,16 +1,13 @@
-#ifndef _FILERESETPASSWORDREPOSITORY_H_
-#define _FILERESETPASSWORDREPOSITORY_H_
+#ifndef _FILE_RESET_PASSWORD_REPOSITORY_H_
+#define _FILE_RESET_PASSWORD_REPOSITORY_H_
 
 #include "../../domain/repositories/IResetPasswordRepository.h"
-#include "../../domain/entities/ResetPasswordToken.h"
-#include "../utils/FileUtils.h"
-
-#include <filesystem>
-namespace filesystem = std::filesystem;
 
 class FileResetPasswordRepository : public IResetPasswordRepository {
 private:
     string _folder;
+
+private:
     string getPath(const string& id) const;
 
 public:
@@ -18,13 +15,12 @@ public:
 
 public:
     void save(const ResetPasswordToken& token) override;
-
-    ResetPasswordToken findById(const string& tokenId) override;
-    vector<ResetPasswordToken> findByUserId(const string& userId) override;
-
     bool remove(const string& tokenId) override;
-    
     bool exists(const string& tokenId) override;
+
+    ResetPasswordToken findByTokenId(const string& tokenId) override;
+    vector<ResetPasswordToken> findByUserId(const string& userId) override;
+    
 };
 
 #endif

@@ -6,17 +6,17 @@
 
 void registerAccountTypes() {
     AccountFactory::instance().registerType(
-        "CheckingAccount",
+        "checkingaccount",
         []() { return std::make_shared<CheckingAccount>(); }
     );
 
     AccountFactory::instance().registerType(
-        "SavingAccount",
+        "savingaccount",
         []() { return std::make_shared<SavingAccount>(); }
     );
 
     AccountFactory::instance().registerType(
-        "CreditAccount",
+        "creditaccount",
         []() { return std::make_shared<CreditAccount>(); }
     );
 }

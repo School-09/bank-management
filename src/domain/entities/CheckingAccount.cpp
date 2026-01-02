@@ -1,32 +1,59 @@
 #include "CheckingAccount.h"
 
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
+
+void CheckingAccount::accept(AccountVisitor& visitor) { 
+    visitor.visit(*this); 
+}
+
+void CheckingAccount::deposit(int amount) {
+    _balance += amount;
+}
+
+void CheckingAccount::withdraw(int amount) {
+    _balance -= amount;
+}
+
 string CheckingAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << Account::serialize();
-    oss << "OverdraftLimit: " << _overdraftLimit << "\n";
+    oss << "CheckingAccount\n";
+    oss << "Id: " << _id << "\n";
+    oss << "UserId: " << _userId << "\n";
+    oss << "Balance: " << _balance << "\n";
+    oss << "CreatedAt: " << _createdAt << "\n";
+    oss << "Status: " << (_status == Status::ACTIVE ? "active" : "locked") << "\n";
 
     return oss.str();
 }
 
 void CheckingAccount::deserialize(const vector<string>& lines) {
-    Account::deserialize(lines);
+    static const std::regex pattern(R"(^(\w+)\s*:\s*(.*)$)");
 
     std::map<string, std::function<void(const string&)>> handlers = {
-        {"OverdraftLimit", [this](const string& val) { 
-            _overdraftLimit = stod(val); 
+        {"Id", [this](const string& v) { _id = v; }},
+        {"UserId", [this](const string& v) { _userId = v; }},
+        {"Balance", [this](const string& v) { _balance = stoi(v); }},
+        {"CreatedAt", [this](const string& v) { _createdAt= v; }},
+        {"Status", [this](const string& v) {
+            _status = (v == "active") ? Status::ACTIVE : Status::LOCKED;
         }}
     };
 
-    for (const string& line : lines) { // TODO tối ưu, duyệt lại các chuỗi đã xử lí rồi -> chain of responsibility
-        string key, val;
-        if (!FileUtils::extract_key_value(line, key, val)) continue;
+    for (const string& line : lines) {
+        std::smatch match;
+        if (!std::regex_match(line, match, pattern))
+            continue;
 
-        // Tìm key trong map và thực thi handler tương ứng
+        const string& key = match[1];
+        const string& value = match[2];
+
         auto it = handlers.find(key);
         if (it != handlers.end()) {
-            it->second(val); // Gọi hàm xử lý (handler)
+            it->second(value);
         }
-        // else: bỏ qua các key không hợp lệ
     }
 }

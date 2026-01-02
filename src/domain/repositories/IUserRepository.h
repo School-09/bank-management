@@ -15,21 +15,16 @@ public:
     virtual ~IUserRepository() = default;
 
 public:
-    // Create / Update
     virtual void save(shared_ptr<User> user) = 0;
+    virtual bool remove(const string& id) = 0;
+    virtual bool existsById(const string& id) = 0;
+    virtual bool existsByUsername(const string& username) = 0;
+    virtual bool existsByEmail(const string& email) = 0;
 
-    // Read
     virtual shared_ptr<User> findById(const string& id) = 0;
     virtual shared_ptr<User> findByUsername(const string& username) = 0;
     virtual shared_ptr<User> findByEmail(const string& email) = 0;
 
-    // Delete
-    virtual bool remove(const string& id) = 0;
-
-    // Utilities
-    virtual bool existsById(const string& id) = 0;
-    virtual bool existsByUsername(const string& username) = 0;
-    virtual bool existsByEmail(const string& email) = 0;
 };
 
 #endif

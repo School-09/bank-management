@@ -5,8 +5,8 @@
 #include "../../usecase/auth/LogoutUseCase.h"
 #include "../../usecase/auth/RegisterUseCase.h"
 #include "../../usecase/auth/ResetPasswordUseCase.h"
-#include "../MenuPrinter.h"
-#include "../ConsoleUI.h"
+#include "../ui/MenuPrinter.h"
+#include "../ui/ConsoleUI.h"
 
 #include <string>
 #include <memory>
@@ -20,7 +20,7 @@ private:
     shared_ptr<LogoutUseCase> _logoutUC;
     shared_ptr<ResetPasswordUseCase> _resetUC;
 
-    Session currentSession;
+    Session _currentSession;
     bool isLoggedIn = false;
 
 public:
@@ -32,8 +32,7 @@ public:
     ) : _registerUC(r),
         _loginUC(l),
         _logoutUC(lo),
-        _resetUC(rp)
-    {}
+        _resetUC(rp) {}
 
 public:
     bool getLoggedIn() const { return isLoggedIn; }

@@ -1,5 +1,5 @@
-#ifndef _BLOCKCARDUSECASE_H_
-#define _BLOCKCARDUSECASE_H_
+#ifndef _BLOCK_CARD_USECASE_H_
+#define _BLOCK_CARD_USECASE_H_
 
 #include "../../domain/repositories/ICardRepository.h"
 #include "../../domain/repositories/IAccountRepository.h"
@@ -10,10 +10,12 @@ private:
     shared_ptr<IAccountRepository> _accountRepo;
 
 public:
-    BlockCardUseCase(shared_ptr<ICardRepository> cardRepo,
-                     shared_ptr<IAccountRepository> accountRepo)
-        : _cardRepo(cardRepo), _accountRepo(accountRepo) {}
+    BlockCardUseCase(
+        shared_ptr<ICardRepository> cardRepo,
+        shared_ptr<IAccountRepository> accountRepo
+    ) : _cardRepo(cardRepo), _accountRepo(accountRepo) {}
 
+public:
     void execute(const string& userId, const string& cardId, bool block);
 
 public:

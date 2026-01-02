@@ -1,9 +1,18 @@
 #include "ListCardUseCase.h"
+
 #include <stdexcept>
 
-vector<shared_ptr<Card>> ListCardUseCase::execute(const string& userId) {
+vector<vector<string>> ListCardUseCase::execute(const string& userId) {
     if (userId.empty())
         throw std::runtime_error("Invalid userId");
 
-    return _cardRepo->findByUserId(userId);
+    auto cards = _cardRepo->findByUserId(userId);
+
+    GetCardVisitor visitor;
+
+    for (auto& card : cards) {
+        card->accept(visitor);
+    }
+
+    return visitor.getResults();
 }

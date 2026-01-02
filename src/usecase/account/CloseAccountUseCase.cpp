@@ -4,14 +4,14 @@ void CloseAccountUseCase::execute(
     const string& accountId,
     const string& userId
 ) {
-    if (!_repo->exists(accountId))
+    if (!_accountRepo->exists(accountId))
         throw std::runtime_error("Account not found");
 
-   vector<shared_ptr<Account>> accounts = _repo->findByUserId(userId);
+   auto accounts = _accountRepo->findByUserId(userId);
 
     shared_ptr<Account> target = nullptr;
 
-    for (shared_ptr<Account> acc : accounts) {
+    for (auto acc : accounts) { // TODO: tìm kiếm tuần tự, có thể cải tiến bằng binary_search (yêu cầu id phải tăng dần)
         if (acc->getId() == accountId) {
             target = acc;
             break;
@@ -23,6 +23,6 @@ void CloseAccountUseCase::execute(
     }
 
     // 4. Đóng account
-    target->deactivate();
-    _repo->save(target);
+    target->deActivate();
+    _accountRepo->save(target);
 }

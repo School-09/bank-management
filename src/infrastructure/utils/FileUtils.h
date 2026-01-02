@@ -1,5 +1,5 @@
-#ifndef _FILEUTILS_H_
-#define _FILEUTILS_H_
+#ifndef _FILE_UTILS_H_
+#define _FILE_UTILS_H_
 
 #include <string>
 #include <vector>

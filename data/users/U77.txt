@@ -1,8 +1,0 @@
-Id: 77
-Username: hien
-PasswordHash: 92034e649463ebee
-FullName: Dang Hien
-Email: hien@gmail.com
-Phone: 123456789
-Status: Unlock
-Role: Customer

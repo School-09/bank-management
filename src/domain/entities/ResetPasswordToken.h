@@ -1,22 +1,12 @@
-#ifndef RESET_PASSWORD_TOKEN_H
-#define RESET_PASSWORD_TOKEN_H
-
-#include "Object.h"
-
-#include "../../infrastructure/utils/FileUtils.h"
+#ifndef _RESET_PASSWORD_TOKEN_H_
+#define _RESET_PASSWORD_TOKEN_H_
 
 #include <string>
 #include <vector>
-#include <ctime>
-#include <ctime>
-#include <sstream>
-#include <iomanip>
-#include <map>
-#include <functional>
 using std::string;
 using std::vector;
 
-class ResetPasswordToken : public Object{
+class ResetPasswordToken {
 private:
     string _tokenId;
     string _userId;
@@ -26,20 +16,25 @@ private:
 
 public:
     ResetPasswordToken() = default;
+    ~ResetPasswordToken() = default;
 
     ResetPasswordToken(const string& tokenId,
                        const string& userId,
                        const string& createdAt,
                        const string& expiredAt,
-                       bool used)
-        : _tokenId(tokenId),
-          _userId(userId),
-          _createdAt(createdAt),
-          _expiredAt(expiredAt),
-          _used(used)
-    {}
+                       bool used
+    ) : _tokenId(tokenId),
+        _userId(userId),
+        _createdAt(createdAt),
+        _expiredAt(expiredAt),
+        _used(used) {}
 
-    virtual ~ResetPasswordToken() = default;
+public:
+    bool isExpired() const;
+
+    // ======= SERIALIZATION =======
+    virtual string serialize() const;
+    virtual void deserialize(const vector<string>& lines);
 
 public:
     // ======= GETTER =======
@@ -55,14 +50,6 @@ public:
     void setCreatedAt(const string& createdAt) { _createdAt = createdAt; }
     void setExpiredAt(const string& expiredAt) { _expiredAt = expiredAt; }
 
-public:
-    // ======= SERIALIZATION =======
-    virtual string serialize() const;
-    virtual void deserialize(const vector<string>& lines);
-
-    string toString() const override { return "Reset Password Token"; };
-
-    bool isExpired() const;
 };
 
 #endif

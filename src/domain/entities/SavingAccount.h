@@ -1,40 +1,39 @@
 #ifndef _SAVING_ACCOUNT_H_
 #define _SAVING_ACCOUNT_H_
 
-#include "Account.h"
-#include "../../infrastructure/utils/FileUtils.h"
+#include "Account.h"  
 
-#include <map>
-#include <functional>
-
-// --- Tài khoản Tiết kiệm (Có lãi, hạn chế rút) ---
 class SavingAccount : public Account {
 private:
-    double _interestRate;   // Lãi suất (%/năm)
-    //int _termInMonths;      // Kỳ hạn (6 tháng, 12 tháng)
-    //bool _allowEarlyWithdraw; // Cho phép rút trước hạn ko?
+    int _balance;           // số dư
+    float _interestRate;    // Lãi suất (%/ngày) ->  giả sử
 
 public:
     SavingAccount() : _interestRate(0.05) {}
     ~SavingAccount() override = default;
 
-public:
-    void setInterestRate(double rate) { _interestRate = rate; }
-    double getInterestRate() const { return _interestRate; }
-
-    string getType() const override {
-        return "SavingAccount";
-    }
+public: // Visitor Pattern
+    void accept(AccountVisitor& visitor) override;
 
 public:
-    bool canWithdraw(double amount) const override {
-        return _active && amount <= _balance;
+    bool canWithdraw(int amount) override {
+        return _status == Status::ACTIVE && getBalance() - 50000 >= amount;
     }
+
+    void deposit(int amount) override;
+    void withdraw(int amount) override;
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
 
-    string toString() const override { return "Saving Account"; };
+public:
+    void updateBalance();
+    int getBalance();
+    float getInterestRate() const { return _interestRate; }
+
+    void setBalance(int balance) { _balance = balance; }
+    void setInterestRate(float rate) { _interestRate = rate; } 
+
 };
 
 #endif

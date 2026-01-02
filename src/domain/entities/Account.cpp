@@ -1,59 +1,46 @@
 #include "Account.h"
+#include "../../infrastructure/utils/FileUtils.h"
 
-void Account::increaseBalance(double amount) {
-    _balance += amount;
-}
-
-void Account::decreaseBalance(double amount) {
-    _balance -= amount;
-}
+#include <iomanip>
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
 
 string Account::serialize() const {
     std::ostringstream oss;
 
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
-    oss << "Balance: " << _balance << "\n";
-    oss << "Active: " << (_active ? "true" : "false") << "\n";
     oss << "CreatedAt: " << _createdAt << "\n";
-    oss << "Type: " << getType() << "\n"; // visit
+    oss << "Status: " << (_status == Status::ACTIVE ? "active" : "locked") << "\n";
 
     return oss.str();
 }
 
 void Account::deserialize(const vector<string>& lines) {
-    // 1. Định nghĩa các hành động (Action) cho mỗi Key
+    static const std::regex pattern(R"(^(\w+)\s*:\s*(.*)$)");
+
     std::map<string, std::function<void(const string&)>> handlers = {
-        {"Id", [this](const string& val) { 
-            _id = val; 
-        }},
-        {"UserId", [this](const string& val) { 
-            _userId = val; 
-        }},
-        {"Balance", [this](const string& val) { 
-            _balance = stod(val); 
-        }},
-        {"Active", [this](const string& val) { 
-            _active = (val == "true" ? true : false); 
-        }},
-        {"CreatedAt", [this](const string& val) { 
-            _createdAt = val; 
-        }},
-        {"Type", [this](const string& val) { 
-            _type = (val == "SAVING" ? AccountType::SAVING : AccountType::CHECKING); 
+        {"Id", [this](const string& v) { _id = v; }},
+        {"UserId", [this](const string& v) { _userId = v; }},
+        {"CreatedAt", [this](const string& v) { _createdAt= v; }},
+        {"Status", [this](const string& v) {
+            _status = (v == "active") ? Status::ACTIVE : Status::LOCKED;
         }}
     };
 
-    // 2. Lặp qua các dòng và xử lý
     for (const string& line : lines) {
-        string key, val;
-        if (!FileUtils::extract_key_value(line, key, val)) continue;
+        std::smatch match;
+        if (!std::regex_match(line, match, pattern))
+            continue;
 
-        // Tìm key trong map và thực thi handler tương ứng
+        const string& key = match[1];
+        const string& value = match[2];
+
         auto it = handlers.find(key);
         if (it != handlers.end()) {
-            it->second(val); // Gọi hàm xử lý (handler)
+            it->second(value);
         }
-        // else: bỏ qua các key không hợp lệ
     }
 }

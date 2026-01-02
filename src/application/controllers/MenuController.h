@@ -1,12 +1,12 @@
-#ifndef _MENUCONTROLLER_H_
-#define _MENUCONTROLLER_H_
+#ifndef _MENU_CONTROLLER_H_
+#define _MENU_CONTROLLER_H_
 
 #include "AuthController.h"
 #include "AccountController.h"
 #include "TransactionController.h"
 #include "CardController.h"
-#include "../MenuPrinter.h"
-#include "../OptionEnum.h"
+#include "../ui/MenuPrinter.h"
+#include "../ui/OptionEnum.h"
 #include <memory>
 using std::shared_ptr, std::make_shared;
 
@@ -29,11 +29,7 @@ public:
         _cardController(cardController) {}
 
 public:
-    void runAuthMenu();
-    void runUserMenu();
-    void runAccountMenu();
-    void runTransactionMenu();
-    void runCardMenu();
+    void run();
 
 public:
     // Rule of Three

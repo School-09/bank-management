@@ -1,12 +1,12 @@
-#ifndef _TIMEUTILS_H_
-#define _TIMEUTILS_H_
+#ifndef _TIME_UTILS_H_
+#define _TIME_UTILS_H_
 
 #include <ctime>
 #include <iomanip>
 #include <sstream>
 #include <string>
 
-class TimeUtil {
+class TimeUtils {
 public:
     static std::string toString(time_t t) {
         std::tm* tm = std::localtime(&t);

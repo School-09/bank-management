@@ -16,7 +16,9 @@ public:
 
 public:
     virtual void save(shared_ptr<Transaction> tx) = 0;
+
     virtual vector<shared_ptr<Transaction>> findByUserId(const string& userId) = 0;
+    
 };
 
 #endif

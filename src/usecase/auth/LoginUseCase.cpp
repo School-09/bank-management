@@ -1,4 +1,5 @@
 #include "LoginUseCase.h"
+#include "../../infrastructure/utils/TimeUtils.h"
 
 Session LoginUseCase::login(const string& username, const string& password) {
     shared_ptr<User> user = _userRepo->findByUsername(username);
@@ -15,9 +16,8 @@ Session LoginUseCase::login(const string& username, const string& password) {
     Session session;
     session.setSessionId(std::to_string(rand()));
     session.setUserId(user->getId());
-    session.setCreatedAt(TimeUtil::toString(now));
-    session.setExpiredAt(TimeUtil::toString(expired));
-
+    session.setCreatedAt(TimeUtils::toString(now));
+    session.setExpiredAt(TimeUtils::toString(expired));
 
     _sessionRepo->save(session);
     return session;

@@ -1,10 +1,8 @@
-#ifndef _RESETPASSWORDUSECASE_H_
-#define _RESETPASSWORDUSECASE_H_
+#ifndef _RESET_PASSWORD_USECASE_H_
+#define _RESET_PASSWORD_USECASE_H_
 
 #include "../../domain/repositories/IUserRepository.h"
 #include "../../domain/repositories/IResetPasswordRepository.h"
-#include "../../domain/entities/ResetPasswordToken.h"
-#include "../../infrastructure/utils/TimeUtils.h"
 
 #include <ctime>
 #include <stdexcept>
@@ -17,8 +15,11 @@ private:
     shared_ptr<IResetPasswordRepository> _tokenRepo;
 
 public:
-    ResetPasswordUseCase(shared_ptr<IUserRepository> uRepo, shared_ptr<IResetPasswordRepository> tRepo)
-        : _userRepo(uRepo), _tokenRepo(tRepo) {}
+    ResetPasswordUseCase(
+        shared_ptr<IUserRepository> uRepo, 
+        shared_ptr<IResetPasswordRepository> tRepo
+    ) : _userRepo(uRepo),
+        _tokenRepo(tRepo) {}
 
 public:
     // STEP 1: User yêu cầu reset mật khẩu

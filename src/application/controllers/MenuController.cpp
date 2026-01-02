@@ -1,6 +1,7 @@
 #include "MenuController.h"
+#include "../menu/MenuFactory.h"
 
-void MenuController::runAuthMenu() {
+void MenuController::run() {
     while (true) {
         MenuPrinter::printAuthMenu();
         string choice;
@@ -13,7 +14,20 @@ void MenuController::runAuthMenu() {
         }
         else if (option == AuthMenuOption::LOGIN) {
             _authController->loginAction();
-            runUserMenu();
+
+            string role;
+            cout << "Nhập vai trò: ";
+            getline(cin, role);
+
+            auto menu = MenuFactory::create(
+                role,
+                _authController, 
+                _accountController, 
+                _transactionController, 
+                _cardController
+            );
+
+            menu->run();
         }
         else if (option == AuthMenuOption::RESET_PASSWORD) {
             _authController->requestResetPasswordAction();
@@ -27,122 +41,5 @@ void MenuController::runAuthMenu() {
                 _authController->confirmResetPasswordAction();
         }
         else if (option == AuthMenuOption::EXIT) break;
-    }
-}
-
-// ===============================
-// USER MENU (sau khi login)
-// ===============================
-void MenuController::runUserMenu() {
-    while (_authController->getLoggedIn()) {
-        MenuPrinter::printUserMenu();
-        string choice;
-        getline(cin, choice);
-
-        UserMenuOption option = static_cast<UserMenuOption> (stoi(choice));
-
-        if (option == UserMenuOption::ACCOUNT_MANAGE) {
-            runAccountMenu();
-        }
-        else if (option == UserMenuOption::TRANSACTION_MANAGE) {
-            runTransactionMenu();
-        }
-        else if (option == UserMenuOption::CARD_MANAGE) {
-            runCardMenu();
-        }
-        else if (option == UserMenuOption::LOGOUT) {
-            _authController->logoutAction();
-        }
-        else if (option == UserMenuOption::BACK) {
-            _authController->logoutAction();
-            break;
-        }
-    }
-}
-
-void MenuController::runAccountMenu() {
-    while (_authController->getLoggedIn()) {
-        MenuPrinter::printAccountMenu();
-        string choice;
-        getline(cin, choice);
-
-        AccountMenuOption option = static_cast<AccountMenuOption> (stoi(choice));
-
-        if (option == AccountMenuOption::CREATE_ACCOUNT) {
-            _accountController->createAccount();
-        }
-        else if (option == AccountMenuOption::LIST_ACCOUNTS) {
-            _accountController->showAccounts();
-        }
-        else if (option == AccountMenuOption::CLOSE_ACCOUNT) {
-            _accountController->closeAccount();
-        }
-        else if (option == AccountMenuOption::LOGOUT) {
-            _authController->logoutAction();
-        }
-        else if (option == AccountMenuOption::BACK) {
-            break;
-        }
-    }
-}
-
-void MenuController::runTransactionMenu() {
-    while (_authController->getLoggedIn()) {
-        MenuPrinter::printTransactionMenu();
-        string choice;
-        getline(cin, choice);
-
-        TransactionMenuOption option = static_cast<TransactionMenuOption> (stoi(choice));
-
-        if (option == TransactionMenuOption::DEPOSIT) {
-            _transactionController->deposit();
-        }
-        else if (option == TransactionMenuOption::WITHDRAW) {
-            _transactionController->withdraw();
-        }
-        else if (option == TransactionMenuOption::TRANSFER) {
-            _transactionController->transfer();
-        }
-        else if (option == TransactionMenuOption::LOGOUT) {
-            _authController->logoutAction();
-        }
-        else if (option == TransactionMenuOption::BACK) {
-            break;
-        }
-    }
-}
-
-void MenuController::runCardMenu() {
-    while (_authController->getLoggedIn()) {
-        MenuPrinter::printCardMenu();
-        string choice;
-        getline(cin, choice);
-
-        CardMenuOption option = static_cast<CardMenuOption> (stoi(choice));
-
-        if (option == CardMenuOption::CREATE_CARD) {
-            _cardController->createCard();
-        }
-        else if (option == CardMenuOption::LIST_CARDS) {
-            _cardController->listCards();
-        }
-        else if (option == CardMenuOption::DELETE_CARD) {
-            _cardController->deleteCard();
-        }
-        else if (option == CardMenuOption::BLOCK_CARD) {
-            _cardController->blockCard();
-        }
-        else if (option == CardMenuOption::UNBLOCK_CARD) {
-            _cardController->unblockCard();
-        }
-        else if (option == CardMenuOption::PAY_WITH_CARD) {
-            _cardController->payWithCard();
-        }
-        else if (option == CardMenuOption::LOGOUT) {
-            _authController->logoutAction();
-        }
-        else if (option == CardMenuOption::BACK) {
-            break;
-        }
     }
 }

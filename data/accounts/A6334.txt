@@ -1,0 +1,6 @@
+CheckingAccount
+Id: 6334
+UserId: 41
+Balance: 500000
+CreatedAt: 2026-01-02 10:35:05
+Status: active

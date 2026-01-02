@@ -1,12 +1,9 @@
-#ifndef _WITHDRAWUSECASE_H_
-#define _WITHDRAWUSECASE_H_
+#ifndef _WITHDRAW_USECASE_H_
+#define _WITHDRAW_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ITransactionRepository.h"
 #include "../../domain/repositories/INotificationRepository.h"
-#include "../../domain/entities/Account.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Notification.h"
 
 #include <stdexcept>
 #include <exception>
@@ -31,8 +28,8 @@ public:
 public:
     void execute(
         const string& userId,
-        const string& accountId,
-        double amount
+        const string& fromAccountId,
+        int amount
     );
 
 public:

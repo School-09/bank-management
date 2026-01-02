@@ -1,12 +1,9 @@
-#ifndef _DEPOSITUSECASE_H_
-#define _DEPOSITUSECASE_H_
+#ifndef _DEPOSIT_USECASE_H_
+#define _DEPOSIT_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ITransactionRepository.h"
 #include "../../domain/repositories/INotificationRepository.h"
-#include "../../domain/entities/Account.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Notification.h"
 
 #include <stdexcept>
 #include <exception>
@@ -31,8 +28,8 @@ public:
 public:
     void execute(
         const string& userId,
-        const string& accountId,
-        double amount
+        const string& toAccountId,
+        int amount
     );
 
 public:

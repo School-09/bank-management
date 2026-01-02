@@ -1,4 +1,17 @@
 #include "FileNotificationRepository.h"
+#include "../utils/FileUtils.h"
+
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
+
+FileNotificationRepository::FileNotificationRepository(const string& folderPath)
+    : _folder(folderPath) {
+    if (!filesystem::exists(_folder)) {
+        filesystem::create_directories(_folder);
+    }
+}
 
 string FileNotificationRepository::getPath(const string& id) const {
     return _folder + "/N" + id + ".txt";
@@ -12,10 +25,6 @@ shared_ptr<Notification> FileNotificationRepository::loadFromFile(const string& 
     trans->deserialize(lines);
 
     return trans;
-}
-
-FileNotificationRepository::FileNotificationRepository(const string& folderPath) : _folder(folderPath) {
-    filesystem::create_directories(_folder); // TODO check file exist
 }
 
 void FileNotificationRepository::save(shared_ptr<Notification> nf) {

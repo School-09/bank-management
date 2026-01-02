@@ -1,36 +1,58 @@
 #include "FileUserRepository.h"
 #include "../../domain/factories/UserFactory.h"
+#include "../utils/FileUtils.h"
+#include "../utils/StringUtils.h"
 
-shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
-    auto lines = FileUtils::readLines(path);
-    if (lines.empty()) return nullptr;
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+namespace filesystem = std::filesystem;
 
-    string userType;
-
-    // dòng đầu là UserType: X
-    auto pos = lines[7].find(":");
-    if (pos == string::npos) return nullptr;
-
-    userType = lines[7].substr(pos + 2);
-
-    auto user = UserFactory::instance().create(userType);
-    if (!user) return nullptr;
-
-    user->deserialize(lines);
-    return user;
+FileUserRepository::FileUserRepository(const string& folderPath) 
+    : _folder(folderPath) {
+    if (!filesystem::exists(_folder)) {
+        filesystem::create_directories(_folder);
+    }
 }
 
 string FileUserRepository::getPath(const string& id) const {
     return _folder + "/U" + id + ".txt";
 }
 
-FileUserRepository::FileUserRepository(const string& folderPath) : _folder(folderPath) {
-    filesystem::create_directories(_folder); // TODO check file exist
+shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
+    auto lines = FileUtils::readLines(path);
+    if (lines.empty()) return nullptr;
+
+    string userType = StringUtils::normalizeString(lines[0]);
+
+    auto user = UserFactory::instance().create(userType);
+    if (!user) return nullptr;
+
+    lines.erase(lines.begin());
+
+    user->deserialize(lines);
+    return user;
 }
 
 void FileUserRepository::save(shared_ptr<User> user) {
     string path = getPath(user->getId());
     FileUtils::writeText(path, user->serialize());
+}
+
+bool FileUserRepository::remove(const string& id) {
+    return filesystem::remove(getPath(id));
+}
+
+bool FileUserRepository::existsById(const string& id) {
+    return filesystem::exists(getPath(id));
+}
+
+bool FileUserRepository::existsByUsername(const string& username) {
+    return findByUsername(username) != nullptr;
+}
+
+bool FileUserRepository::existsByEmail(const string& email) {
+    return findByEmail(email) != nullptr;
 }
 
 shared_ptr<User> FileUserRepository::findById(const string& id) {
@@ -55,20 +77,4 @@ shared_ptr<User> FileUserRepository::findByEmail(const string& email) {
             return user;
     }
     return nullptr;
-}
-
-bool FileUserRepository::remove(const string& id) {
-    return filesystem::remove(getPath(id));
-}
-
-bool FileUserRepository::existsById(const string& id) {
-    return filesystem::exists(getPath(id));
-}
-
-bool FileUserRepository::existsByUsername(const string& username) {
-    return findByUsername(username) != nullptr;
-}
-
-bool FileUserRepository::existsByEmail(const string& email) {
-    return findByEmail(email) != nullptr;
 }

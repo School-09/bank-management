@@ -1,10 +1,7 @@
-#ifndef _REGISTERUSECASE_H_
-#define _REGISTERUSECASE_H_
+#ifndef _REGISTER_USECASE_H_
+#define _REGISTER_USECASE_H_
 
 #include "../../domain/repositories/IUserRepository.h"
-#include "../../domain/entities/User.h"
-#include "../../domain/entities/Admin.h"
-#include "../../domain/entities/Customer.h"
 
 #include <stdexcept>
 #include <memory>
@@ -23,8 +20,7 @@ public:
         const string& password,
         const string& fullName,
         const string& email,
-        const string& phone,
-        const string& roleStr
+        const string& phone
     );
 
 public:
