@@ -4,7 +4,7 @@ Bank Management System - C++ OOP
 ### Chạy với g++
 ```bash
 $ cd src
-$ g++ -std=c++23 main.cpp application/*.cpp application/controllers/*.cpp domain/entities/*.cpp domain/factories/*.cpp infrastructure/repositories/*.cpp usecase/auth/*.cpp usecase/account/*.cpp usecase/transaction/*.cpp usecase/card/*.cpp -o debug/app
+$ g++ -std=c++23 main.cpp application/ui/*.cpp application/controllers/*.cpp application/menu/*.cpp domain/entities/*.cpp domain/factories/*.cpp infrastructure/repositories/*.cpp infrastructure/converters/*.cpp infrastructure/formatters/*.cpp usecase/auth/*.cpp usecase/account/*.cpp usecase/account/visitors/*.cpp usecase/transaction/*.cpp usecase/card/*.cpp usecase/card/visitors/*.cpp -o debug/app
 $ ./debug/app
 ```
 
@@ -16,3 +16,6 @@ $ cmake ..
 $ cmake --build .
 $ ./../debug/bank_app
 ```
+
+**TODO**
+- sinh id

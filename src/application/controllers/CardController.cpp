@@ -1,4 +1,5 @@
 #include "CardController.h"
+#include "../../infrastructure/formatters/TableFormatter.h"
 
 string CardController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -9,13 +10,15 @@ string CardController::getCurrentUserId() const {
 
 void CardController::createCard() {
     try {
-        string userId = getCurrentUserId();
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
-        string accountId, type;
-
+        string accountId;
         cout << "Enter account Id: ";
         getline(cin, accountId);
 
+        string type;
         cout << "Card type (DEBIT / CREDIT): ";
         getline(cin, type);
 
@@ -33,30 +36,44 @@ void CardController::createCard() {
 }
 
 void CardController::listCards() {
-    try {
-        string userId = getCurrentUserId();
-        auto cards = _listUC->execute(userId);
+    TableFormatter tf;
+    tf.setHeaders({
+        "STT", "Loại thẻ", "ID thẻ", "ID người dùng", "ID tài khoản liên kết"
+        "Số thẻ", "Ngày tạo", "Ngày hết hạn", "Tình trạng"
+    });
+    tf.setColumnFormats({ 
+        ColumnFormat(Alignment::Center, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0)
+    });
 
-        if (cards.empty()) {
-            cout << "No accounts found.\n";
-            //ConsoleUI::print("No cards found");
-            return;
-        }
+    string userId = getCurrentUserId();
 
-        for (const auto& card : cards) {
-            cout << "Information card\n"; // polymorphism
-            cout << "--------------------\n";
-            //ConsoleUI::print("--------------------");
-        }
+    auto cards = _listUC->execute(userId);
+
+    if (cards.empty()) {
+        cout << "No accounts found.\n";
+        return;
     }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
+
+    for (auto& row : cards) { 
+        tf.addRow(row); 
     }
+
+    std::cout << tf.render() << "\n";
 }
 
 void CardController::deleteCard() {
     try {
-        string userId = getCurrentUserId();
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
         string cardId;
         ConsoleUI::print("Enter card id: ");
@@ -72,7 +89,9 @@ void CardController::deleteCard() {
 
 void CardController::blockCard() {
     try {
-        string userId = getCurrentUserId();
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
         string cardId;
         ConsoleUI::print("Enter card id: ");
@@ -88,7 +107,9 @@ void CardController::blockCard() {
 
 void CardController::unblockCard() {
     try {
-        string userId = getCurrentUserId();
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
         string cardId;
         ConsoleUI::print("Enter card id: ");
@@ -113,7 +134,7 @@ void CardController::payWithCard() {
         ConsoleUI::print("Enter amount: ");
         getline(cin, amountStr);
 
-        double amount = std::stod(amountStr);
+        int amount = std::stoi(amountStr);
         _paymentUC->execute(userId, cardId, amount);
 
         ConsoleUI::print("Payment successful");

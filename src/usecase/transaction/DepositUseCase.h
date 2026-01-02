@@ -1,5 +1,5 @@
-#ifndef _DEPOSITUSECASE_H_
-#define _DEPOSITUSECASE_H_
+#ifndef _DEPOSIT_USECASE_H_
+#define _DEPOSIT_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ITransactionRepository.h"
@@ -9,7 +9,6 @@
 #include <exception>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-
 
 class DepositUseCase {
 private:
@@ -29,8 +28,8 @@ public:
 public:
     void execute(
         const string& userId,
-        const string& accountId,
-        double amount
+        const string& toAccountId,
+        int amount
     );
 
 public:

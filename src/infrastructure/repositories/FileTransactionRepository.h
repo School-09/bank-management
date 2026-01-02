@@ -1,11 +1,10 @@
-#ifndef _FILETRANSACTIONREPOSITORY_H_
-#define _FILETRANSACTIONREPOSITORY_H_
+#ifndef _FILE_TRANSACTION_REPOSITORY_H_
+#define _FILE_TRANSACTION_REPOSITORY_H_
 
 #include "../../domain/repositories/ITransactionRepository.h"
 
 #include <memory>
 using std::shared_ptr, std::make_shared;
-
 
 class FileTransactionRepository : public ITransactionRepository {
 private:
@@ -13,7 +12,6 @@ private:
     
 private:
     string getPath(const string& id) const;
-    shared_ptr<Transaction> createTransactionByType(const string& type);
     shared_ptr<Transaction> loadFromFile(const string& path);
 
 public:

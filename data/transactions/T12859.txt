@@ -1,7 +1,0 @@
-Id: 12859
-UserId: 41
-FromAccountId: 99
-ToAccountId: 
-Amount: 10000.000000
-Type: Withdraw
-CreatedAt: 2025-12-26 17:27:24

@@ -42,10 +42,10 @@ public:
     // Rule of Three
     ~AccountController() = default; // shared_ptr tự quản lý
 
-    AccountController(const AccountController&) = default; // copy được
+    AccountController(const AccountController&) = default; // copy
     AccountController& operator=(const AccountController&) = default; 
     
-    AccountController(AccountController&&) = default; // move được
+    AccountController(AccountController&&) = default; // move
     AccountController& operator=(AccountController&&) = default;
 };
 

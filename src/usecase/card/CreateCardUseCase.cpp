@@ -1,52 +1,48 @@
 #include "CreateCardUseCase.h"
-#include "../../domain/entities/DebitCard.h"
-#include "../../domain/entities/CreditCard.h"
+#include "../../domain/entities/CheckingAccount.h"
 #include "../../domain/entities/CreditAccount.h"
+#include "../../domain/factories/CardFactory.h"
+#include "../../infrastructure/utils/StringUtils.h"
+#include "../../infrastructure/utils/TimeUtils.h"
 
 #include <stdexcept>
 #include <cstdlib>
 
-void CreateCardUseCase::execute(
+shared_ptr<Card> CreateCardUseCase::execute(
     const string& userId,
     const string& accountId,
-    const string& type
+    const string& typeCard
 ) {
-    if (type != "DEBIT" && type != "CREDIT")
-        throw std::runtime_error("Invalid card type");
+    string type = StringUtils::normalizeString(typeCard);
 
-    // ===== Debit Card =====
-    if (type == "DEBIT") {
-        auto acc = _accountRepo->findByAccountId(accountId);
-        if (!acc)
-            throw std::runtime_error("Account not found");
+    auto acc = _accountRepo->findByAccountId(accountId);
+    if (!acc)
+        throw std::runtime_error("Account not found");
 
-        if (acc->getUserId() != userId)
-            throw std::runtime_error("Permission denied");
+    if (acc->getUserId() != userId)
+        throw std::runtime_error("Permission denied");
 
-        auto card = make_shared<DebitCard>();
-        card->setUserId(userId);
-        card->setAccountId(accountId);
-
-        _cardRepo->save(card);
-        return;
+    // kiểm tra loại card và account
+    if (type == "debitcard") {
+        auto checkingAcc = dynamic_pointer_cast<CheckingAccount>(acc);
+        if (!checkingAcc) {
+            throw std::runtime_error("DebitCard must be linked to a CheckingAccount");
+        }
+    } else if (type == "creditcard") {
+        auto creditAcc = dynamic_pointer_cast<CreditAccount>(acc);
+        if (!creditAcc) {
+            throw std::runtime_error("CreditCard must be linked to a CreditAccount");
+        }
+    } else {
+        throw std::runtime_error("Unsupported card type: " + type);
     }
 
-    // ===== Credit Card =====
-    if (type == "CREDIT") {
-        // 1. Tạo credit account
-        auto creditAcc = make_shared<CreditAccount>();
-        creditAcc->setId("credit_acc_" + std::to_string(rand()));
-        creditAcc->setUserId(userId);
-        creditAcc->setCreditLimit(10000000); // demo 10M
-        //creditAcc->setUsed(0);
+    auto card = CardFactory::instance().create(type);
 
-        _accountRepo->save(creditAcc);
+    card->setUserId(userId);
+    card->setAccountId(accountId);
 
-        // 2. Tạo credit card
-        auto card = make_shared<CreditCard>();
-        card->setUserId(userId);
-        card->setAccountId(creditAcc->getId());
+    _cardRepo->save(card);
 
-        _cardRepo->save(card);
-    }
+    return card;
 }

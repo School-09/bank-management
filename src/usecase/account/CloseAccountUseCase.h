@@ -1,5 +1,5 @@
-#ifndef _CLOSEACCOUNTUSECASE_H_
-#define _CLOSEACCOUNTUSECASE_H_
+#ifndef _CLOSE_ACCOUNT_USECASE_H_
+#define _CLOSE_ACCOUNT_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
 
@@ -7,14 +7,13 @@
 #include <memory>
 using std::shared_ptr, std::make_shared;
 
-
 class CloseAccountUseCase {
 private:
-    shared_ptr<IAccountRepository> _repo;
+    shared_ptr<IAccountRepository> _accountRepo;
 
 public:
     CloseAccountUseCase(shared_ptr<IAccountRepository> accountRepo) 
-        : _repo(accountRepo) {}
+        : _accountRepo(accountRepo) {}
 
 public:
     void execute(const string& accountId, const string& userId);

@@ -1,7 +1,8 @@
 #ifndef _CARD_H_
 #define _CARD_H_
 
-#include "Object.h"
+#include "Enum.h"
+#include "../visitors/CardVisitor.h"
 
 #include <iostream>
 #include <string>
@@ -9,40 +10,45 @@
 using std::vector;
 using std::string;
 
-
-class Card : public Object{
+class Card {
 protected:
     string _id;
     string _userId;
     string _accountId;
     string _cardNumber;
+    string _createdAt;
     string _expiredAt;
-    string _cvv;
-    bool _blocked;
+    Status _status;
 
 public:
     Card();
     virtual ~Card() = default;
 
-    void setUserId(string userId) { _userId = userId; }
-    void setAccountId(string accountId) { _accountId = accountId; }
+public: // Visitor Pattern
+    virtual void accept(CardVisitor& visitor) = 0;
 
-    // ===== POLYMORPHISM =====
-    virtual string getType() const = 0;
-    virtual string getLinkedAccountId() const = 0;
-
-    bool isBlocked() const { return _blocked; }
-    void block() { _blocked = true; }
-    void unblock() { _blocked = false; }
-
-    string getUserId() const { return _userId; }
-    string getId() const { return _id; }
-
+public:
     // ===== PERSISTENCE =====
     virtual string serialize() const = 0;
     virtual void deserialize(const vector<string>& lines) = 0;
 
-    virtual string toString() const override { return "Card"; };
+public:
+    string getId() const { return _id; }
+    string getUserId() const { return _userId; }
+    string getAccountId() const { return _accountId; }
+    string getCardNumber() const { return _cardNumber; }
+    string getCreatedAt() const { return _createdAt; }
+    string getExpiredAt() const { return _expiredAt; }
+
+    void setId(string id) { _id = id; }
+    void setUserId(string userId) { _userId = userId; }
+    void setAccountId(string accountId) { _accountId = accountId; }
+    void setCardNumber(string cardNumber) { _cardNumber = cardNumber; }
+
+    bool isLocked() const { return _status == Status::LOCKED; }
+    void lock() { _status = Status::LOCKED; }
+    void unlock() { _status = Status::ACTIVE; }
+
 };
 
 #endif

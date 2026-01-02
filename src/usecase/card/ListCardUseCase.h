@@ -1,7 +1,8 @@
-#ifndef _LISTCARDUSECASE_H_
-#define _LISTCARDUSECASE_H_
+#ifndef _LIST_CARD_USECASE_H_
+#define _LIST_CARD_USECASE_H_
 
 #include "../../domain/repositories/ICardRepository.h"
+#include "visitors/GetCardVisitor.h"
 
 #include <vector>
 #include <memory>
@@ -16,7 +17,8 @@ public:
     ListCardUseCase(shared_ptr<ICardRepository> cardRepo)
         : _cardRepo(cardRepo) {}
 
-    vector<shared_ptr<Card>> execute(const string& userId);
+public:
+    vector<vector<string>> execute(const string& userId);
 
 public:
     // Rule of Three

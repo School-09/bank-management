@@ -1,0 +1,7 @@
+CreditAccount
+Id: 18467
+UserId: 41
+CreditLimit: 1000000
+Used: 0
+CreatedAt: 2026-01-02 10:33:41
+Status: active

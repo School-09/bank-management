@@ -10,27 +10,19 @@ using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
 
-
 class ISessionRepository {
 public:
     virtual ~ISessionRepository() = default;
 
 public:
-    // Create/Update
     virtual void save(const Session& session) = 0;
-
-    // Read
-    virtual Session findById(const string& sessionId) = 0;
-    virtual vector<Session> findByUserId(const string& userId) = 0;
-
-    // Delete
     virtual bool remove(const string& sessionId) = 0;
-
-    // Utilities
     virtual bool exists(const string& sessionId) = 0;
 
+    virtual Session findBySessionId(const string& sessionId) = 0;
+    virtual vector<Session> findByUserId(const string& userId) = 0;
+    
     virtual Session getActiveSession() = 0;
-
     virtual void clearActiveSession() = 0;
 };
 

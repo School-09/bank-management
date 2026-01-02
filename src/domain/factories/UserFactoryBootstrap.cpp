@@ -3,15 +3,14 @@
 #include "../entities/Admin.h"
 #include "../entities/Customer.h"
 
-
 void registerUserTypes() {
     UserFactory::instance().registerType(
-        "Admin",
+        "admin",
         []() { return std::make_shared<Admin>(); }
     );
 
     UserFactory::instance().registerType(
-        "Customer",
+        "customer",
         []() { return std::make_shared<Customer>(); }
     );
 }

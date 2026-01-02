@@ -1,40 +1,35 @@
-#ifndef _CREDITACCOUNT_H_
-#define _CREDITACCOUNT_H_
+#ifndef _CREDIT_ACCOUNT_H_
+#define _CREDIT_ACCOUNT_H_
 
 #include "Account.h"
 
-
-// --- Tài khoản tín dụng ---
 class CreditAccount : public Account {
 private:
-    double _creditLimit;
-    double _used;
+    int _creditLimit; // hạn mức sử dụng
+    int _used; // đã dùng
 
 public:
     CreditAccount() : _used(0), _creditLimit(0) {}
     ~CreditAccount() override = default;
 
-public:
-    void setCreditLimit(double limit) { _creditLimit = limit; }
-    double getCredittLimit() const { return _creditLimit; }
-
-    string getType() const override {
-        return "CreditAccount";
-    }
+public: // Visitor Pattern
+    void accept(AccountVisitor& visitor) override;
 
 public:
-    bool canSpend(double amount) const;
-    void spend(double amount);
-    void pay(double amount);
-
-    bool canWithdraw(double amount) const override {
-        return _active && amount <= _balance;
+    bool canWithdraw(int amount) override {
+        return _status == Status::ACTIVE && _creditLimit >= amount + _used;
     }
+
+    void deposit(int amount) override;
+    void withdraw(int amount) override;
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
 
-    string toString() const override { return "Credit Account"; };
+public:
+    int getCredittLimit() const { return _creditLimit; }
+    int getUsed() const { return _used; }
+    void setCreditLimit(int limit) { _creditLimit = limit; }
 };
 
 #endif

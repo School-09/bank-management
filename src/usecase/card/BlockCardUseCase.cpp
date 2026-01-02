@@ -2,7 +2,6 @@
 
 #include <stdexcept>
 
-
 void BlockCardUseCase::execute(
     const string& userId,
     const string& cardId,
@@ -16,9 +15,9 @@ void BlockCardUseCase::execute(
         throw std::runtime_error("Permission denied");
 
     if (block)
-        card->block();
+        card->lock();
     else
-        card->unblock();
+        card->unlock();
 
     _cardRepo->save(card);
 }

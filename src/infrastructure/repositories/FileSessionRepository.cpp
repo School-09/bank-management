@@ -7,20 +7,30 @@
 #include <stdexcept>
 namespace filesystem = std::filesystem;
 
+FileSessionRepository::FileSessionRepository(const string& folderPath) 
+    : _folder(folderPath) {
+    if (!filesystem::exists(_folder)) {
+        filesystem::create_directories(_folder);
+    }
+}
 
 string FileSessionRepository::getPath(const string& id) const {
     return _folder + "/S" + id + ".txt";
-}
-
-FileSessionRepository::FileSessionRepository(const string& folderPath) : _folder(folderPath) {
-    filesystem::create_directories(_folder);
 }
 
 void FileSessionRepository::save(const Session& session) {
     FileUtils::writeText(getPath(session.getSessionId()), session.serialize());
 }
 
-Session FileSessionRepository::findById(const string& sessionId) {
+bool FileSessionRepository::remove(const string& sessionId) {
+    return filesystem::remove(getPath(sessionId));
+}
+
+bool FileSessionRepository::exists(const string& sessionId) {
+    return filesystem::exists(getPath(sessionId));
+}
+
+Session FileSessionRepository::findBySessionId(const string& sessionId) {
     string path = getPath(sessionId);
     Session s;
     if (filesystem::exists(path)) {
@@ -43,14 +53,6 @@ vector<Session> FileSessionRepository::findByUserId(const string& userId) {
     return result;
 }
 
-bool FileSessionRepository::remove(const string& sessionId) {
-    return filesystem::remove(getPath(sessionId));
-}
-
-bool FileSessionRepository::exists(const string& sessionId) {
-    return filesystem::exists(getPath(sessionId));
-}
-
 Session FileSessionRepository::getActiveSession() {
     for (auto& f : filesystem::directory_iterator(_folder)) {
         vector<string> lines = FileUtils::readLines(f.path().string());
@@ -65,7 +67,6 @@ Session FileSessionRepository::getActiveSession() {
 
     throw std::runtime_error("No active session found");
 }
-
 
 void FileSessionRepository::clearActiveSession() {
     for (auto& entry : filesystem::directory_iterator(_folder)) {

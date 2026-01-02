@@ -1,8 +1,6 @@
 #ifndef _NOTIFICATION_H_
 #define _NOTIFICATION_H_
 
-#include "Object.h"
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,8 +9,7 @@ using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
 
-
-class Notification : public Object{
+class Notification {
 private:
     string _id;
     string _userId;
@@ -26,15 +23,13 @@ public:
         const string& message
     );
 
+    string serialize() const;
+    void deserialize(const vector<string>& lines);
+    
 public:
     string getId() const { return _id; }
     string getUserId() const { return _userId; }
 
-public:
-    string serialize() const;
-    void deserialize(const vector<string>& lines);
-
-    string toString() const override { return "Notification"; };
 };
 
 #endif

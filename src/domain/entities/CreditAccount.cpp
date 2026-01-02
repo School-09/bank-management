@@ -1,27 +1,16 @@
 #include "CreditAccount.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
+#include <sstream>
 #include <map>
+#include <regex>
 #include <functional>
 #include <stdexcept>
 
-
-bool CreditAccount::canSpend(double amount) const {
-    if (amount <= 0) return false;
-    return _used + amount <= _creditLimit;
+void CreditAccount::accept(AccountVisitor& visitor) { 
+    visitor.visit(*this); 
 }
 
-void CreditAccount::spend(double amount) {
-    if (amount <= 0)
-        throw std::runtime_error("Invalid spend amount");
-
-    if (!canSpend(amount))
-        throw std::runtime_error("Credit limit exceeded");
-
-    _used += amount;
-}
-
-void CreditAccount::pay(double amount) {
+void CreditAccount::deposit(int amount) { // pay
     if (amount <= 0)
         throw std::runtime_error("Invalid payment amount");
 
@@ -32,38 +21,52 @@ void CreditAccount::pay(double amount) {
         _used -= amount;
 }
 
+void CreditAccount::withdraw(int amount) { // spend
+    if (amount <= 0)
+        throw std::runtime_error("Invalid spend amount");
+
+    _used += amount;
+}
 
 string CreditAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << Account::serialize();
+    oss << "CreditAccount\n";
+    oss << "Id: " << _id << "\n";
+    oss << "UserId: " << _userId << "\n";
     oss << "CreditLimit: " << _creditLimit << "\n";
     oss << "Used: " << _used << "\n";
+    oss << "CreatedAt: " << _createdAt << "\n";
+    oss << "Status: " << (_status == Status::ACTIVE ? "active" : "locked") << "\n";
 
     return oss.str();
 }
 
 void CreditAccount::deserialize(const vector<string>& lines) {
-    Account::deserialize(lines);
+    static const std::regex pattern(R"(^(\w+)\s*:\s*(.*)$)");
 
     std::map<string, std::function<void(const string&)>> handlers = {
-        {"CreditLimit", [this](const string& val) { 
-            _creditLimit = stod(val); 
-        }},
-        {"Used", [this](const string& val) { 
-            _used = stod(val); 
+        {"Id", [this](const string& v) { _id = v; }},
+        {"UserId", [this](const string& v) { _userId = v; }},
+        {"CreditLimit", [this](const string& v) { _creditLimit = stoi(v); }},
+        {"Used", [this](const string& v) { _used = stoi(v); }},
+        {"CreatedAt", [this](const string& v) { _createdAt= v; }},
+        {"Status", [this](const string& v) {
+            _status = (v == "active") ? Status::ACTIVE : Status::LOCKED;
         }}
     };
 
-    for (const string& line : lines) { // TODO tối ưu, duyệt lại các chuỗi đã xử lí rồi -> chain of responsibility
-        string key, val;
-        if (!FileUtils::extract_key_value(line, key, val)) continue;
+    for (const string& line : lines) {
+        std::smatch match;
+        if (!std::regex_match(line, match, pattern))
+            continue;
 
-        // Tìm key trong map và thực thi handler tương ứng
+        const string& key = match[1];
+        const string& value = match[2];
+
         auto it = handlers.find(key);
         if (it != handlers.end()) {
-            it->second(val); // Gọi hàm xử lý (handler)
+            it->second(value);
         }
-        // else: bỏ qua các key không hợp lệ
     }
 }

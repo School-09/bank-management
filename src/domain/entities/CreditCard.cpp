@@ -1,15 +1,20 @@
 #include "CreditCard.h"
 
-#include <iomanip>
+#include <regex>
 #include <sstream>
 #include <map>
 #include <functional>
 
+void CreditCard::accept(CardVisitor& visitor) { 
+    visitor.visit(*this); 
+}
 
 string CreditCard::serialize() const {
     std::ostringstream oss;
+
+    oss << "CreditCard\n";
     oss << Card::serialize();
-    oss << "Type: " << "CreditCard" << "\n";
+
     return oss.str();
 }
 

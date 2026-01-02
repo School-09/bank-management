@@ -1,5 +1,5 @@
-#ifndef _LOGINUSECASE_H_
-#define _LOGINUSECASE_H_
+#ifndef _LOGIN_USECASE_H_
+#define _LOGIN_USECASE_H_
 
 #include "../../domain/repositories/IUserRepository.h"
 #include "../../domain/repositories/ISessionRepository.h"
@@ -9,15 +9,17 @@
 #include <memory>
 using std::shared_ptr, std::make_shared;
 
-
 class LoginUseCase {
 private:
     shared_ptr<IUserRepository> _userRepo;
     shared_ptr<ISessionRepository> _sessionRepo;
 
 public:
-    LoginUseCase(shared_ptr<IUserRepository> userRepo, shared_ptr<ISessionRepository> sessionRepo)
-        : _userRepo(userRepo), _sessionRepo(sessionRepo) {}
+    LoginUseCase(
+        shared_ptr<IUserRepository> userRepo, 
+        shared_ptr<ISessionRepository> sessionRepo
+    ) : _userRepo(userRepo), 
+        _sessionRepo(sessionRepo) {}
 
 public:
     Session login(const string& username, const string& password);

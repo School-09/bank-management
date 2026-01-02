@@ -1,12 +1,11 @@
-#ifndef _REGISTERUSECASE_H_
-#define _REGISTERUSECASE_H_
+#ifndef _REGISTER_USECASE_H_
+#define _REGISTER_USECASE_H_
 
 #include "../../domain/repositories/IUserRepository.h"
 
 #include <stdexcept>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-
 
 class RegisterUseCase {
 private:
@@ -21,8 +20,7 @@ public:
         const string& password,
         const string& fullName,
         const string& email,
-        const string& phone,
-        const string& roleStr
+        const string& phone
     );
 
 public:

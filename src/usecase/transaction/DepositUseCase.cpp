@@ -1,25 +1,33 @@
 #include "DepositUseCase.h"
-
+#include "../../domain/entities/Transaction.h"
+#include "../../domain/entities/Deposit.h"
+#include "../../domain/factories/TransactionFactory.h"
 
 void DepositUseCase::execute(
     const string& userId,
-    const string& accountId,
-    double amount
+    const string& toAccountId,
+    int amount
 ) {
     if (amount <= 0)
         throw std::runtime_error("Invalid amount");
 
-    auto acc = _accountRepo->findByAccountId(accountId);
+    auto acc = _accountRepo->findByAccountId(toAccountId);
     if (!acc)
         throw std::runtime_error("Account not found");
 
     if (acc->getUserId() != userId)
         throw std::runtime_error("Permission denied");
 
-    acc->increaseBalance(amount);
+    acc->deposit(amount);
     _accountRepo->save(acc);
 
-    auto tx = Transaction::createDeposit(userId, accountId, amount);
+    auto t = TransactionFactory::instance().create("deposit");
+    auto tx = dynamic_pointer_cast<Deposit> (t);
+
+    tx->setUserId(userId);
+    tx->setAmount(amount);
+    tx->setToAccount(toAccountId);
+
     _txRepo->save(tx);
 
     _notifyRepo->save(
@@ -28,5 +36,4 @@ void DepositUseCase::execute(
             "Deposit " + std::to_string(amount) + " successfully"
         )
     );
-    std::cout << 3 << "\n";
 }

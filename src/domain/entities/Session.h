@@ -1,15 +1,12 @@
-#ifndef SESSION_H
-#define SESSION_H
-
-#include "Object.h"
+#ifndef _SESSION_H_
+#define _SESSION_H_
 
 #include <string>
 #include <vector>
 using std::string;
 using std::vector;
 
-
-class Session : public Object{
+class Session {
 private:
     string _sessionId;
     string _userId;
@@ -22,13 +19,20 @@ public:
     Session(const string& sessionId,
             const string& userId,
             const string& createdAt,
-            const string& expiredAt)
-        : _sessionId(sessionId),
-          _userId(userId),
-          _createdAt(createdAt),
-          _expiredAt(expiredAt) {}
+            const string& expiredAt
+    ) : _sessionId(sessionId),
+        _userId(userId),
+        _createdAt(createdAt),
+        _expiredAt(expiredAt) {}
 
     virtual ~Session() = default;
+
+public:
+    bool isExpired() const;
+
+    // ========= FILE SERIALIZATION  =========
+    virtual string serialize() const;
+    virtual void deserialize(const vector<string>& lines);
 
 public:
     // ========= GETTER =========
@@ -43,14 +47,6 @@ public:
     void setCreatedAt(const string& createdAt) { _createdAt = createdAt; }
     void setExpiredAt(const string& expiredAt) { _expiredAt = expiredAt; }
 
-public:
-    // ========= FILE SERIALIZATION  =========
-    virtual string serialize() const;
-    virtual void deserialize(const vector<string>& lines);
-
-    string toString() const override { return "Session"; };
-
-    bool isExpired() const;
 };
 
 #endif

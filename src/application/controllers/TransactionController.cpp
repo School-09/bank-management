@@ -45,7 +45,7 @@ void TransactionController::withdraw() {
     cin.ignore();
 
     _withdrawUC->execute(
-        userId,
+        userId, 
         accId,
         amount
     );

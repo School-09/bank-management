@@ -1,4 +1,5 @@
 #include "AccountController.h"
+#include "../../infrastructure/formatters/TableFormatter.h"
 
 string AccountController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -8,47 +9,46 @@ string AccountController::getCurrentUserId() const {
 }
 
 void AccountController::showAccounts() {
-    try {
-        string userId = getCurrentUserId();
+    TableFormatter tf;
+    tf.setHeaders({
+        "STT", "Loại tài khoản", "ID tài khoản", "ID người dùng", 
+        "Thông tin tài khoản", "Ngày tạo", "Tình trạng"
+    });
+    tf.setColumnFormats({ 
+        ColumnFormat(Alignment::Center, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0), 
+        ColumnFormat(Alignment::Left, 0)
+    });
 
-        vector<shared_ptr<Account>> accounts =
-            _getAccountsUC->execute(userId);
+    string userId = getCurrentUserId();
 
-        cout << "\n=== YOUR ACCOUNTS ===\n";
+    auto accounts = _getAccountsUC->execute(userId);
+    
+    // TODO: accounts trống ?
 
-        if (accounts.empty())
-            cout << "No accounts found.\n";cout << "No accounts found.\n";
-
-        for (shared_ptr<Account> acc : accounts) {
-            cout << "ID: " << acc->getId() << "\n";
-            cout << "Type: " << acc->getType() << "\n";
-            cout << "Balance: " << acc->getBalance() << "\n";
-            cout << "Status: "
-                 << (acc->isActive() ? "ACTIVE" : "CLOSED") << "\n";
-            cout << "--------------------\n";
-        }
+    for (auto& row : accounts) { 
+        tf.addRow(row); 
     }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
+
+    std::cout << tf.render() << "\n";
 }
 
 void AccountController::createAccount() {
     try {
-        string id, type, balance;
-        string userId = getCurrentUserId();
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
-        cout << "Enter account id: ";
-        getline(cin, id);
+        string typeAcc;
+        cout << "Account type (CHECKING / CREDIT / SAVING): ";
+        getline(cin, typeAcc);
 
-        cout << "Account type (SAVING / CHECKING / CREDIT): ";
-        getline(cin, type);
-
-        cout << "Initial balance: ";
-        getline(cin, balance);
-
-        shared_ptr<Account> acc = _createAccountUC->execute(
-            id, userId, balance, type
+        auto acc = _createAccountUC->execute(
+            userId, typeAcc
         );
 
         cout << "Account created successfully.\n";
@@ -59,10 +59,12 @@ void AccountController::createAccount() {
 }
 
 void AccountController::closeAccount() {
-    try {
-        string accountId;
-        string userId = getCurrentUserId();
+    try {  
+        string userId;
+        cout << "Enter user Id: ";
+        getline(cin, userId);
 
+        string accountId;
         cout << "Enter account id to close: ";
         getline(cin, accountId);
 

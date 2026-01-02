@@ -1,9 +1,10 @@
 #include "FileAccountRepository.h"
-#include "../../domain/entities/SavingAccount.h"
 #include "../../domain/entities/CheckingAccount.h"
 #include "../../domain/entities/CreditAccount.h"
+#include "../../domain/entities/SavingAccount.h"
 #include "../../domain/factories/AccountFactory.h"
 #include "../utils/FileUtils.h"
+#include "../utils/StringUtils.h"
 
 #include <filesystem>
 #include <fstream>
@@ -11,10 +12,8 @@
 #include <stdexcept>
 namespace filesystem = std::filesystem;
 
-
 FileAccountRepository::FileAccountRepository(const string& folderPath)
-    : _folder(folderPath)
-{
+    : _folder(folderPath) {
     if (!filesystem::exists(_folder)) {
         filesystem::create_directories(_folder);
     }
@@ -28,24 +27,28 @@ shared_ptr<Account> FileAccountRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);
     if (lines.empty()) return nullptr;
 
-    string accountType;
-
-    // dòng đầu là AccountType: X
-    auto pos = lines[5].find(":");
-    if (pos == string::npos) return nullptr;
-
-    accountType = lines[5].substr(pos + 2);
+    string accountType = StringUtils::normalizeString(lines[0]);
 
     auto acc = AccountFactory::instance().create(accountType);
     if (!acc) return nullptr;
 
+    lines.erase(lines.begin());
+ 
     acc->deserialize(lines);
     return acc;
 }
 
-void FileAccountRepository::save(shared_ptr<Account> acc) {
-    string path = getPath(acc->getId());
-    FileUtils::writeText(path, acc->serialize());
+void FileAccountRepository::save(shared_ptr<Account> account) {
+    string path = getPath(account->getId());
+    FileUtils::writeText(path, account->serialize());
+}
+
+bool FileAccountRepository::remove(const string& accountId) {
+    return filesystem::remove(getPath(accountId));
+}
+
+bool FileAccountRepository::exists(const string& accountId) {
+    return filesystem::exists(getPath(accountId));
 }
 
 shared_ptr<Account> FileAccountRepository::findByAccountId(const string& accountId) {
@@ -63,12 +66,4 @@ vector<shared_ptr<Account>> FileAccountRepository::findByUserId(const string& us
     }
 
     return res;
-}
-
-bool FileAccountRepository::exists(const string& accountId) {
-    return filesystem::exists(getPath(accountId));
-}
-
-bool FileAccountRepository::remove(const string& accountId) {
-    return findByAccountId(accountId) != nullptr;
 }

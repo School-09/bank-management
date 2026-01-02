@@ -1,7 +1,0 @@
-Id: 18467
-UserId: 41
-FromAccountId: 99
-ToAccountId: 45
-Amount: 50000.000000
-Type: Transfer
-CreatedAt: 2025-12-26 17:24:34

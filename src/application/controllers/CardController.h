@@ -1,5 +1,5 @@
-#ifndef _CARDCONTROLLER_H_
-#define _CARDCONTROLLER_H_
+#ifndef _CARD_CONTROLLER_H_
+#define _CARD_CONTROLLER_H_
 
 #include "../../usecase/card/CreateCardUseCase.h"
 #include "../../usecase/card/ListCardUseCase.h"
@@ -7,8 +7,8 @@
 #include "../../usecase/card/BlockCardUseCase.h"
 #include "../../usecase/card/CardPaymentUseCase.h"
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../MenuPrinter.h"
-#include "../ConsoleUI.h"
+#include "../ui/MenuPrinter.h"
+#include "../ui/ConsoleUI.h"
 
 #include <iostream>
 #include <stdexcept>

@@ -1,13 +1,12 @@
 #include "User.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
 #include <iomanip>
 #include <sstream>
+#include <regex>
 #include <map>
 #include <functional>
 
-
-static string hashPassword(const string& raw) {
+static string hashPassword(const string& raw) { // TODO: hash rồi thì ko nhớ pass để test
     const uint64_t FNV_prime = 1099511628211u;
     const uint64_t offset_basis = 1469598103934665603u;
 
@@ -45,53 +44,37 @@ string User::serialize() const {
     oss << "FullName: " << _fullName << "\n";
     oss << "Email: " << _email << "\n";
     oss << "Phone: " << _phone << "\n";
-    oss << "Status: " << (_status == Status::ACTIVE ? "Unlock" : "Lock") << "\n";
-    oss << "Role: " << getType() << "\n"; 
+    oss << "Status: " << (_status == Status::ACTIVE ? "active" : "locked") << "\n";
 
     return oss.str();
 }
 
 void User::deserialize(const vector<string>& lines) {
-    // 1. Định nghĩa các hành động (Action) cho mỗi Key
+    static const std::regex pattern(R"(^(\w+)\s*:\s*(.*)$)");
+
     std::map<string, std::function<void(const string&)>> handlers = {
-        {"Id", [this](const string& val) { 
-            _id = val; 
-        }},
-        {"Username", [this](const string& val) { 
-            _username = val; 
-        }},
-        {"PasswordHash", [this](const string& val) { 
-            _passwordHash = val; 
-        }},
-        {"FullName", [this](const string& val) { 
-            _fullName = val; 
-        }},
-        {"Email", [this](const string& val) { 
-            _email = val; 
-        }},
-        {"Phone", [this](const string& val) { 
-            _phone = val; 
-        }},
-        {"Status", [this](const string& val) { 
-            if (val == "Unlock") _status = Status::ACTIVE;
-            else _status = Status::LOCKED; 
-        }},
-        {"Role", [this](const string& val) { 
-            if (val == "Customer") _role = Role::CUSTOMER;
-            else _role = Role::ADMIN; // Giả sử chỉ có 2 loại
+        {"Id", [this](const string& v) { _id = v; }},
+        {"Username", [this](const string& v) { _username = v; }},
+        {"PasswordHash", [this](const string& v) { _passwordHash = v; }},
+        {"FullName", [this](const string& v) { _fullName = v; }},
+        {"Email", [this](const string& v) { _email = v; }},
+        {"Phone", [this](const string& v) { _phone = v; }},
+        {"Status", [this](const string& v) {
+            _status = (v == "active") ? Status::ACTIVE : Status::LOCKED;
         }}
     };
 
-    // 2. Lặp qua các dòng và xử lý
     for (const string& line : lines) {
-        string key, val;
-        if (!FileUtils::extract_key_value(line, key, val)) continue;
+        std::smatch match;
+        if (!std::regex_match(line, match, pattern))
+            continue;
 
-        // Tìm key trong map và thực thi handler tương ứng
+        const string& key = match[1];
+        const string& value = match[2];
+
         auto it = handlers.find(key);
         if (it != handlers.end()) {
-            it->second(val); // Gọi hàm xử lý (handler)
+            it->second(value);
         }
-        // else: bỏ qua các key không hợp lệ
     }
 }

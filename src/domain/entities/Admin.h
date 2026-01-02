@@ -3,31 +3,26 @@
 
 #include "User.h"
 
-
 class Admin : public User {
 public:
     Admin() = default;
     ~Admin() override = default;
 
     Admin(const string& id,
-         const string& username,
-         const string& passwordHash,
-         const string& fullName,
-         const string& email,
-         const string& phone,
-         Status status,
-         Role role)
-        : User(id, username, passwordHash, fullName, email, phone, status, Role::ADMIN)
-    {}
+          const string& username,
+          const string& passwordHash,
+          const string& fullName,
+          const string& email,
+          const string& phone,
+          Status status
+    ) : User(id, username, passwordHash, fullName, email, phone, status) {}
 
-    string getType() const override {
-        return "Admin";
-    }
+public: // Visitor Pattern
+    void accept(UserVisitor& visitor) override;
 
+public:
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
-
-    string toString() const override { return "Admin"; };
 };
 
 #endif

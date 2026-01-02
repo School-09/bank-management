@@ -11,7 +11,7 @@ void AuthController::registerAction() {
     string password = ConsoleUI::inputString("Enter password: ");
 
     try {
-        shared_ptr<User> user = _registerUC->execute(username, password, fullName, email, phone, "Customer");
+        shared_ptr<User> user = _registerUC->execute(username, password, fullName, email, phone);
         ConsoleUI::showMessage("Register success. User ID: " + user->getId());
     }
     catch (exception& ex) {
@@ -22,14 +22,14 @@ void AuthController::registerAction() {
 // ===============================
 // LOGIN
 // ===============================
-void AuthController::loginAction() {  // TODO nên trả về bool
+void AuthController::loginAction() {
     string username = ConsoleUI::inputString("Enter username: ");
     string password = ConsoleUI::inputString("Enter password: ");
 
     try {
-        currentSession = _loginUC->login(username, password);
+        _currentSession = _loginUC->login(username, password);
         isLoggedIn = true;
-        ConsoleUI::showMessage("Login success! Session ID: " + currentSession.getSessionId());
+        ConsoleUI::showMessage("Login success! Session ID: " + _currentSession.getSessionId());
     }
     catch (exception& ex) {
         ConsoleUI::showError(ex.what());
@@ -45,7 +45,7 @@ void AuthController::logoutAction() {
         return;
     }
 
-    _logoutUC->execute(currentSession.getSessionId());
+    _logoutUC->execute(_currentSession.getSessionId());
     isLoggedIn = false;
     ConsoleUI::showMessage("Logged out successfully.");
 }

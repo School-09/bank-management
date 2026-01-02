@@ -1,40 +1,25 @@
 #include "CreateAccountUseCase.h"
-#include "../../domain/entities/SavingAccount.h"
-#include "../../domain/entities/CheckingAccount.h"
-#include "../../domain/entities/CreditAccount.h"
+#include "../../domain/factories/AccountFactory.h"
+#include "../../infrastructure/utils/StringUtils.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
-
-shared_ptr<Account> CreateAccountUseCase::execute(
-    const string& id,
+shared_ptr<Account> CreateAccountUseCase::execute( 
     const string& userId,
-    const string& balance,
-    const string& type
+    const string& typeAcc
 ) {
-    if (_repo->exists(id))
-        throw std::runtime_error("Account already exists");
+    // TODO: đếm số acc đã tạo, giới hạn 10 acc chp 1 user
 
-    shared_ptr<Account> acc = nullptr;
+    string type = StringUtils::normalizeString(typeAcc);
+    auto acc = AccountFactory::instance().create(type);
 
-    if (type == "SAVING") {
-        acc = make_shared<SavingAccount> (SavingAccount());
-    } 
-    else if (type == "CHECKING") {
-        acc = make_shared<CheckingAccount> (CheckingAccount());
-    }
-    else if (type == "CREDIT") {
-        acc = make_shared<CreditAccount> (CreditAccount());
-    } 
-    else {
-        throw std::runtime_error("Invalid account type");
-    }
-
-    acc->setId(id);
+    acc->setId(std::to_string(std::rand()));
     acc->setUserId(userId);
-    acc->setBalance(stod(balance));
-    acc->setCreatedAt(TimeUtil::toString(time(nullptr)));
+    acc->setCreatedAt(TimeUtils::toString(time(nullptr)));
 
-    _repo->save(acc);
+    CreateAccountVisitor visitor;
+    acc->accept(visitor);
+
+    _accountRepo->save(acc);
 
     return acc;
 }

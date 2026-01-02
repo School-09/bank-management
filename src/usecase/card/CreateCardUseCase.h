@@ -1,9 +1,8 @@
-#ifndef _CREATECARDUSECASE_H_
-#define _CREATECARDUSECASE_H_
+#ifndef _CREATE_CARD_USECASE_H_
+#define _CREATE_CARD_USECASE_H_
 
 #include "../../domain/repositories/ICardRepository.h"
 #include "../../domain/repositories/IAccountRepository.h"
-
 
 class CreateCardUseCase {
 private:
@@ -16,10 +15,10 @@ public:
         shared_ptr<IAccountRepository> accountRepo
     ) : _cardRepo(cardRepo), _accountRepo(accountRepo) {}
 
-    void execute(
+    shared_ptr<Card> execute(
         const string& userId,
         const string& accountId,
-        const string& type
+        const string& typeCard
     );
 
 public:

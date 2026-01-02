@@ -10,24 +10,18 @@ using std::string;
 using std::vector;
 using std::shared_ptr, std::make_shared;
 
-
 class IResetPasswordRepository {
 public:
     virtual ~IResetPasswordRepository() = default;
 
 public:
-    // Create / Update
     virtual void save(const ResetPasswordToken& token) = 0;
-
-    // Read
-    virtual ResetPasswordToken findById(const string& tokenId) = 0;
-    virtual vector<ResetPasswordToken> findByUserId(const string& userId) = 0;
-
-    // Delete
     virtual bool remove(const string& tokenId) = 0;
-
-    // Utilities
     virtual bool exists(const string& tokenId) = 0;
+
+    virtual ResetPasswordToken findByTokenId(const string& tokenId) = 0;
+    virtual vector<ResetPasswordToken> findByUserId(const string& userId) = 0;
+    
 };
 
 #endif

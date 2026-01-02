@@ -1,28 +1,26 @@
-#ifndef _CREATEACCOUNTUSECASE_H_
-#define _CREATEACCOUNTUSECASE_H_
+#ifndef _CREATE_ACCOUNT_USECASE_H_
+#define _CREATE_ACCOUNT_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
+#include "visitors/CreateAccountVisitor.h"
 
 #include <stdexcept>
 #include <ctime>
 #include <memory>
 using std::shared_ptr, std::make_shared;
 
-
 class CreateAccountUseCase {
 private:
-    shared_ptr<IAccountRepository> _repo;
+    shared_ptr<IAccountRepository> _accountRepo;
 
 public:
     CreateAccountUseCase(shared_ptr<IAccountRepository> accountRepo) 
-        : _repo(accountRepo) {}
+        : _accountRepo(accountRepo) {}
 
 public:
     shared_ptr<Account> execute(
-        const string& id,
         const string& userId,
-        const string& balance,
-        const string& type
+        const string& typeAcc
     );
 
 public:

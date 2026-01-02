@@ -4,7 +4,6 @@
 #include "Factory.h"
 #include "../entities/Card.h"
 
-
 using CardFactory = Factory<Card>;
 
 #endif

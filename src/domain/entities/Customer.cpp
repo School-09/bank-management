@@ -1,14 +1,18 @@
 #include "Customer.h"
-#include "../../infrastructure/utils/FileUtils.h"
 
 #include <sstream>
+#include <regex>
 #include <map>
 #include <functional>
 
+void Customer::accept(UserVisitor& visitor) { 
+    visitor.visit(*this); 
+}
 
 string Customer::serialize() const {
     std::ostringstream oss;
 
+    oss << "Customer\n";
     oss << User::serialize();
 
     return oss.str();

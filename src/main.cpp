@@ -45,6 +45,7 @@ namespace filesystem = std::filesystem;
 #include "application/controllers/AccountController.h"
 #include "application/controllers/TransactionController.h"
 #include "application/controllers/CardController.h"
+#include "application/ui/ConsoleUI.h"
 
 
 #include "domain/factories/UserFactoryBootstrap.h"
@@ -94,7 +95,7 @@ int main() {
    auto listCardUseCase   = make_shared<ListCardUseCase>(cardRepo);
    auto deleteCardUseCase = make_shared<DeleteCardUseCase>(cardRepo, accountRepo);
    auto blockCardUseCase  = make_shared<BlockCardUseCase>(cardRepo, accountRepo);
-   auto cardPaymentUseCase = make_shared<CardPaymentUseCase>(cardRepo, accountRepo, transactionRepo); // add notificatonRepo
+   auto cardPaymentUseCase = make_shared<CardPaymentUseCase>(cardRepo, accountRepo, transactionRepo, notificationRepo);
 
    /* =========================
       CONTROLLER
@@ -137,14 +138,14 @@ int main() {
    registerAccountTypes();
    registerCardTypes();
 
+   ConsoleUI::intro("======= Bank system ========");
+
    /* =========================
       RUN TEST
       ========================= */
-   menuController->runAuthMenu();
+   menuController->run();
 
-   cout << "\nProgram is exiting. Please type ENTER to exit...";
-   cin.get();
-
+   ConsoleUI::outro();
    cout << "\n=== EXIT PROGRAM ===\n";
 
    return 0;

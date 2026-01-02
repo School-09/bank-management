@@ -4,7 +4,6 @@
 #include "Factory.h"
 #include "../entities/Account.h"
 
-
 using AccountFactory = Factory<Account>;
 
 #endif

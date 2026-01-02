@@ -1,5 +1,5 @@
-#ifndef _TRANSFERUSECASE_H_
-#define _TRANSFERUSECASE_H_
+#ifndef _TRANSFER_USECASE_H_
+#define _TRANSFER_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ITransactionRepository.h"
@@ -9,7 +9,6 @@
 #include <exception>
 #include <memory>
 using std::shared_ptr, std::make_shared;
-
 
 class TransferUseCase {
 private:
@@ -29,9 +28,9 @@ public:
 public:
     void execute(
         const string& userId,
-        const string& fromId,
-        const string& toId,
-        double amount
+        const string& fromAccountId,
+        const string& toAccountId,
+        int amount
     );
 
 public:

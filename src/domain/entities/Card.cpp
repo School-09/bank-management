@@ -1,39 +1,25 @@
 #include "Card.h"
-#include "../../infrastructure/utils/FileUtils.h"
+#include "../../infrastructure/utils/TimeUtils.h"
 
 #include <ctime>
 #include <cstdlib>
-#include <iomanip>
+#include <regex>
 #include <sstream>
 #include <map>
 #include <functional>
 
-
-static std::string genId(const std::string& prefix) {
-    return prefix + "_" + std::to_string(std::rand());
-}
-
 static std::string genCardNumber() {
-    return "9704-" + std::to_string(1000 + std::rand() % 9000) +
+    return "24CTT1-" + std::to_string(1000 + std::rand() % 9000) +
            "-" + std::to_string(1000 + std::rand() % 9000) +
            "-" + std::to_string(1000 + std::rand() % 9000);
 }
 
-static std::string genCVV() {
-    return std::to_string(100 + std::rand() % 900);
-}
-
-static std::string genExpiredAt() {
-    return "12/29"; // demo
-}
-
-Card::Card() {
-    _id = genId("card");
-    _cardNumber = genCardNumber();
-    _cvv = genCVV();
-    _expiredAt = genExpiredAt();
-    _blocked = false;
-}
+Card::Card(
+) : _id(std::to_string(std::rand())),
+    _cardNumber(genCardNumber()),
+    _createdAt(TimeUtils::toString(time(nullptr))),
+    _expiredAt(TimeUtils::toString(time(nullptr) + 315360000)), // 10 năm
+    _status(Status::ACTIVE) {}
 
 string Card::serialize() const {
     std::ostringstream oss;
@@ -43,48 +29,36 @@ string Card::serialize() const {
     oss << "AccountId: " << _accountId << "\n";
     oss << "CardNumber: " << _cardNumber << "\n";
     oss << "ExpiredAt: " << _expiredAt << "\n";
-    oss << "CVV: " << _cvv << "\n";
-    oss << "Blocked: " << (_blocked ? "true" : "false") << "\n";
+    oss << "Status: " << (_status == Status::ACTIVE ? "active" : "locked") << "\n";
 
     return oss.str();
 }
 
 void Card::deserialize(const vector<string>& lines) {
-    // 1. Định nghĩa các hành động (Action) cho mỗi Key
+    static const std::regex pattern(R"(^(\w+)\s*:\s*(.*)$)");
+
     std::map<string, std::function<void(const string&)>> handlers = {
-        {"Id", [this](const string& val) { 
-            _id = val; 
-        }},
-        {"UserId", [this](const string& val) { 
-            _userId = val; 
-        }},
-        {"AccountId", [this](const string& val) { 
-            _accountId = val; 
-        }},
-        {"CardNumber", [this](const string& val) { 
-            _cardNumber = val; 
-        }},
-        {"ExpiredAt", [this](const string& val) { 
-            _expiredAt = val; 
-        }},
-        {"CVV", [this](const string& val) { 
-            _cvv = val;
-        }},
-        {"Blocked", [this](const string& val) { 
-            (val == "true" ? _blocked = 1 : 0);
+        {"Id", [this](const string& val) { _id = val; }},
+        {"UserId", [this](const string& val) { _userId = val; }},
+        {"AccountId", [this](const string& val) { _accountId = val; }},
+        {"CardNumber", [this](const string& val) { _cardNumber = val; }},
+        {"ExpiredAt", [this](const string& val) { _expiredAt = val; }},
+        {"Status", [this](const string& v) { 
+            _status = (v == "active") ? Status::ACTIVE : Status::LOCKED; 
         }}
     };
 
-    // 2. Lặp qua các dòng và xử lý
     for (const string& line : lines) {
-        string key, val;
-        if (!FileUtils::extract_key_value(line, key, val)) continue;
+        std::smatch match;
+        if (!std::regex_match(line, match, pattern))
+            continue;
 
-        // Tìm key trong map và thực thi handler tương ứng
+        const string& key = match[1];
+        const string& value = match[2];
+
         auto it = handlers.find(key);
         if (it != handlers.end()) {
-            it->second(val); // Gọi hàm xử lý (handler)
+            it->second(value);
         }
-        // else: bỏ qua các key không hợp lệ
     }
 }

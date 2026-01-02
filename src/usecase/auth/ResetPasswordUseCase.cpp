@@ -1,7 +1,6 @@
 #include "ResetPasswordUseCase.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
-
 // STEP 1: User yêu cầu reset mật khẩu
 ResetPasswordToken ResetPasswordUseCase::requestToken(const string& email) {
     shared_ptr<User> user = _userRepo->findByEmail(email);
@@ -14,8 +13,8 @@ ResetPasswordToken ResetPasswordUseCase::requestToken(const string& email) {
     ResetPasswordToken token;
     token.setTokenId(std::to_string(rand())); // TODO sinh id
     token.setUserId(user->getId());
-    token.setCreatedAt(TimeUtil::toString(now));
-    token.setExpiredAt(TimeUtil::toString(expired));
+    token.setCreatedAt(TimeUtils::toString(now));
+    token.setExpiredAt(TimeUtils::toString(expired));
 
     _tokenRepo->save(token);
     return token;
@@ -23,7 +22,7 @@ ResetPasswordToken ResetPasswordUseCase::requestToken(const string& email) {
 
 // STEP 2: User nhập token để đổi mật khẩu
 void ResetPasswordUseCase::resetPassword(const string& tokenId, const string& newPassword) {
-    ResetPasswordToken token = _tokenRepo->findById(tokenId);
+    ResetPasswordToken token = _tokenRepo->findByTokenId(tokenId);
 
     if (token.getTokenId().empty())
         throw std::runtime_error("Invalid token.");

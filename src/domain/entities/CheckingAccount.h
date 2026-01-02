@@ -3,33 +3,31 @@
 
 #include "Account.h"
 
-
-// --- Tài khoản Thanh toán (Dùng thường xuyên) ---
 class CheckingAccount : public Account {
 private:
-    double _overdraftLimit; // Hạn mức rút tiền (âm)
+    int _balance; // số dư
 
 public:
-    CheckingAccount() : _overdraftLimit(0) {}
+    CheckingAccount() = default;
     ~CheckingAccount() override = default;
 
-public:
-    void setOverdraftLimit(double limit) { _overdraftLimit = limit; }
-    double getOverdraftLimit() const { return _overdraftLimit; }
-
-    string getType() const override {
-        return "CheckingAccount";
-    }
+public: // Visitor Pattern
+    void accept(AccountVisitor& visitor) override;
 
 public:
-    bool canWithdraw(double amount) const override {
-        return _active && (_balance + _overdraftLimit) >= amount;
+    bool canWithdraw(int amount) override {
+        return _status == Status::ACTIVE && _balance - 50000 >= amount;
     }
+
+    void deposit(int amount) override;
+    void withdraw(int amount) override;
 
     string serialize() const override;
     void deserialize(const vector<string>& lines) override;
 
-    string toString() const override { return "Checking Account"; };
+public:
+    int getBalance() const { return _balance; }
+    void setBalance(int balance) { _balance = balance; }
 };
 
 #endif

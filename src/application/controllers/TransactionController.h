@@ -1,12 +1,12 @@
-#ifndef _TRANSACTIONCONTROLLER_H_
-#define _TRANSACTIONCONTROLLER_H_
+#ifndef _TRANSACTION_CONTROLLER_H_
+#define _TRANSACTION_CONTROLLER_H_
 
 #include "../../usecase/transaction/DepositUseCase.h"
 #include "../../usecase/transaction/WithdrawUseCase.h"
 #include "../../usecase/transaction/TransferUseCase.h"
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../MenuPrinter.h"
-#include "../ConsoleUI.h"
+#include "../ui/MenuPrinter.h"
+#include "../ui/ConsoleUI.h"
 
 #include <iostream>
 #include <stdexcept>

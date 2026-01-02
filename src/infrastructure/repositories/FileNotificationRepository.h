@@ -1,11 +1,10 @@
-#ifndef _FILENOTIFICATIONREPOSITORY_H_
-#define _FILENOTIFICATIONREPOSITORY_H_
+#ifndef _FILE_NOTIFICATION_REPOSITORY_H_
+#define _FILE_NOTIFICATION_REPOSITORY_H_
 
 #include "../../domain/repositories/INotificationRepository.h"
 
 #include <memory>
 using std::shared_ptr, std::make_shared;
-
 
 class FileNotificationRepository : public INotificationRepository {
 private:
@@ -18,8 +17,10 @@ private:
 public:
     FileNotificationRepository(const string& folder);
 
+public:
     void save(shared_ptr<Notification> nf) override;
     vector<shared_ptr<Notification>> findByUserId(const string& userId) override;
+
 };
 
 #endif
