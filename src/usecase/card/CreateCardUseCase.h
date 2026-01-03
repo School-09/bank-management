@@ -18,7 +18,8 @@ public:
     shared_ptr<Card> execute(
         const string& userId,
         const string& accountId,
-        const string& typeCard
+        const string& typeCard,
+        const string& inf
     );
 
 public:

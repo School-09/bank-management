@@ -1,23 +1,19 @@
 #include "Notification.h"
 #include "../../infrastructure/utils/TimeUtils.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <sstream>
 #include <regex>
 #include <map>
 #include <functional>
 
-shared_ptr<Notification> Notification::create(
-    const string& userId,
-    const string& message
-) {
-    auto nf = std::make_shared<Notification>();
-    nf->_id = std::to_string(std::rand()); // TODO: sinh id
-    nf->_userId = userId;
-    nf->_message = message;
-    nf->_createdAt = TimeUtils::toString(time(nullptr));
-    nf->_read = false;
-    return nf;
-}
+Notification::Notification(
+    string userId, string message
+) : _id(IdUtils::newNotificationId()),
+    _userId(userId),
+    _message(message),
+    _createdAt(TimeUtils::toString(time(nullptr))),
+    _read(false) {}
 
 string Notification::serialize() const {
     std::ostringstream oss;

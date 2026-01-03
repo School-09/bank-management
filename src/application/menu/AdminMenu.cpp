@@ -36,6 +36,9 @@ void AdminMenu::runAccountMenu() {
         if (option == AdminAccountMenuOption::CREATE_ACCOUNT) {
             _accountController->createAccount();
         }
+        else if (option == AdminAccountMenuOption::OPEN_ACCOUNT) {
+            _accountController->openAccount();
+        }
         else if (option == AdminAccountMenuOption::CLOSE_ACCOUNT) {
             _accountController->closeAccount();
         }

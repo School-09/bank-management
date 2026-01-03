@@ -1,12 +1,15 @@
 #include "DepositUseCase.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Deposit.h"
-#include "../../domain/factories/TransactionFactory.h"
+#include "../../domain/entities/transactions/Transaction.h"
+#include "../../domain/entities/transactions/Deposit.h"
+#include "../../domain/factories/BaseFactory.h"
+
+#include <memory>
 
 void DepositUseCase::execute(
     const string& userId,
     const string& toAccountId,
-    int amount
+    int amount,
+    const string& inf
 ) {
     if (amount <= 0)
         throw std::runtime_error("Invalid amount");
@@ -21,17 +24,12 @@ void DepositUseCase::execute(
     acc->deposit(amount);
     _accountRepo->save(acc);
 
-    auto t = TransactionFactory::instance().create("deposit");
-    auto tx = dynamic_pointer_cast<Deposit> (t);
-
-    tx->setUserId(userId);
-    tx->setAmount(amount);
-    tx->setToAccount(toAccountId);
+    auto tx = BaseFactory<Transaction>::instance().create("deposit", inf);
 
     _txRepo->save(tx);
 
     _notifyRepo->save(
-        Notification::create(
+        std::make_shared<Notification>(
             userId,
             "Deposit " + std::to_string(amount) + " successfully"
         )

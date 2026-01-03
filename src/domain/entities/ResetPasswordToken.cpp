@@ -1,4 +1,6 @@
 #include "ResetPasswordToken.h"
+#include "../../infrastructure/utils/TimeUtils.h"
+#include "../../infrastructure/utils/IdUtils.h"
 
 #include <ctime>
 #include <sstream>
@@ -6,6 +8,14 @@
 #include <map>
 #include <functional>
 #include <filesystem>
+
+ResetPasswordToken::ResetPasswordToken(
+    string userId
+) : _tokenId(IdUtils::newTokenId()),
+    _userId(userId),
+    _createdAt(TimeUtils::toString(time(nullptr))),
+    _expiredAt(TimeUtils::toString(time(nullptr) + 360)),
+    _used(false) {}
 
 bool ResetPasswordToken::isExpired() const {
     if (_expiredAt.empty()) return true;

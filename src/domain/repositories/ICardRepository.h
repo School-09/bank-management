@@ -1,7 +1,7 @@
 #ifndef _I_CARD_REPOSITORY_H_
 #define _I_CARD_REPOSITORY_H_
 
-#include "../entities/Card.h"
+#include "../entities/cards/Card.h"
 
 #include <memory>
 using std::shared_ptr, std::make_shared;
@@ -17,6 +17,7 @@ public:
 
     virtual shared_ptr<Card> findByCardId(const string& id) = 0;
     virtual vector<shared_ptr<Card>> findByUserId(const string& userId) = 0;
+    virtual vector<shared_ptr<Card>> findByAccountId(const string& accountId) = 0;
     
 };
 

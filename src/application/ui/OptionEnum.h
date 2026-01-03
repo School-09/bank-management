@@ -22,8 +22,9 @@ enum class AdminMenuOption {
 
 enum class AdminAccountMenuOption {
     CREATE_ACCOUNT = 1,
-    CLOSE_ACCOUNT = 2,
-    LOGOUT = 3,
+    OPEN_ACCOUNT = 2,
+    CLOSE_ACCOUNT = 3,
+    LOGOUT = 4,
     BACK = 0
 };
 

@@ -1,5 +1,0 @@
-TokenId: 6334
-UserId: 41
-CreatedAt: 2025-12-23 00:13:43
-ExpiredAt: 2025-12-23 00:23:43
-Used: true

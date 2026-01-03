@@ -2,27 +2,37 @@
 
 void CloseAccountUseCase::execute(
     const string& accountId,
-    const string& userId
+    const string& userId,
+    bool close
 ) {
-    if (!_accountRepo->exists(accountId))
-        throw std::runtime_error("Account not found");
+    auto account = _accountRepo->findByAccountId(accountId);
+    if (!account)
+        throw std::runtime_error("account not found");
 
-   auto accounts = _accountRepo->findByUserId(userId);
+    if (account->getUserId() != userId)
+        throw std::runtime_error("Permission denied");
 
-    shared_ptr<Account> target = nullptr;
+    if (close) {
+        // Đóng account
+        account->deActivate();
 
-    for (auto acc : accounts) { // TODO: tìm kiếm tuần tự, có thể cải tiến bằng binary_search (yêu cầu id phải tăng dần)
-        if (acc->getId() == accountId) {
-            target = acc;
-            break;
+        // Đóng card liên quan
+        auto cards = _cardRepo->findByAccountId(accountId);
+        for (auto card : cards) {
+            card->lock();
+            _cardRepo->save(card);
+        }
+    } else {
+        // Mở account
+        account->activate();
+
+        // Mở card liên quan
+        auto cards = _cardRepo->findByAccountId(accountId);
+        for (auto card : cards) {
+            card->unlock();
+            _cardRepo->save(card);
         }
     }
     
-    if (!target) {
-        throw std::runtime_error("Account not found or permission denied");
-    }
-
-    // 4. Đóng account
-    target->deActivate();
-    _accountRepo->save(target);
+    _accountRepo->save(account);
 }

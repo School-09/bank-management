@@ -1,7 +1,7 @@
 #ifndef _ITRANSACTIONREPOSITORY_H_
 #define _ITRANSACTIONREPOSITORY_H_
 
-#include "../entities/Transaction.h"
+#include "../entities/transactions/Transaction.h"
 
 #include <string>
 #include <vector>

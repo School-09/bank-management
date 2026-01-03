@@ -1,12 +1,13 @@
 #include "WithdrawUseCase.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Withdraw.h"
-#include "../../domain/factories/TransactionFactory.h"
+#include "../../domain/entities/transactions/Transaction.h"
+#include "../../domain/entities/transactions/Withdraw.h"
+#include "../../domain/factories/BaseFactory.h"
 
 void WithdrawUseCase::execute(
     const string& userId,
     const string& fromAccountId,
-    int amount
+    int amount,
+    const string& inf
 ) {
     if (amount <= 0)
         throw std::runtime_error("Invalid amount");
@@ -24,17 +25,12 @@ void WithdrawUseCase::execute(
     acc->withdraw(amount);
     _accountRepo->save(acc);
 
-    auto t = TransactionFactory::instance().create("withdraw");
-    auto tx = dynamic_pointer_cast<Withdraw> (t);
-
-    tx->setUserId(userId);
-    tx->setAmount(amount);
-    tx->setFromAccount(fromAccountId);
+    auto tx = BaseFactory<Transaction>::instance().create("withdraw", inf);
 
     _txRepo->save(tx);
 
     _notifyRepo->save(
-        Notification::create(
+        std::make_shared<Notification>(
             userId,
             "Withdraw " + std::to_string(amount) + " successfully"
         )

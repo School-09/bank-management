@@ -1,4 +1,5 @@
 #include "TransactionController.h"
+#include "../../infrastructure/utils/StringUtils.h"
 
 string TransactionController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -8,66 +9,87 @@ string TransactionController::getCurrentUserId() const {
 }
 
 void TransactionController::deposit() {
+    std::vector<std::string> userInputs;
+
     string userId = getCurrentUserId();
+    userInputs.push_back(userId);
 
-    string accId;
-    double amount;
+    string toAccId;
+    cout << "To Account ID: ";
+    getline(cin, toAccId);
+    userInputs.push_back(toAccId);
 
-    cout << "Account ID: ";
-    getline(cin, accId);
-
+    string amount;
     cout << "Amount: ";
     cin >> amount;
+    userInputs.push_back(amount);
+
+    std::string finalInf = StringUtils::join(userInputs);
 
     cin.ignore();
 
     _depositUC->execute(
         userId,
-        accId,
-        amount
+        toAccId,
+        stoi(amount),
+        finalInf
     );
 
     cout << "Deposit successful\n";
 }
 
 void TransactionController::withdraw() {
+    std::vector<std::string> userInputs;
+
     string userId = getCurrentUserId();
+    userInputs.push_back(userId);
 
-    string accId;
-    double amount;
-
+    string fromAccId;
     cout << "Account ID: ";
-    getline(cin, accId);
+    getline(cin, fromAccId);
+    userInputs.push_back(fromAccId);
 
+    string amount;
     cout << "Amount: ";
     cin >> amount;
+    userInputs.push_back(amount);
+
+    std::string finalInf = StringUtils::join(userInputs);
 
     cin.ignore();
 
     _withdrawUC->execute(
-        userId, 
-        accId,
-        amount
+        userId,
+        fromAccId,
+        stoi(amount),
+        finalInf
     );
 
     cout << "Withdraw successful\n";
 }
 
 void TransactionController::transfer() {
+    std::vector<std::string> userInputs;
+
     string userId = getCurrentUserId();
+    userInputs.push_back(userId);
 
     string fromAccId;
-    string toAccId;
-    double amount;
-
     cout << "From account ID: ";
     getline(cin, fromAccId);
+    userInputs.push_back(fromAccId);
 
+    string toAccId;
     cout << "To account ID: ";
     getline(cin, toAccId);
+    userInputs.push_back(toAccId);
 
+    string amount;
     cout << "Amount: ";
     cin >> amount;
+    userInputs.push_back(amount);
+
+    std::string finalInf = StringUtils::join(userInputs);
 
     cin.ignore();
 
@@ -75,7 +97,8 @@ void TransactionController::transfer() {
         userId,
         fromAccId,
         toAccId,
-        amount
+        stoi(amount),
+        finalInf
     );
 
     cout << "Transfer successful\n";

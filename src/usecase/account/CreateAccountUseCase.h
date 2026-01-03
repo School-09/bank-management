@@ -2,7 +2,6 @@
 #define _CREATE_ACCOUNT_USECASE_H_
 
 #include "../../domain/repositories/IAccountRepository.h"
-#include "visitors/CreateAccountVisitor.h"
 
 #include <stdexcept>
 #include <ctime>
@@ -20,7 +19,8 @@ public:
 public:
     shared_ptr<Account> execute(
         const string& userId,
-        const string& typeAcc
+        const string& typeAcc,
+        const string& inf
     );
 
 public:

@@ -1,17 +1,45 @@
 #include "AuthController.h"
+#include "../../domain/factories/BaseFactory.h"
+#include "../../infrastructure/utils/StringUtils.h"
+#include "../../domain/entities/users/User.h"
 
 // ===============================
 // REGISTER
 // ===============================
 void AuthController::registerAction() {
-    string username = ConsoleUI::inputString("Enter username: ");
-    string email = ConsoleUI::inputString("Enter email: ");
-    string fullName = ConsoleUI::inputString("Enter full name: ");
-    string phone = ConsoleUI::inputString("Enter phone: ");
-    string password = ConsoleUI::inputString("Enter password: ");
-
     try {
-        shared_ptr<User> user = _registerUC->execute(username, password, fullName, email, phone);
+        // 1. Lấy Factory của User (Tự động instance singleton)
+        auto& factory = BaseFactory<User>::instance();
+
+        // 2. Lấy danh sách fields cần nhập
+        std::vector<std::string> fields = factory.getFields("customer");
+        std::vector<std::string> userInputs;
+
+        std::string email;
+        std::cout << "Enter email: ";
+        std::getline(std::cin, email);
+        userInputs.push_back(email);
+
+        std::string username;
+        std::cout << "Enter username: ";
+        std::getline(std::cin, username);
+        userInputs.push_back(username);
+
+        // 3. Loop nhập liệu
+        std::cin.ignore(); 
+        for (const auto& field : fields) {
+            std::string val;
+            std::cout << "Enter " << field << ": ";
+            std::getline(std::cin, val);
+            userInputs.push_back(val);
+        }
+
+        // 4. Dùng Utils ghép chuỗi (Xử lý trước khi gửi đi)
+        std::string finalInf = StringUtils::join(userInputs);
+
+        // 5. Gửi cho Usecase
+        auto user = _registerUC->execute(username, email, finalInf);
+
         ConsoleUI::showMessage("Register success. User ID: " + user->getId());
     }
     catch (exception& ex) {

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\bank-management\build\CMakeFiles\9e2b27abf608c9fc97445205fa7ec16e\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F2BBB4DA-5E9E-360B-98DD-26BDFAA0D5EE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -7,16 +7,10 @@ ResetPasswordToken ResetPasswordUseCase::requestToken(const string& email) {
     if (!user)
         throw std::runtime_error("User email not found.");
 
-    time_t now = time(nullptr);
-    time_t expired = now + 600;
-
-    ResetPasswordToken token;
-    token.setTokenId(std::to_string(rand())); // TODO sinh id
-    token.setUserId(user->getId());
-    token.setCreatedAt(TimeUtils::toString(now));
-    token.setExpiredAt(TimeUtils::toString(expired));
+    ResetPasswordToken token(user->getId());
 
     _tokenRepo->save(token);
+
     return token;
 }
 

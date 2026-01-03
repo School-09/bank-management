@@ -1,7 +1,7 @@
 #ifndef I_USER_REPOSITORY_H_
 #define I_USER_REPOSITORY_H_
 
-#include "../entities/User.h"
+#include "../entities/users/User.h"
 
 #include <string>
 #include <vector>

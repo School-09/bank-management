@@ -1,12 +1,11 @@
 #include "RegisterUseCase.h"
-#include "../../domain/entities/Customer.h"
+#include "../../domain/entities/users/Customer.h"
+#include "../../domain/factories/BaseFactory.h"
 
-shared_ptr<User>RegisterUseCase::execute(
+shared_ptr<User> RegisterUseCase::execute(
     const string& username,
-    const string& password,
-    const string& fullName,
     const string& email,
-    const string& phone
+    const string& inf
 ) {
     // 1. Validate unique
     if (_userRepo->existsByUsername(username))
@@ -15,16 +14,7 @@ shared_ptr<User>RegisterUseCase::execute(
     if (_userRepo->existsByEmail(email))
         throw std::runtime_error("Email already registered.");
 
-
-    auto user = make_shared<Customer>(); // mặc định chỉ đăng ký được customer
-
-    user->setId(std::to_string(std::rand())); // TODO: sinh id
-    user->setUsername(username);
-    user->setEmail(email);
-    user->setFullName(fullName);
-    user->setPhone(phone);
-
-    user->setPassword(password);
+    auto user = BaseFactory<User>::instance().create("customer", inf);
 
     _userRepo->save(user);
 

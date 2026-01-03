@@ -1,6 +1,6 @@
 #include "DeleteCardUseCase.h"
-#include "../../domain/entities/CreditCard.h"
-#include "../../domain/entities/CreditAccount.h"
+#include "../../domain/entities/cards/CreditCard.h"
+#include "../../domain/entities/accounts/CreditAccount.h"
 
 #include <stdexcept>
 

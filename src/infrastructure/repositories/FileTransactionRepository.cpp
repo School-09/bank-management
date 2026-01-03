@@ -1,8 +1,8 @@
 #include "FileTransactionRepository.h"
-#include "../../domain/entities/Deposit.h"
-#include "../../domain/entities/Withdraw.h"
-#include "../../domain/entities/Transfer.h"
-#include "../../domain/factories/TransactionFactory.h"
+#include "../../domain/entities/transactions/Deposit.h"
+#include "../../domain/entities/transactions/Withdraw.h"
+#include "../../domain/entities/transactions/Transfer.h"
+#include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
@@ -19,7 +19,7 @@ FileTransactionRepository::FileTransactionRepository(const string& folderPath)
 }
 
 string FileTransactionRepository::getPath(const string& id) const {
-    return _folder + "/T" + id + ".txt";
+    return _folder +  "/" + id + ".txt";
 }
 
 shared_ptr<Transaction> FileTransactionRepository::loadFromFile(const string& path) {
@@ -28,7 +28,7 @@ shared_ptr<Transaction> FileTransactionRepository::loadFromFile(const string& pa
 
     string transactionType = StringUtils::normalizeString(lines[0]);
 
-    auto trans = TransactionFactory::instance().create(transactionType);
+    auto trans = BaseFactory<Transaction>::instance().create(transactionType, "");
     if (!trans) return nullptr;
 
     lines.erase(lines.begin());

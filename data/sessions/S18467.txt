@@ -1,4 +1,0 @@
-SessionId: 18467
-UserId: 41
-CreatedAt: 2026-01-02 10:19:11
-ExpiredAt: 2026-01-02 11:19:11

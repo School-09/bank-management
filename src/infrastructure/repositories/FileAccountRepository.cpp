@@ -1,8 +1,8 @@
 #include "FileAccountRepository.h"
-#include "../../domain/entities/CheckingAccount.h"
-#include "../../domain/entities/CreditAccount.h"
-#include "../../domain/entities/SavingAccount.h"
-#include "../../domain/factories/AccountFactory.h"
+#include "../../domain/entities/accounts/CheckingAccount.h"
+#include "../../domain/entities/accounts/CreditAccount.h"
+#include "../../domain/entities/accounts/SavingAccount.h"
+#include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
@@ -20,7 +20,7 @@ FileAccountRepository::FileAccountRepository(const string& folderPath)
 }
 
 string FileAccountRepository::getPath(const string& id) const {
-    return _folder + "/A" + id + ".txt";
+    return _folder + "/" + id + ".txt";
 }
 
 shared_ptr<Account> FileAccountRepository::loadFromFile(const string& path) {
@@ -29,7 +29,7 @@ shared_ptr<Account> FileAccountRepository::loadFromFile(const string& path) {
 
     string accountType = StringUtils::normalizeString(lines[0]);
 
-    auto acc = AccountFactory::instance().create(accountType);
+    auto acc = BaseFactory<Account>::instance().create(accountType, "");
     if (!acc) return nullptr;
 
     lines.erase(lines.begin());
@@ -56,6 +56,7 @@ shared_ptr<Account> FileAccountRepository::findByAccountId(const string& account
     if (!filesystem::exists(path)) return nullptr;
     return loadFromFile(path);
 }
+
 vector<shared_ptr<Account>> FileAccountRepository::findByUserId(const string& userId) {
     vector<shared_ptr<Account>> res;
 

@@ -47,11 +47,6 @@ namespace filesystem = std::filesystem;
 #include "application/controllers/CardController.h"
 #include "application/ui/ConsoleUI.h"
 
-
-#include "domain/factories/UserFactoryBootstrap.h"
-#include "domain/factories/AccountFactoryBootstrap.h"
-#include "domain/factories/CardFactoryBootstrap.h"
-
 int main() {
    /* =========================
       PREPARE DATA FOLDERS
@@ -85,7 +80,7 @@ int main() {
 
    auto getAccountsUseCase   = make_shared<GetAccountUseCase>(accountRepo);
    auto createAccountUseCase = make_shared<CreateAccountUseCase>(accountRepo);
-   auto closeAccountUseCase  = make_shared<CloseAccountUseCase>(accountRepo);
+   auto closeAccountUseCase  = make_shared<CloseAccountUseCase>(accountRepo, cardRepo);
 
    auto depositUseCase  = make_shared<DepositUseCase>(accountRepo, transactionRepo, notificationRepo);
    auto withdrawUseCase  = make_shared<WithdrawUseCase>(accountRepo, transactionRepo, notificationRepo);
@@ -133,10 +128,6 @@ int main() {
       transactionController,
       cardController
    );
-
-   registerUserTypes();
-   registerAccountTypes();
-   registerCardTypes();
 
    ConsoleUI::intro("======= Bank system ========");
 

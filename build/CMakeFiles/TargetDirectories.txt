@@ -1,0 +1,3 @@
+D:/bank-management/build/CMakeFiles/bank_app.dir
+D:/bank-management/build/CMakeFiles/ALL_BUILD.dir
+D:/bank-management/build/CMakeFiles/ZERO_CHECK.dir

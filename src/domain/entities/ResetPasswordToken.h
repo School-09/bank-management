@@ -16,18 +16,8 @@ private:
 
 public:
     ResetPasswordToken() = default;
+    ResetPasswordToken(string userId);
     ~ResetPasswordToken() = default;
-
-    ResetPasswordToken(const string& tokenId,
-                       const string& userId,
-                       const string& createdAt,
-                       const string& expiredAt,
-                       bool used
-    ) : _tokenId(tokenId),
-        _userId(userId),
-        _createdAt(createdAt),
-        _expiredAt(expiredAt),
-        _used(used) {}
 
 public:
     bool isExpired() const;

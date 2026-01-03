@@ -5,6 +5,4 @@ bool LogoutUseCase::execute(const string& sessionId) {
         return false;
 
     return _sessionRepo->remove(sessionId);
-
-    // _sessionRepo->clearActiveSession();
 }

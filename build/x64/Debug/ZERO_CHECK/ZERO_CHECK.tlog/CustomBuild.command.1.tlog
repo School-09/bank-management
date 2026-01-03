@@ -1,0 +1,10 @@
+^D:\BANK-MANAGEMENT\BUILD\CMAKEFILES\9E2B27ABF608C9FC97445205FA7EC16E\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/bank-management -BD:/bank-management/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/bank-management/build/bank_app.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

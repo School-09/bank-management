@@ -1,7 +1,7 @@
 #include "FileCardRepository.h"
-#include "../../domain/entities/DebitCard.h"
-#include "../../domain/entities/CreditCard.h"
-#include "../../domain/factories/CardFactory.h"
+#include "../../domain/entities/cards/DebitCard.h"
+#include "../../domain/entities/cards/CreditCard.h"
+#include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
@@ -19,7 +19,7 @@ FileCardRepository::FileCardRepository(const string& folderPath)
 }
 
 string FileCardRepository::getPath(const string& id) const {
-    return _folder + "/C" + id + ".txt";
+    return _folder + "/" + id + ".txt";
 }
 
 shared_ptr<Card> FileCardRepository::loadFromFile(const string& path) {
@@ -28,7 +28,7 @@ shared_ptr<Card> FileCardRepository::loadFromFile(const string& path) {
 
     string cardType= StringUtils::normalizeString(lines[0]);
 
-    auto card = CardFactory::instance().create(cardType);
+    auto card = BaseFactory<Card>::instance().create(cardType, "");
     if (!card) return nullptr;
 
     lines.erase(lines.begin());
@@ -55,12 +55,25 @@ shared_ptr<Card> FileCardRepository::findByCardId(const string& cardId) {
     if (!filesystem::exists(path)) return nullptr;
     return loadFromFile(path);
 }
+
 vector<shared_ptr<Card>> FileCardRepository::findByUserId(const string& userId) {
     vector<shared_ptr<Card>> res;
 
     for (auto& f : filesystem::directory_iterator(_folder)) {
         shared_ptr<Card> card = loadFromFile(f.path().string());
         if (card && card->getUserId() == userId)
+            res.push_back(card);
+    }
+
+    return res;
+}
+
+vector<shared_ptr<Card>> FileCardRepository::findByAccountId(const string& accountId) {
+    vector<shared_ptr<Card>> res;
+
+    for (auto& f : filesystem::directory_iterator(_folder)) {
+        shared_ptr<Card> card = loadFromFile(f.path().string());
+        if (card && card->getAccountId() == accountId)
             res.push_back(card);
     }
 

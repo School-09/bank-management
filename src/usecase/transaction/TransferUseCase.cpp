@@ -1,13 +1,14 @@
 #include "TransferUseCase.h"
-#include "../../domain/entities/Transaction.h"
-#include "../../domain/entities/Transfer.h"
-#include "../../domain/factories/TransactionFactory.h"
+#include "../../domain/entities/transactions/Transaction.h"
+#include "../../domain/entities/transactions/Transfer.h"
+#include "../../domain/factories/BaseFactory.h"
 
 void TransferUseCase::execute(
     const string& userId,
     const string& fromAccountId,
     const string& toAccountId,
-    int amount
+    int amount,
+    const string& inf
 ) {
     if (amount <= 0)
         throw std::runtime_error("Invalid amount");
@@ -29,16 +30,12 @@ void TransferUseCase::execute(
     _accountRepo->save(from);
     _accountRepo->save(to);
 
-    auto t = TransactionFactory::instance().create("transfer");
-    auto tx = dynamic_pointer_cast<Transfer> (t);
+    auto tx = BaseFactory<Transaction>::instance().create("transfer", inf);
 
-    tx->setUserId(userId);
-    tx->setAmount(amount);
-    tx->setFromAccount(fromAccountId);
-    tx->setToAccount(toAccountId);
+    _txRepo->save(tx);
 
     _notifyRepo->save(
-        Notification::create(
+        std::make_shared<Notification>(
             userId,
             "Transfer " + std::to_string(amount) + " successfully"
         )

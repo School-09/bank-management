@@ -1,5 +1,8 @@
 #include "CardController.h"
 #include "../../infrastructure/formatters/TableFormatter.h"
+#include "../../domain/factories/BaseFactory.h"
+#include "../../infrastructure/utils/StringUtils.h"
+#include "../../domain/entities/cards/Card.h"
 
 string CardController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -10,22 +13,45 @@ string CardController::getCurrentUserId() const {
 
 void CardController::createCard() {
     try {
+        string typeCard;
+        cout << "Card type (Debit / Credit): ";
+        getline(cin, typeCard);
+
+        string type = StringUtils::normalizeString(typeCard);
+
+        // 1. Lấy Factory của Card (Tự động instance singleton)
+        auto& factory = BaseFactory<Card>::instance();
+
+        // 2. Lấy danh sách fields cần nhập
+        std::vector<std::string> fields = factory.getFields(type);
+        std::vector<std::string> userInputs;
+
         string userId;
-        cout << "Enter user Id: ";
+        cout << "Enter userId: ";
         getline(cin, userId);
+        userInputs.push_back(userId);
 
         string accountId;
         cout << "Enter account Id: ";
         getline(cin, accountId);
+        userInputs.push_back(accountId);
 
-        string type;
-        cout << "Card type (DEBIT / CREDIT): ";
-        getline(cin, type);
+        // 3. Loop nhập liệu
+        std::cin.ignore(); 
+        for (const auto& field : fields) {
+            std::string val;
+            std::cout << "Enter " << field << ": ";
+            std::getline(std::cin, val);
+            userInputs.push_back(val);
+        }
 
-        _createUC->execute(userId, accountId, type);
+        // 4. Dùng Utils ghép chuỗi (Xử lý trước khi gửi đi)
+        std::string finalInf = StringUtils::join(userInputs);
+
+        // 5. Gửi cho Usecase
+        _createUC->execute(userId, accountId, type, finalInf);
 
         cout << "Card created successfully.\n";
-        //ConsoleUI::success("Card created successfully");
     }
     catch (std::exception& e) {
         cout << "Error: " << e.what() << "\n";

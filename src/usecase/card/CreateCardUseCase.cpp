@@ -1,7 +1,7 @@
 #include "CreateCardUseCase.h"
-#include "../../domain/entities/CheckingAccount.h"
-#include "../../domain/entities/CreditAccount.h"
-#include "../../domain/factories/CardFactory.h"
+#include "../../domain/entities/accounts/CheckingAccount.h"
+#include "../../domain/entities/accounts/CreditAccount.h"
+#include "../../domain/factories/BaseFactory.h"
 #include "../../infrastructure/utils/StringUtils.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
@@ -11,8 +11,14 @@
 shared_ptr<Card> CreateCardUseCase::execute(
     const string& userId,
     const string& accountId,
-    const string& typeCard
+    const string& typeCard,
+    const string& inf
 ) {
+    auto cards = _cardRepo->findByAccountId(accountId);
+    if (cards.size() >= 5) {
+        throw std::runtime_error("Each account can have at most 5 cards.");
+    }
+
     string type = StringUtils::normalizeString(typeCard);
 
     auto acc = _accountRepo->findByAccountId(accountId);
@@ -23,12 +29,12 @@ shared_ptr<Card> CreateCardUseCase::execute(
         throw std::runtime_error("Permission denied");
 
     // kiểm tra loại card và account
-    if (type == "debitcard") {
+    if (type == "debit") {
         auto checkingAcc = dynamic_pointer_cast<CheckingAccount>(acc);
         if (!checkingAcc) {
             throw std::runtime_error("DebitCard must be linked to a CheckingAccount");
         }
-    } else if (type == "creditcard") {
+    } else if (type == "credit") {
         auto creditAcc = dynamic_pointer_cast<CreditAccount>(acc);
         if (!creditAcc) {
             throw std::runtime_error("CreditCard must be linked to a CreditAccount");
@@ -37,10 +43,7 @@ shared_ptr<Card> CreateCardUseCase::execute(
         throw std::runtime_error("Unsupported card type: " + type);
     }
 
-    auto card = CardFactory::instance().create(type);
-
-    card->setUserId(userId);
-    card->setAccountId(accountId);
+    auto card = BaseFactory<Card>::instance().create(type, inf);
 
     _cardRepo->save(card);
 
