@@ -12,7 +12,7 @@ FileResetPasswordRepository::FileResetPasswordRepository(const string& folderPat
 }
 
 string FileResetPasswordRepository::getPath(const string& id) const {
-    return _folder + "/P" + id + ".txt";
+    return _folder + "/" + id + ".txt";
 }
 
 void FileResetPasswordRepository::save(const ResetPasswordToken& token) {

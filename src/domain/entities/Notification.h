@@ -18,6 +18,7 @@ private:
     bool _read;
 
 public:
+    Notification() = default;
     Notification(string userId, string message);
     ~Notification() = default;
 

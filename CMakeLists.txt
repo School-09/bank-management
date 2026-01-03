@@ -1,32 +1,26 @@
 cmake_minimum_required(VERSION 3.16)
+project(bank_app LANGUAGES CXX)
 
-# Tên project
-project(BankManagementConsole LANGUAGES CXX)
-
-# Chuẩn C++
+# Thiết lập chuẩn C++
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Thư mục chứa source
-set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-
-# Gom tất cả file cpp
-file(GLOB_RECURSE SOURCES
-    ${SRC_DIR}/main.cpp
-    ${SRC_DIR}/application/*.cpp
-    ${SRC_DIR}/application/controllers/*.cpp
-    ${SRC_DIR}/domain/entities/*.cpp
-    ${SRC_DIR}/infrastructure/repositories/*.cpp
-    ${SRC_DIR}/usecase/auth/*.cpp
-    ${SRC_DIR}/usecase/account/*.cpp
-    ${SRC_DIR}/usecase/transaction/*.cpp
-    ${SRC_DIR}/usecase/card/*.cpp
+# Tìm tất cả file .cpp trong src và các thư mục con
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/src/*.cpp"
 )
 
-# Tạo executable
+# Tạo executable từ toàn bộ file .cpp
 add_executable(bank_app ${SOURCES})
 
-# Output binary vào thư mục debug/
+# Nếu bạn có thư mục include riêng, thêm vào đây
+target_include_directories(bank_app PRIVATE
+    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/include"
+)
+
+# Nếu muốn output binary vào thư mục debug/
 set_target_properties(bank_app PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/debug
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
 )

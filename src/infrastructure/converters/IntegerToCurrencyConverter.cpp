@@ -9,20 +9,24 @@ using std::regex;
 string IntegerToCurrencyConverter::convert(int n) {
 	stringstream builder;
 	NumberFormatInfo info;
-	int count = 0;
+	if (n == 0) {
+		builder << "0";
+	} else {
+		int count = 0;
 
-	while (n != 0) {
-		int lastDigit = n % 10;
-		builder << lastDigit;
+		while (n != 0) {
+			int lastDigit = n % 10;
+			builder << lastDigit;
 
-		count++;
+			count++;
 
-		if (count == 3 && n >= 10) {
-			builder << info.currencyDecimalSeparator();
-			count = 0;
+			if (count == 3 && n >= 10) {
+				builder << info.currencyDecimalSeparator();
+				count = 0;
+			}
+
+			n /= 10;
 		}
-
-		n /= 10;
 	}
 
 	string numberSeparated = builder.str(); // "000.000.1"

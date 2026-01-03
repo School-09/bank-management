@@ -1,7 +1,7 @@
 #ifndef _I_CARD_REPOSITORY_H_
 #define _I_CARD_REPOSITORY_H_
 
-#include "../entities/Card.h"
+#include "../entities/cards/Card.h"
 
 #include <memory>
 using std::shared_ptr, std::make_shared;

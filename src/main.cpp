@@ -47,11 +47,6 @@ namespace filesystem = std::filesystem;
 #include "application/controllers/CardController.h"
 #include "application/ui/ConsoleUI.h"
 
-
-#include "domain/factories/UserFactoryBootstrap.h"
-#include "domain/factories/AccountFactoryBootstrap.h"
-#include "domain/factories/CardFactoryBootstrap.h"
-
 int main() {
    /* =========================
       PREPARE DATA FOLDERS
@@ -133,10 +128,6 @@ int main() {
       transactionController,
       cardController
    );
-
-   registerUserTypes();
-   registerAccountTypes();
-   registerCardTypes();
 
    ConsoleUI::intro("======= Bank system ========");
 

@@ -7,10 +7,10 @@ using std::string;
 class NumberFormatInfo {
 private:
 	string _currencyDecimalSeparator = ".";
-	string _currencySymbol = "d";
+	string _currencySymbol = "đ";
 
 	int _currencyPositive = 3;				// 0		1		2		3
-	string _currencyPositiveFormat = "n d"; // "$n"		"n$"	"$ n"	"n $"
+	string _currencyPositiveFormat = "n $"; // "$n"		"n$"	"$ n"	"n $"
 
 public:
 	string currencyDecimalSeparator();

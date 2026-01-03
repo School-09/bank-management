@@ -14,6 +14,7 @@ private:
     string _expiredAt;
 
 public:
+    Session() = default;
     Session(string userId);
     ~Session() = default;
 

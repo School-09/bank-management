@@ -14,7 +14,7 @@ FileNotificationRepository::FileNotificationRepository(const string& folderPath)
 }
 
 string FileNotificationRepository::getPath(const string& id) const {
-    return _folder + "/N" + id + ".txt";
+    return _folder +  "/" + id + ".txt";
 }
 
 shared_ptr<Notification> FileNotificationRepository::loadFromFile(const string& path) {

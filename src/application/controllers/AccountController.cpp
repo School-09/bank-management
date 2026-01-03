@@ -1,5 +1,8 @@
 #include "AccountController.h"
 #include "../../infrastructure/formatters/TableFormatter.h"
+#include "../../domain/factories/BaseFactory.h"
+#include "../../infrastructure/utils/StringUtils.h"
+#include "../../domain/entities/accounts/Account.h"
 
 string AccountController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -38,23 +41,44 @@ void AccountController::showAccounts() {
 }
 
 void AccountController::createAccount() {
+    string typeAcc;
+    cout << "Enter Account Type (Checking / Saving / Credit): ";
+    getline(cin, typeAcc);
+
+    string type = StringUtils::normalizeString(typeAcc);
+
     try {
+        // 1. Lấy Factory của Account (Tự động instance singleton)
+        auto& factory = BaseFactory<Account>::instance();
+
+        // 2. Lấy danh sách fields cần nhập
+        std::vector<std::string> fields = factory.getFields(type);
+        std::vector<std::string> userInputs;
+
         string userId;
         cout << "Enter user Id: ";
         getline(cin, userId);
+        userInputs.push_back(userId);
 
-        string typeAcc;
-        cout << "Account type (CHECKING / CREDIT / SAVING): ";
-        getline(cin, typeAcc);
+        // 3. Loop nhập liệu
+        std::cin.ignore(); 
+        for (const auto& field : fields) {
+            std::string val;
+            std::cout << "Enter " << field << ": ";
+            std::getline(std::cin, val);
+            userInputs.push_back(val);
+        }
 
-        auto acc = _createAccountUC->execute(
-            userId, typeAcc
-        );
+        // 4. Dùng Utils ghép chuỗi (Xử lý trước khi gửi đi)
+        std::string finalInf = StringUtils::join(userInputs);
 
-        cout << "Account created successfully.\n";
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
+        // 5. Gửi cho Usecase
+        _createAccountUC->execute(userId, type, finalInf);
+        
+        std::cout << "Created successfully!\n";
+
+    } catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << "\n";
     }
 }
 

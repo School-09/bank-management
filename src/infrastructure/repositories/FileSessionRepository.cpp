@@ -15,7 +15,7 @@ FileSessionRepository::FileSessionRepository(const string& folderPath)
 }
 
 string FileSessionRepository::getPath(const string& id) const {
-    return _folder + "/S" + id + ".txt";
+    return _folder +  "/" + id + ".txt";
 }
 
 void FileSessionRepository::save(const Session& session) {

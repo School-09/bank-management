@@ -15,6 +15,7 @@ private:
     bool _used;
 
 public:
+    ResetPasswordToken() = default;
     ResetPasswordToken(string userId);
     ~ResetPasswordToken() = default;
 

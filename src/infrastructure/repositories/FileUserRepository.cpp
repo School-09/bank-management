@@ -1,5 +1,5 @@
 #include "FileUserRepository.h"
-#include "../../domain/factories/UserFactory.h"
+#include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"
 
@@ -16,7 +16,7 @@ FileUserRepository::FileUserRepository(const string& folderPath)
 }
 
 string FileUserRepository::getPath(const string& id) const {
-    return _folder + "/U" + id + ".txt";
+    return _folder +  "/" + id + ".txt";
 }
 
 shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
@@ -25,7 +25,7 @@ shared_ptr<User> FileUserRepository::loadFromFile(const string& path) {
 
     string userType = StringUtils::normalizeString(lines[0]);
 
-    auto user = UserFactory::instance().create(userType);
+    auto user = BaseFactory<User>::instance().create(userType, "");
     if (!user) return nullptr;
 
     lines.erase(lines.begin());

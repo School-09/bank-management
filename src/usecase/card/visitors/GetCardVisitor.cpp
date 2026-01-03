@@ -1,6 +1,6 @@
 #include "GetCardVisitor.h"
-#include "../../../domain/entities/DebitCard.h"
-#include "../../../domain/entities/CreditCard.h"
+#include "../../../domain/entities/cards/DebitCard.h"
+#include "../../../domain/entities/cards/CreditCard.h"
 
 void GetCardVisitor::visit(DebitCard& debitCard) {
     _results.push_back(vector<string>{
