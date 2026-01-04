@@ -27,7 +27,7 @@ public:
         _cardRepo(cardRepo) {}
 
 public:
-    Result<void> execute(const string& accountId, const string& userId, bool close);
+    Result<void> execute(const string& userId, const string& accountId, bool close);
 
 public:
     // Rule of Three

@@ -17,8 +17,8 @@ public:
         std::regex re(R"(([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|([^|]+))");
         std::smatch match;
         if (std::regex_match(info, match, re)) {
-            string email = match[1];
-            string userName = match[2];
+            string userName = match[1];
+            string email = match[2];
             string fullName = match[3];
             string phone = match[4];
             string password = match[5];
@@ -27,7 +27,7 @@ public:
                 userName, fullName, email, phone, password
             );
         }
-        throw std::invalid_argument("Invalid Customer data"); //TODO: throw
+        return std::make_shared<Customer>();
     }
 };
 

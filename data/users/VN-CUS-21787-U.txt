@@ -1,0 +1,8 @@
+Customer
+Id: VN-CUS-21787-U
+Username: khang
+PasswordHash: c359fb12feabd1d4
+FullName: tran khang
+Email: khang@gmail.com
+Phone: 147896325
+Status: active

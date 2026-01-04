@@ -4,8 +4,6 @@
 
 string TransactionController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
-    if (s.getUserId().empty())
-        throw std::runtime_error("No active session"); //TODO: throw
     return s.getUserId();
 }
 

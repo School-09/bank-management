@@ -24,7 +24,7 @@ public:
                 userId, creditLimit
             );
         }
-        throw std::invalid_argument("Invalid CreditAccount data"); //TODO: throw
+        return std::make_shared<CreditAccount>();
     }
 };
 

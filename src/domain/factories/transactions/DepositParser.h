@@ -25,7 +25,7 @@ public:
                 userId, amount, toAccountId
             );
         }
-        throw std::invalid_argument("Invalid Deposit data"); //TODO: throw
+        return std::make_shared<Deposit>();
     }
 };
 

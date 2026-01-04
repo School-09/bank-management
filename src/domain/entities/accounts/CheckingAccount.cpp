@@ -1,6 +1,7 @@
 #include "CheckingAccount.h"
 #include "../../../infrastructure/utils/IdUtils.h"
 
+#include <iostream>
 #include <sstream>
 #include <regex>
 #include <map>
@@ -26,7 +27,7 @@ void CheckingAccount::withdraw(int amount) {
 string CheckingAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << "CheckingAccount\n";
+    oss << "Checking\n";
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
     oss << "Balance: " << _balance << "\n";

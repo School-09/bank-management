@@ -1,0 +1,8 @@
+Customer
+Id: VN-CUS-04664-P
+Username: hien
+PasswordHash: c359fb12feabd1d4
+FullName: dang hien
+Email: hien@gmail.com
+Phone: 147258369
+Status: active

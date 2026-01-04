@@ -15,14 +15,14 @@ struct Registrar {
 
 // 1. Đăng ký Debit Card
 static Registrar<Card> regDebit(
-    "Debit", 
+    "debit", 
     DebitCardParser::parseAndCreate, 
     {}
 );
 
 // 2. Đăng ký Credit Card
 static Registrar<Card> regCredit(
-    "Credit", 
+    "credit", 
     CreditCardParser::parseAndCreate, 
     {}
 );

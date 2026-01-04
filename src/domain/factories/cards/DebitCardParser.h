@@ -24,7 +24,7 @@ public:
                 userId, accountId
             );
         }
-        throw std::invalid_argument("Invalid DebitCard data"); //TODO: throw
+        return std::make_shared<DebitCard>();
     }
 };
 

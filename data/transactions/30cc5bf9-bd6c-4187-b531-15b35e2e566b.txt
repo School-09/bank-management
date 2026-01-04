@@ -1,0 +1,6 @@
+Withdraw
+Id: 30cc5bf9-bd6c-4187-b531-15b35e2e566b
+UserId: VN-CUS-66704-S
+FromAccountVN-CHK-91498-F
+Amount: 50000
+CreatedAt: 2026-01-05 01:02:22

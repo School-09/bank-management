@@ -1,0 +1,7 @@
+Saving
+Id: VN-SAV-59795-D
+UserId: VN-CUS-66704-S
+Balance: 80000000
+InterestRate: 0.05
+CreatedAt: 2026-01-05 00:58:32
+Status: active

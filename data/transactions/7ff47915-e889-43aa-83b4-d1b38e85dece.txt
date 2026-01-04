@@ -1,0 +1,7 @@
+Transfer
+Id: 7ff47915-e889-43aa-83b4-d1b38e85dece
+UserId: VN-CUS-66704-S
+FromAccountVN-CHK-91498-F
+ToAccountVN-CRD-43417-W
+Amount: 50000
+CreatedAt: 2026-01-05 01:03:41

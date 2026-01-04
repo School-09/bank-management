@@ -17,7 +17,7 @@ void CreditCard::accept(ICardVisitor& visitor) {
 string CreditCard::serialize() const {
     std::ostringstream oss;
 
-    oss << "CreditCard\n";
+    oss << "Credit\n";
     oss << Card::serialize();
 
     return oss.str();

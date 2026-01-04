@@ -1,6 +1,6 @@
-CheckingAccount
+Checking
 Id: VN-CHK-91498-F
 UserId: VN-CUS-66704-S
-Balance: 500000
+Balance: 985000
 CreatedAt: 2026-01-04 18:05:21
 Status: active

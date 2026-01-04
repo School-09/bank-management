@@ -65,7 +65,7 @@ int SavingAccount::getBalance() {
 string SavingAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << "SavingAccount\n";
+    oss << "Saving\n";
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
     oss << "Balance: " << _balance << "\n";

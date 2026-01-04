@@ -25,7 +25,7 @@ public:
                 userId, amount, fromAccountId
             );
         }
-        throw std::invalid_argument("Invalid Withdraw data"); //TODO: throw
+        return std::make_shared<Withdraw>();
     }
 };
 

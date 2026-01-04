@@ -1,0 +1,8 @@
+Customer
+Id: VN-CUS-88618-A
+Username: ly
+PasswordHash: c359fb12feabd1d4
+FullName: tran ngoc truc ly
+Email: ly@gmail.com
+Phone: 45874169
+Status: active

@@ -1,8 +1,8 @@
 Admin
 Id: 00-00
-Username: skyler
+Username: admin
 PasswordHash: c359fb12feabd1d4
-FullName: dnt00
-Email: dnt00@gmail.com
+FullName: admin
+Email: admin@gmail.com
 Phone: 12345678900
 Status: active

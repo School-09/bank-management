@@ -37,7 +37,7 @@ void CreditAccount::withdraw(int amount) { // spend
 string CreditAccount::serialize() const {
     std::ostringstream oss;
 
-    oss << "CreditAccount\n";
+    oss << "Credit\n";
     oss << "Id: " << _id << "\n";
     oss << "UserId: " << _userId << "\n";
     oss << "CreditLimit: " << _creditLimit << "\n";

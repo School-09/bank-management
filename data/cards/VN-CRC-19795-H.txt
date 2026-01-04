@@ -1,0 +1,7 @@
+Credit
+Id: VN-CRC-19795-H
+UserId: VN-CUS-04664-P
+AccountId: VN-CRD-43417-W
+CardNumber: 2026-7334-1467-1041
+ExpiredAt: 2036-01-03 00:34:39
+Status: active

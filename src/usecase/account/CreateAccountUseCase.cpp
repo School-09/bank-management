@@ -10,7 +10,7 @@ Result<shared_ptr<Account>> CreateAccountUseCase::execute(
     if (accounts.size() >= 10) {
         return unexpected(ErrorCode::AccountLimitExceeded);
     }
-
+    
     auto acc = BaseFactory<Account>::instance().create(typeAcc, info);
 
     _accountRepo->save(acc);

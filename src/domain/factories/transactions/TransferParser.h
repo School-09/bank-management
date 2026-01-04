@@ -26,7 +26,7 @@ public:
                 userId, amount, fromAccountId, toAccountId
             );
         }
-        throw std::invalid_argument("Invalid Transfer data"); //TODO: throw
+        return std::make_shared<Transfer>();
     }
 };
 

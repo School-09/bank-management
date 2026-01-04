@@ -1,0 +1,7 @@
+Debit
+Id: VN-DBC-59856-U
+UserId: VN-CUS-66704-S
+AccountId: VN-CHK-91498-F
+CardNumber: 2026-7334-1467-1041
+ExpiredAt: 2036-01-03 00:59:32
+Status: active

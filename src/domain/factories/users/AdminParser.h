@@ -27,7 +27,7 @@ public:
                 userName, fullName, email, phone, password
             );
         }
-        throw std::invalid_argument("Invalid Admin data"); //TODO: throw
+        return std::make_shared<Admin>();
     }
 };
 

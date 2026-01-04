@@ -1,0 +1,6 @@
+Checking
+Id: VN-CHK-46594-C
+UserId: VN-CUS-66704-S
+Balance: 5900000
+CreatedAt: 2026-01-04 23:46:03
+Status: active

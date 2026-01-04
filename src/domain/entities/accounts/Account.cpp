@@ -2,6 +2,7 @@
 #include "../../../infrastructure/utils/FileUtils.h"
 #include "../../../infrastructure/utils/TimeUtils.h"
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <regex>

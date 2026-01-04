@@ -1,31 +1,26 @@
-# bank-management
-Bank Management System - C++ OOP
+# Bank Management System - C++ OOP
 
-### Chạy với g++
-```bash
-$ cd src
-$ g++ -std=c++23 main.cpp 
-application/ui/*.cpp application/controllers/*.cpp application/menu/*.cpp 
-domain/entities/*.cpp domain/factories/*.cpp 
-infrastructure/repositories/*.cpp infrastructure/converters/*.cpp infrastructure/formatters/*.cpp infrastructure/utils/*.cpp 
-usecase/auth/*.cpp usecase/account/*.cpp usecase/account/visitors/*.cpp usecase/transaction/*.cpp usecase/card/*.cpp usecase/card/visitors/*.cpp -o debug/app
-$ ./debug/app
-```
+Dự án mô phỏng hệ thống quản lý ngân hàng, được xây dựng bằng C++ theo mô hình OOP và Clean Architecture.
 
-### Chạy với g++ ngắn
-```bash
-$ g++ -std=c++23 $(find src -name "*.cpp") -o debug/app
-```
+---
 
-### Chạy với CMake
+## 🔧 Yêu cầu hệ thống
+- CMake >= 3.15
+- Compiler hỗ trợ C++17 hoặc C++20 (g++/clang/MSVC)
+- Hệ điều hành: Linux, macOS, hoặc Windows
+
+---
+
+## ⚙️ Hướng dẫn biên dịch
+
+Nếu chưa có thư mục `build`, tạo mới và biên dịch:
+
 ```bash
+
 $ mkdir build
 $ cd build
 $ cmake -DCMAKE_BUILD_TYPE=Release ..
-$ cmake --build .
+$ cmake --build . --config Release
+$ ./../Release/bank_app
 
-$ cd build
-$ ./../Debug/bank_app
 ```
-
-git restore .

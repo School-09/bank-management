@@ -1,0 +1,5 @@
+Id: 83fee36d-3274-43d7-9283-bf6232e6c605
+UserId: VN-CUS-66704-S
+Message: Withdraw 15000 successfully
+CreatedAt: 2026-01-05 01:02:59
+Read: 0

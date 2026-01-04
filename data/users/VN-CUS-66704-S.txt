@@ -3,6 +3,6 @@ Id: VN-CUS-66704-S
 Username: school
 PasswordHash: c359fb12feabd1d4
 FullName: dnt
-Email: dn@gmail.com
+Email: dnt@gmail.com
 Phone: 123456789
-Status: locked
+Status: active

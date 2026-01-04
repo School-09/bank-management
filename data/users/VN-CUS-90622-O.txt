@@ -1,0 +1,8 @@
+Customer
+Id: VN-CUS-90622-O
+Username: oop
+PasswordHash: c359fb12feabd1d4
+FullName: 24ctt1
+Email: oop@gmail.com
+Phone: 159753
+Status: active

@@ -1,0 +1,5 @@
+Id: 62996ab1-fda3-4e35-853b-a1b5c69a5757
+UserId: VN-CUS-66704-S
+Message: Deposit 500000 successfully
+CreatedAt: 2026-01-05 01:02:49
+Read: 0

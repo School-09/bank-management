@@ -39,7 +39,8 @@ User::User(
     _fullName(fullName),
     _email(email),
     _phone(phone),
-    _passwordHash(hashPassword(rawPassword)) {}
+    _passwordHash(hashPassword(rawPassword)),
+    _status(Status::ACTIVE) {}
 
 void User::setPassword(const string& rawPassword) {
     _passwordHash = hashPassword(rawPassword);

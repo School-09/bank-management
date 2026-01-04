@@ -24,7 +24,7 @@ public:
                 userId, balance
             );
         }
-        throw std::invalid_argument("Invalid CheckingAccount data"); //TODO: throw
+        return std::make_shared<CheckingAccount>(); 
     }
 };
 

@@ -1,0 +1,6 @@
+Withdraw
+Id: 3788544d-4cbc-4182-bbba-235990af567f
+UserId: VN-CUS-04664-P
+FromAccountVN-CRD-43417-W
+Amount: 50000
+CreatedAt: 2026-01-05 00:42:03

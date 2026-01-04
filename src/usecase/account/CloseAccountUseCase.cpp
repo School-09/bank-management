@@ -1,8 +1,8 @@
 #include "CloseAccountUseCase.h"
 
 Result<void> CloseAccountUseCase::execute(
-    const string& accountId,
     const string& userId,
+    const string& accountId,
     bool close
 ) {
     auto account = _accountRepo->findByAccountId(accountId);

@@ -1,0 +1,7 @@
+Credit
+Id: VN-CRD-43417-W
+UserId: VN-CUS-04664-P
+CreditLimit: 10000000
+Used: 150000
+CreatedAt: 2026-01-05 00:01:00
+Status: active

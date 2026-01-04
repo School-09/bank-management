@@ -22,12 +22,15 @@ string FileAccountRepository::getPath(const string& id) const {
 
 shared_ptr<Account> FileAccountRepository::loadFromFile(const string& path) {
     auto lines = FileUtils::readLines(path);
+    
     if (lines.empty()) return nullptr;
 
     string accountType = StringUtils::normalizeString(lines[0]);
 
     auto acc = BaseFactory<Account>::instance().create(accountType, "");
-    if (!acc) return nullptr;
+    if (!acc) {
+        return nullptr;
+    }
 
     lines.erase(lines.begin());
  
@@ -50,7 +53,10 @@ bool FileAccountRepository::exists(const string& accountId) {
 
 shared_ptr<Account> FileAccountRepository::findByAccountId(const string& accountId) {
     string path = getPath(accountId);
-    if (!filesystem::exists(path)) return nullptr;
+    if (!filesystem::exists(path)) {
+        std::cout << "Ko thay file " << path << "\n";
+        return nullptr;
+    }
     return loadFromFile(path);
 }
 
@@ -59,6 +65,7 @@ vector<shared_ptr<Account>> FileAccountRepository::findByUserId(const string& us
 
     for (auto& f : filesystem::directory_iterator(_folder)) {
         shared_ptr<Account> acc = loadFromFile(f.path().string());
+
         if (acc && acc->getUserId() == userId)
             res.push_back(acc);
     }

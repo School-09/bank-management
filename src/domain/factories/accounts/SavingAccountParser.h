@@ -24,7 +24,7 @@ public:
                 userId, balance
             );
         }
-        throw std::invalid_argument("Invalid SavingAccount data"); //TODO: throw
+        return std::make_shared<SavingAccount>();
     }
 };
 
