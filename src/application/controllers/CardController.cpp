@@ -3,11 +3,12 @@
 #include "../../domain/factories/BaseFactory.h"
 #include "../../infrastructure/utils/StringUtils.h"
 #include "../../domain/entities/cards/Card.h"
+#include "../../infrastructure/utils/ErrorMapper.h"
 
 string CardController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
     if (s.getUserId().empty())
-        throw std::runtime_error("No active session"); //TODO: throw
+        throw std::runtime_error("No active session");
     return s.getUserId();
 }
 
@@ -37,7 +38,12 @@ void CardController::createCard() {
     std::string finalInf = StringUtils::join(userInputs);
 
     // 5. Gửi cho Usecase
-    _createUC->execute(userId, accountId, type, finalInf);
+    auto result = _createUC->execute(userId, accountId, type, finalInf);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Card created successfully.");
 }
@@ -81,7 +87,12 @@ void CardController::deleteCard() {
         "userId", "card id"
     });
 
-    _deleteUC->execute(userInputs[0], userInputs[1]);
+    auto result = _deleteUC->execute(userInputs[0], userInputs[1]);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Card deleted");
 }
@@ -91,7 +102,12 @@ void CardController::blockCard() {
         "userId", "card id to block"
     });
 
-    _blockUC->execute(userInputs[0], userInputs[1], true);
+    auto result = _blockUC->execute(userInputs[0], userInputs[1], true);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Card blocked");
 }
@@ -101,7 +117,12 @@ void CardController::unblockCard() {
         "userId", "card id to unblock"
     });
 
-    _blockUC->execute(userInputs[0], userInputs[1], false);
+    auto result = _blockUC->execute(userInputs[0], userInputs[1], false);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Card unblocked");
 }
@@ -113,7 +134,12 @@ void CardController::payWithCard() {
         "card id", "amount"
     });
 
-    _paymentUC->execute(userId, userInputs[0], stoi(userInputs[1]));
+    auto result = _paymentUC->execute(userId, userInputs[0], stoi(userInputs[1]));
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Payment successful");
 }

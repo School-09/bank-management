@@ -16,7 +16,7 @@ public:
         ifstream in(path);
 
         if (!in.is_open()) {
-            throw std::runtime_error("Không thể mở file: " + path); //TODO: throw
+            return {};
         }
 
         string s;

@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-void BlockCardUseCase::execute(
+Result<void> BlockCardUseCase::execute(
     const string& userId,
     const string& cardId,
     bool block
@@ -10,10 +10,10 @@ void BlockCardUseCase::execute(
     auto card = _cardRepo->findByCardId(cardId);
 
     if (!card)
-        throw std::runtime_error("Card not found"); //TODO: throw
+        return unexpected(ErrorCode::CardNotFound);
 
     if (card->getUserId() != userId)
-        throw std::runtime_error("Permission denied"); //TODO: throw
+        return unexpected(ErrorCode::PermissionDenied);
 
     if (block) card->lock();
     else card->unlock();

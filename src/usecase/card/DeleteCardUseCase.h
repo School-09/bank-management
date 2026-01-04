@@ -4,6 +4,13 @@
 #include "../../domain/repositories/ICardRepository.h"
 #include "../../domain/repositories/IAccountRepository.h"
 
+
+#include <expected>
+using std::expected, std::unexpected;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
+
 class DeleteCardUseCase {
 private:
     shared_ptr<ICardRepository> _cardRepo;
@@ -15,7 +22,7 @@ public:
         shared_ptr<IAccountRepository> accountRepo
     ) : _cardRepo(cardRepo), _accountRepo(accountRepo) {}
 
-    void execute(const string& userId, const string& cardId);
+    Result<void> execute(const string& userId, const string& cardId);
 
 public:
     // Rule of Three

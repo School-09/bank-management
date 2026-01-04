@@ -4,10 +4,16 @@
 #include "../../domain/repositories/IUserRepository.h"
 #include "../../domain/repositories/IResetPasswordRepository.h"
 
+
 #include <ctime>
 #include <stdexcept>
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class ResetPasswordUseCase {
 private:
@@ -23,10 +29,10 @@ public:
 
 public:
     // STEP 1: User yêu cầu reset mật khẩu
-    ResetPasswordToken requestToken(const string& email);
+    Result<ResetPasswordToken> requestToken(const string& email);
 
     // STEP 2: User nhập token để đổi mật khẩu
-    void resetPassword(const string& tokenId, const string& newPassword);
+    Result<void> resetPassword(const string& tokenId, const string& newPassword);
 
 public:
     // Rule of Three

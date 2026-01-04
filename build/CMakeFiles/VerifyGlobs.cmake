@@ -46,6 +46,7 @@ set(OLD_GLOB
   "D:/bank-management/src/infrastructure/repositories/FileTransactionRepository.cpp"
   "D:/bank-management/src/infrastructure/repositories/FileUserRepository.cpp"
   "D:/bank-management/src/infrastructure/utils/BusinessIdGenerator.cpp"
+  "D:/bank-management/src/infrastructure/utils/ErrorMapper.cpp"
   "D:/bank-management/src/infrastructure/utils/UUIDGenerator.cpp"
   "D:/bank-management/src/main.cpp"
   "D:/bank-management/src/usecase/account/CloseAccountUseCase.cpp"

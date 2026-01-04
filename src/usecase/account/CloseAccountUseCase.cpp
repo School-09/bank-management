@@ -1,16 +1,16 @@
 #include "CloseAccountUseCase.h"
 
-void CloseAccountUseCase::execute(
+Result<void> CloseAccountUseCase::execute(
     const string& accountId,
     const string& userId,
     bool close
 ) {
     auto account = _accountRepo->findByAccountId(accountId);
     if (!account)
-        throw std::runtime_error("account not found"); //TODO: throw
+        return unexpected(ErrorCode::AccountNotFound);
 
     if (account->getUserId() != userId)
-        throw std::runtime_error("Permission denied"); //TODO: throw
+       return unexpected(ErrorCode::PermissionDenied);
 
     if (close) {
         // Đóng account

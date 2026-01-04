@@ -21,10 +21,11 @@ $ g++ -std=c++23 $(find src -name "*.cpp") -o debug/app
 ```bash
 $ mkdir build
 $ cd build
-$ cmake ..
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
 $ cmake --build .
 
 $ cd build
 $ ./../Debug/bank_app
 ```
 
+git restore .

@@ -1,5 +1,6 @@
 #include "TransactionController.h"
 #include "../../infrastructure/utils/StringUtils.h"
+#include "../../infrastructure/utils/ErrorMapper.h"
 
 string TransactionController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -21,12 +22,17 @@ void TransactionController::deposit() {
 
     std::string finalInf = StringUtils::join(userInputs);
 
-    _depositUC->execute(
+    auto result = _depositUC->execute(
         userId,
         toAccId,
         stoi(amount),
         finalInf
     );
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Deposit successful");
 }
@@ -44,12 +50,17 @@ void TransactionController::withdraw() {
 
     std::string finalInf = StringUtils::join(userInputs);
 
-    _withdrawUC->execute(
+    auto result = _withdrawUC->execute(
         userId,
         fromAccId,
         stoi(amount),
         finalInf
     );
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Withdraw successful");
 }
@@ -69,13 +80,18 @@ void TransactionController::transfer() {
 
     std::string finalInf = StringUtils::join(userInputs);
 
-    _transferUC->execute(
+    auto result = _transferUC->execute(
         userId,
         fromAccId,
         toAccId,
         stoi(amount),
         finalInf
     );
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Transfer successful");
 }

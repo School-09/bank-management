@@ -3,6 +3,7 @@
 #include "../../domain/factories/BaseFactory.h"
 #include "../../infrastructure/utils/StringUtils.h"
 #include "../../domain/entities/accounts/Account.h"
+#include "../../infrastructure/utils/ErrorMapper.h"
 
 string AccountController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
@@ -67,7 +68,12 @@ void AccountController::createAccount() {
     std::string finalInf = StringUtils::join(userInputs);
 
     // 5. Gửi cho Usecase
-    _createAccountUC->execute(userId, type, finalInf);
+    auto result = _createAccountUC->execute(userId, type, finalInf);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Account created successfully.");
 }
@@ -77,7 +83,12 @@ void AccountController::closeAccount() {
         "userId", "accountId to close"
     });
 
-    _closeAccountUC->execute(userInputs[0], userInputs[1], true);
+    auto result = _closeAccountUC->execute(userInputs[0], userInputs[1], true);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Account closed successfully.");
 }
@@ -87,7 +98,12 @@ void AccountController::openAccount() {
         "userId", "accountId to open"
     });
 
-    _closeAccountUC->execute(userInputs[0], userInputs[1], false);
+    auto result = _closeAccountUC->execute(userInputs[0], userInputs[1], false);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
 
     ConsoleUI::printNotice("Account opened successfully.");
 }

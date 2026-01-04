@@ -2,6 +2,7 @@
 #include "../../domain/factories/BaseFactory.h"
 #include "../../infrastructure/utils/StringUtils.h"
 #include "../../domain/entities/users/User.h"
+#include "../../infrastructure/utils/ErrorMapper.h"
 
 // ===============================
 // REGISTER
@@ -26,7 +27,14 @@ void AuthController::registerAction() {
     std::string finalInf = StringUtils::join(userInputs);
 
     // 5. Gửi cho Usecase
-    auto user = _registerUC->execute(username, email, finalInf);
+    auto result = _registerUC->execute(username, email, finalInf);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
+
+    auto user = result.value();
 
     ConsoleUI::printNotice("Register success. User ID: " + user->getId());
 }
@@ -39,7 +47,14 @@ string AuthController::loginAction() {
         "username", "password"
     });
 
-    _currentSession = _loginUC->login(userInputs[0], userInputs[1]);
+    auto result = _loginUC->login(userInputs[0], userInputs[1]);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return "Customer";
+    }
+
+    _currentSession = result.value();
 
     isLoggedIn = true;
 
@@ -70,7 +85,14 @@ void AuthController::logoutAction() {
 void AuthController::requestResetPasswordAction() {
     string email = ConsoleUI::inputString("your email");
 
-    ResetPasswordToken token = _resetUC->requestToken(email);
+    auto result = _resetUC->requestToken(email);
+
+    if (!result) {
+        ConsoleUI::printError(ErrorMapper::errorMessage(result.error()));
+        return;
+    }
+
+    auto token = result.value();
 
     ConsoleUI::printNotice(
         "Reset token created. Token ID: " + token.getTokenId() +

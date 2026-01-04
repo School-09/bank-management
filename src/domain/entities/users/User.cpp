@@ -6,7 +6,7 @@
 #include <map>
 #include <functional>
 
-static string hashPassword(const string& raw) { // TODO: hash rồi thì ko nhớ pass để test
+static string hashPassword(const string& raw) {
     const uint64_t FNV_prime = 1099511628211u;
     const uint64_t offset_basis = 1469598103934665603u;
 

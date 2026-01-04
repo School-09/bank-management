@@ -3,9 +3,15 @@
 
 #include "../../domain/repositories/IUserRepository.h"
 
+
 #include <stdexcept>
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class RegisterUseCase {
 private:
@@ -15,7 +21,7 @@ public:
     RegisterUseCase(shared_ptr<IUserRepository> repo) : _userRepo(repo) {}
 
 public:
-    shared_ptr<User> execute(
+    Result<shared_ptr<User>> execute(
         const string& username,
         const string& email,
         const string& info

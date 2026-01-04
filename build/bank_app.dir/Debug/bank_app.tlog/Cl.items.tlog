@@ -40,6 +40,7 @@ D:\bank-management\src\infrastructure\repositories\FileSessionRepository.cpp;D:\
 D:\bank-management\src\infrastructure\repositories\FileTransactionRepository.cpp;D:\bank-management\build\bank_app.dir\Debug\FileTransactionRepository.obj
 D:\bank-management\src\infrastructure\repositories\FileUserRepository.cpp;D:\bank-management\build\bank_app.dir\Debug\FileUserRepository.obj
 D:\bank-management\src\infrastructure\utils\BusinessIdGenerator.cpp;D:\bank-management\build\bank_app.dir\Debug\BusinessIdGenerator.obj
+D:\bank-management\src\infrastructure\utils\ErrorMapper.cpp;D:\bank-management\build\bank_app.dir\Debug\ErrorMapper.obj
 D:\bank-management\src\infrastructure\utils\UUIDGenerator.cpp;D:\bank-management\build\bank_app.dir\Debug\UUIDGenerator.obj
 D:\bank-management\src\main.cpp;D:\bank-management\build\bank_app.dir\Debug\main.obj
 D:\bank-management\src\usecase\account\CloseAccountUseCase.cpp;D:\bank-management\build\bank_app.dir\Debug\CloseAccountUseCase.obj

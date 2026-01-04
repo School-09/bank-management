@@ -4,10 +4,16 @@
 #include "../../domain/repositories/IUserRepository.h"
 #include "../../domain/repositories/ISessionRepository.h"
 
+
 #include <stdexcept>
 #include <ctime>
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class LoginUseCase {
 private:
@@ -22,7 +28,7 @@ public:
         _sessionRepo(sessionRepo) {}
 
 public:
-    Session login(const string& username, const string& password);
+    Result<Session> login(const string& username, const string& password);
 
 public:
     // Rule of Three

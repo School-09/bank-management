@@ -2,14 +2,14 @@
 #include "visitors/LoginVisitor.h"
 #include "../../infrastructure/utils/TimeUtils.h"
 
-Session LoginUseCase::login(const string& username, const string& password) {
+Result<Session> LoginUseCase::login(const string& username, const string& password) {
     shared_ptr<User> user = _userRepo->findByUsername(username);
 
     if (!user)
-        throw std::runtime_error("User not found."); //TODO: throw
+        return unexpected(ErrorCode::UserNotFound);
 
     if (!user->verifyPassword(password))
-        throw std::runtime_error("Invalid password."); //TODO: throw
+        return unexpected(ErrorCode::InvalidPassword);
 
     LoginVisitor visitor;
     user->accept(visitor);

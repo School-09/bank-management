@@ -2,24 +2,24 @@
 #include "../../domain/entities/transactions/Transaction.h"
 #include "../../domain/factories/BaseFactory.h"
 
-void WithdrawUseCase::execute(
+Result<void> WithdrawUseCase::execute(
     const string& userId,
     const string& fromAccountId,
     int amount,
     const string& info
 ) {
     if (amount <= 0)
-        throw std::runtime_error("Invalid amount"); //TODO: throw
+        return unexpected(ErrorCode::InvalidTransactionAmount);
 
     auto acc = _accountRepo->findByAccountId(fromAccountId);
     if (!acc)
-        throw std::runtime_error("Account not found"); //TODO: throw
+        return unexpected(ErrorCode::AccountNotFound);
 
     if (acc->getUserId() != userId)
-        throw std::runtime_error("Permission denied"); //TODO: throw
+        return unexpected(ErrorCode::PermissionDenied);
 
     if (!acc->canWithdraw(amount))
-        throw std::runtime_error("Can't withdraw"); //TODO: throw
+        return unexpected(ErrorCode::WithdrawalLimitExceeded);
     
     acc->withdraw(amount);
     _accountRepo->save(acc);

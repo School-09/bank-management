@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <format>
 
-void CardPaymentUseCase::execute(
+Result<void> CardPaymentUseCase::execute(
     const string& userId,
     const string& cardId,
     int amount
@@ -12,13 +12,13 @@ void CardPaymentUseCase::execute(
     auto card = _cardRepo->findByCardId(cardId);
 
     if (!card)
-        throw std::runtime_error("Card not found"); //TODO: throw
+        return unexpected(ErrorCode::CardNotFound);
 
     if (card->getUserId() != userId)
-        throw std::runtime_error("Permission denied"); //TODO: throw
+        return unexpected(ErrorCode::PermissionDenied);
 
     if (card->isLocked())
-        throw std::runtime_error("Card is locked"); //TODO: throw
+        return unexpected(ErrorCode::CardLocked);
 
     auto withdrawUseCase  = make_shared<WithdrawUseCase>(_accountRepo, _txRepo, _notifyRepo);
 

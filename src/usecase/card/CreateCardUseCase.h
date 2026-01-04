@@ -4,6 +4,13 @@
 #include "../../domain/repositories/ICardRepository.h"
 #include "../../domain/repositories/IAccountRepository.h"
 
+
+#include <expected>
+using std::expected, std::unexpected;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
+
 class CreateCardUseCase {
 private:
     shared_ptr<ICardRepository> _cardRepo;
@@ -15,7 +22,7 @@ public:
         shared_ptr<IAccountRepository> accountRepo
     ) : _cardRepo(cardRepo), _accountRepo(accountRepo) {}
 
-    shared_ptr<Card> execute(
+    Result<shared_ptr<Card>> execute(
         const string& userId,
         const string& accountId,
         const string& typeCard,

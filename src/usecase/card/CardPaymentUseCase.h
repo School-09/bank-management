@@ -6,8 +6,14 @@
 #include "../../domain/repositories/ITransactionRepository.h"
 #include "../../domain/repositories/INotificationRepository.h"
 
+
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class CardPaymentUseCase {
 private:
@@ -27,7 +33,7 @@ public:
         _txRepo(txRepo), 
         _notifyRepo(notifyRepo) {}
 
-    void execute(
+    Result<void> execute(
         const string& userId,
         const string& cardId,
         int amount

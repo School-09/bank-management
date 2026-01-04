@@ -3,10 +3,16 @@
 
 #include "../../domain/repositories/IAccountRepository.h"
 
+
 #include <stdexcept>
 #include <ctime>
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class CreateAccountUseCase {
 private:
@@ -17,7 +23,7 @@ public:
         : _accountRepo(accountRepo) {}
 
 public:
-    shared_ptr<Account> execute(
+    Result<shared_ptr<Account>> execute(
         const string& userId,
         const string& typeAcc,
         const string& info

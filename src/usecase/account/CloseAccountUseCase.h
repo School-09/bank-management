@@ -4,9 +4,15 @@
 #include "../../domain/repositories/IAccountRepository.h"
 #include "../../domain/repositories/ICardRepository.h"
 
+
 #include <stdexcept>
 #include <memory>
+#include <expected>
+using std::expected, std::unexpected;
 using std::shared_ptr, std::make_shared;
+
+template <typename T>
+using Result = std::expected<T, ErrorCode>;
 
 class CloseAccountUseCase {
 private:
@@ -21,7 +27,7 @@ public:
         _cardRepo(cardRepo) {}
 
 public:
-    void execute(const string& accountId, const string& userId, bool close);
+    Result<void> execute(const string& accountId, const string& userId, bool close);
 
 public:
     // Rule of Three

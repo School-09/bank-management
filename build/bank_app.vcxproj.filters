@@ -127,6 +127,9 @@
     <ClCompile Include="D:\bank-management\src\infrastructure\utils\BusinessIdGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\bank-management\src\infrastructure\utils\ErrorMapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\bank-management\src\infrastructure\utils\UUIDGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
