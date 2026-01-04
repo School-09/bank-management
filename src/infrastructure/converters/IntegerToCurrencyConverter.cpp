@@ -1,10 +1,10 @@
+#include "IntegerToCurrencyConverter.h"
+#include "../../domain/entities/NumberFormatInfo.h"
+
 #include <sstream>
 #include <regex>
 using std::stringstream;
 using std::regex;
-
-#include "IntegerToCurrencyConverter.h"
-#include "../../domain/entities/NumberFormatInfo.h"
 
 string IntegerToCurrencyConverter::convert(int n) {
 	stringstream builder;

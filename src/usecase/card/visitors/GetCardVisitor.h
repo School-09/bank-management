@@ -1,7 +1,7 @@
 #ifndef _GET_CARD_VISITOR_H_
 #define _GET_CARD_VISITOR_H_
 
-#include "../../../domain/visitors/CardVisitor.h"
+#include "../../../domain/visitors/ICardVisitor.h"
 #include <string>
 #include <vector>
 #include <format>
@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 using std::format;
 
-class GetCardVisitor : public CardVisitor {
+class GetCardVisitor : public ICardVisitor {
 private:
     vector<vector<string>> _results;
 

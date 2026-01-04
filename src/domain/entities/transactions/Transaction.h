@@ -1,17 +1,10 @@
 #ifndef _TRANSACTION_H_
 #define _TRANSACTION_H_
 
-#include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
-#include <memory>
-#include <regex>
-#include <map>
-#include <functional>
 using std::string;
 using std::vector;
-using std::shared_ptr, std::make_shared;
 
 class Transaction {
 protected:

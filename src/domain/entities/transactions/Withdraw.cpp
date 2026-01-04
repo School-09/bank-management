@@ -1,6 +1,11 @@
 #include "Withdraw.h"
 #include "../../../infrastructure/utils/IdUtils.h"
 
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
+
 Withdraw::Withdraw(
     string userId, int amount,
     string fromAccountId

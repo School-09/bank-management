@@ -4,6 +4,7 @@
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "D:/bank-management/src/*.cpp")
 set(OLD_GLOB
+  "D:/bank-management/src/application/bootstrap/AppContext.cpp"
   "D:/bank-management/src/application/controllers/AccountController.cpp"
   "D:/bank-management/src/application/controllers/AuthController.cpp"
   "D:/bank-management/src/application/controllers/CardController.cpp"
@@ -11,7 +12,6 @@ set(OLD_GLOB
   "D:/bank-management/src/application/controllers/TransactionController.cpp"
   "D:/bank-management/src/application/menu/AdminMenu.cpp"
   "D:/bank-management/src/application/menu/CustomerMenu.cpp"
-  "D:/bank-management/src/application/menu/MenuFactory.cpp"
   "D:/bank-management/src/application/ui/ConsoleUI.cpp"
   "D:/bank-management/src/application/ui/MenuPrinter.cpp"
   "D:/bank-management/src/domain/entities/Notification.cpp"

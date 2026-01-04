@@ -10,13 +10,13 @@
 
 class CheckingAccountParser {
 public:
-    static std::shared_ptr<Account> parseAndCreate(const std::string& inf) {
-        if (inf == "") return std::make_shared<CheckingAccount>();
+    static std::shared_ptr<Account> parseAndCreate(const std::string& info) {
+        if (info == "") return std::make_shared<CheckingAccount>();
         
         // Regex: "UserId|Balance"
         std::regex re(R"(([^|]+)\|([^|]+))");
         std::smatch match;
-        if (std::regex_match(inf, match, re)) {
+        if (std::regex_match(info, match, re)) {
             string userId = match[1];
             int balance = std::stoi(match[2]);
 
@@ -24,7 +24,7 @@ public:
                 userId, balance
             );
         }
-        throw std::invalid_argument("Invalid CheckingAccount data");
+        throw std::invalid_argument("Invalid CheckingAccount data"); //TODO: throw
     }
 };
 

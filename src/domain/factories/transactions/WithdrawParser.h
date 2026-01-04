@@ -10,13 +10,13 @@
 
 class WithdrawParser {
 public:
-    static std::shared_ptr<Transaction> parseAndCreate(const std::string& inf) {
-        if (inf == "") return std::make_shared<Withdraw>();
+    static std::shared_ptr<Transaction> parseAndCreate(const std::string& info) {
+        if (info == "") return std::make_shared<Withdraw>();
         
         // Regex: "UserId|FromAccountId|Amount"
         std::regex re(R"(([^|]+)\|([^|]+)\|([^|]+))");
         std::smatch match;
-        if (std::regex_match(inf, match, re)) {
+        if (std::regex_match(info, match, re)) {
             string userId = match[1];
             string fromAccountId = match[2];
             int amount = std::stoi(match[3]);
@@ -25,7 +25,7 @@ public:
                 userId, amount, fromAccountId
             );
         }
-        throw std::invalid_argument("Invalid Withdraw data");
+        throw std::invalid_argument("Invalid Withdraw data"); //TODO: throw
     }
 };
 

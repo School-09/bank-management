@@ -1,7 +1,4 @@
 #include "FileTransactionRepository.h"
-#include "../../domain/entities/transactions/Deposit.h"
-#include "../../domain/entities/transactions/Withdraw.h"
-#include "../../domain/entities/transactions/Transfer.h"
 #include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"

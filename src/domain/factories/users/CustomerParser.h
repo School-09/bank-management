@@ -10,13 +10,13 @@
 
 class CustomerParser {
 public:
-    static std::shared_ptr<User> parseAndCreate(const std::string& inf) {
-        if (inf == "") return std::make_shared<Customer>();
+    static std::shared_ptr<User> parseAndCreate(const std::string& info) {
+        if (info == "") return std::make_shared<Customer>();
         
         // Regex: "UserName|FullName|Email|Phone|Password"
         std::regex re(R"(([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|([^|]+))");
         std::smatch match;
-        if (std::regex_match(inf, match, re)) {
+        if (std::regex_match(info, match, re)) {
             string email = match[1];
             string userName = match[2];
             string fullName = match[3];
@@ -27,7 +27,7 @@ public:
                 userName, fullName, email, phone, password
             );
         }
-        throw std::invalid_argument("Invalid Customer data");
+        throw std::invalid_argument("Invalid Customer data"); //TODO: throw
     }
 };
 

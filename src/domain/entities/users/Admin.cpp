@@ -20,7 +20,7 @@ Admin::Admin(
     phone,
     rawPassword) {}
 
-void Admin::accept(UserVisitor& visitor) { 
+void Admin::accept(IUserVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

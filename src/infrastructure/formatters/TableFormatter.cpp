@@ -1,4 +1,5 @@
 #include "TableFormatter.h"
+
 #include <algorithm>
 #include <format>
 #include <sstream>

@@ -10,7 +10,7 @@ CreditCard::CreditCard(
     string userId, string accountId
 ) : Card(IdUtils::newCreditCardId(), userId, accountId) {}
 
-void CreditCard::accept(CardVisitor& visitor) { 
+void CreditCard::accept(ICardVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

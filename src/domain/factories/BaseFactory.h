@@ -33,7 +33,7 @@ public:
         if (_creators.find(key) != _creators.end()) {
             return _creators[key](data);
         }
-        throw std::runtime_error("Type not registered: " + key);
+        throw std::runtime_error("Type not registered: " + key); //TODO: throw
     }
 
     // Lấy danh sách field cần nhập
@@ -41,7 +41,7 @@ public:
         if (_fields.find(key) != _fields.end()) {
             return _fields[key];
         }
-        throw std::runtime_error("Type not registered: " + key);
+        throw std::runtime_error("Type not registered: " + key); //TODO: throw
     }
 
 private:

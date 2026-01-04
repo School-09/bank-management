@@ -12,38 +12,39 @@ shared_ptr<Card> CreateCardUseCase::execute(
     const string& userId,
     const string& accountId,
     const string& typeCard,
-    const string& inf
+    const string& info
 ) {
     auto cards = _cardRepo->findByAccountId(accountId);
+
     if (cards.size() >= 5) {
-        throw std::runtime_error("Each account can have at most 5 cards.");
+        throw std::runtime_error("Each account can have at most 5 cards."); //TODO: throw
     }
 
     string type = StringUtils::normalizeString(typeCard);
 
     auto acc = _accountRepo->findByAccountId(accountId);
     if (!acc)
-        throw std::runtime_error("Account not found");
+        throw std::runtime_error("Account not found"); //TODO: throw
 
     if (acc->getUserId() != userId)
-        throw std::runtime_error("Permission denied");
+        throw std::runtime_error("Permission denied"); //TODO: throw
 
     // kiểm tra loại card và account
     if (type == "debit") {
         auto checkingAcc = dynamic_pointer_cast<CheckingAccount>(acc);
         if (!checkingAcc) {
-            throw std::runtime_error("DebitCard must be linked to a CheckingAccount");
+            throw std::runtime_error("DebitCard must be linked to a CheckingAccount"); //TODO: throw
         }
     } else if (type == "credit") {
         auto creditAcc = dynamic_pointer_cast<CreditAccount>(acc);
         if (!creditAcc) {
-            throw std::runtime_error("CreditCard must be linked to a CreditAccount");
+            throw std::runtime_error("CreditCard must be linked to a CreditAccount"); //TODO: throw
         }
     } else {
-        throw std::runtime_error("Unsupported card type: " + type);
+        throw std::runtime_error("Unsupported card type: " + type); //TODO: throw
     }
 
-    auto card = BaseFactory<Card>::instance().create(type, inf);
+    auto card = BaseFactory<Card>::instance().create(type, info);
 
     _cardRepo->save(card);
 

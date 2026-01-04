@@ -1,0 +1,8 @@
+Customer
+Id: VN-CUS-36343-O
+Username: hien@gmail.com
+PasswordHash: c359fb12feabd1d4
+FullName: đặng hiển
+Email: hiển
+Phone: 0147258369
+Status: locked

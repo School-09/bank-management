@@ -10,12 +10,13 @@ class Session {
 private:
     string _sessionId;
     string _userId;
+    string _role;
     string _createdAt;
     string _expiredAt;
 
 public:
     Session() = default;
-    Session(string userId);
+    Session(string userId, string role);
     ~Session() = default;
 
 public:
@@ -29,6 +30,7 @@ public:
     // ========= GETTER =========
     string getSessionId() const { return _sessionId; }
     string getUserId() const { return _userId; }
+    string getRole() const { return _role; }
     string getCreatedAt() const { return _createdAt; }
     string getExpiredAt() const { return _expiredAt; }
 

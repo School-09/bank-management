@@ -22,8 +22,9 @@ $ g++ -std=c++23 $(find src -name "*.cpp") -o debug/app
 $ mkdir build
 $ cd build
 $ cmake ..
-
 $ cmake --build .
+
+$ cd build
 $ ./../Debug/bank_app
 ```
 

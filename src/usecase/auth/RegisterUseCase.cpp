@@ -5,16 +5,16 @@
 shared_ptr<User> RegisterUseCase::execute(
     const string& username,
     const string& email,
-    const string& inf
+    const string& info
 ) {
     // 1. Validate unique
     if (_userRepo->existsByUsername(username))
-        throw std::runtime_error("Username already taken.");
+        throw std::runtime_error("Username already taken."); //TODO: throw
 
     if (_userRepo->existsByEmail(email))
-        throw std::runtime_error("Email already registered.");
+        throw std::runtime_error("Email already registered."); //TODO: throw
 
-    auto user = BaseFactory<User>::instance().create("customer", inf);
+    auto user = BaseFactory<User>::instance().create("customer", info);
 
     _userRepo->save(user);
 

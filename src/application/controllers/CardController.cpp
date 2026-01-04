@@ -7,58 +7,39 @@
 string CardController::getCurrentUserId() const {
     Session s = _sessionRepo->getActiveSession();
     if (s.getUserId().empty())
-        throw std::runtime_error("No active session");
+        throw std::runtime_error("No active session"); //TODO: throw
     return s.getUserId();
 }
 
 void CardController::createCard() {
-    try {
-        string typeCard;
-        cout << "Card type (Debit / Credit): ";
-        getline(cin, typeCard);
+    auto cardType = ConsoleUI::inputString(
+        "card type (Debit / Credit)"
+    );
 
-        string type = StringUtils::normalizeString(typeCard);
+    string type = StringUtils::normalizeString(cardType);
 
-        // 1. Lấy Factory của Card (Tự động instance singleton)
-        auto& factory = BaseFactory<Card>::instance();
+    // 1. Lấy Factory của Card (Tự động instance singleton)
+    auto& factory = BaseFactory<Card>::instance();
 
-        // 2. Lấy danh sách fields cần nhập
-        std::vector<std::string> fields = factory.getFields(type);
-        std::vector<std::string> userInputs;
+    // 2. Lấy danh sách fields cần nhập
+    std::vector<std::string> fields = factory.getFields(type);
+    std::vector<std::string> userInputs;
 
-        string userId;
-        cout << "Enter userId: ";
-        getline(cin, userId);
-        userInputs.push_back(userId);
+    auto userId = ConsoleUI::inputString("userId");
+    auto accountId = ConsoleUI::inputString("accountId");
+    userInputs.push_back(userId);
+    userInputs.push_back(accountId);
 
-        string accountId;
-        cout << "Enter account Id: ";
-        getline(cin, accountId);
-        userInputs.push_back(accountId);
+    auto tmp = ConsoleUI::inputLists(fields);
+    userInputs.insert(userInputs.end(), tmp.begin(), tmp.end());
 
-        // 3. Loop nhập liệu
-        std::cin.ignore(); 
-        for (const auto& field : fields) {
-            std::string val;
-            std::cout << "Enter " << field << ": ";
-            std::getline(std::cin, val);
-            userInputs.push_back(val);
-        }
+    // 4. Dùng Utils ghép chuỗi (Xử lý trước khi gửi đi)
+    std::string finalInf = StringUtils::join(userInputs);
 
-        // 4. Dùng Utils ghép chuỗi (Xử lý trước khi gửi đi)
-        std::string finalInf = StringUtils::join(userInputs);
+    // 5. Gửi cho Usecase
+    _createUC->execute(userId, accountId, type, finalInf);
 
-        // 5. Gửi cho Usecase
-        _createUC->execute(userId, accountId, type, finalInf);
-
-        cout << "Card created successfully.\n";
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
-    // catch (const exception& e) {
-    //     ConsoleUI::error(e.what());
-    // }
+    ConsoleUI::printNotice("Card created successfully.");
 }
 
 void CardController::listCards() {
@@ -84,7 +65,7 @@ void CardController::listCards() {
     auto cards = _listUC->execute(userId);
 
     if (cards.empty()) {
-        cout << "No accounts found.\n";
+        ConsoleUI::printNotice("No cards found.\n");
         return;
     }
 
@@ -96,76 +77,43 @@ void CardController::listCards() {
 }
 
 void CardController::deleteCard() {
-    try {
-        string userId;
-        cout << "Enter user Id: ";
-        getline(cin, userId);
+    auto userInputs = ConsoleUI::inputLists({
+        "userId", "card id"
+    });
 
-        string cardId;
-        ConsoleUI::print("Enter card id: ");
-        getline(cin, cardId);
+    _deleteUC->execute(userInputs[0], userInputs[1]);
 
-        _deleteUC->execute(userId, cardId);
-        ConsoleUI::print("Card deleted");
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
+    ConsoleUI::printNotice("Card deleted");
 }
 
 void CardController::blockCard() {
-    try {
-        string userId;
-        cout << "Enter user Id: ";
-        getline(cin, userId);
+    auto userInputs = ConsoleUI::inputLists({
+        "userId", "card id to block"
+    });
 
-        string cardId;
-        ConsoleUI::print("Enter card id: ");
-        getline(cin, cardId);
+    _blockUC->execute(userInputs[0], userInputs[1], true);
 
-        _blockUC->execute(userId, cardId, true);
-        ConsoleUI::print("Card blocked");
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
+    ConsoleUI::printNotice("Card blocked");
 }
 
 void CardController::unblockCard() {
-    try {
-        string userId;
-        cout << "Enter user Id: ";
-        getline(cin, userId);
+    auto userInputs = ConsoleUI::inputLists({
+        "userId", "card id to unblock"
+    });
 
-        string cardId;
-        ConsoleUI::print("Enter card id: ");
-        getline(cin, cardId);
+    _blockUC->execute(userInputs[0], userInputs[1], false);
 
-        _blockUC->execute(userId, cardId, false);
-        ConsoleUI::print("Card unblocked");
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
+    ConsoleUI::printNotice("Card unblocked");
 }
 
 void CardController::payWithCard() {
-    try {
-        string userId = getCurrentUserId();
+    string userId = getCurrentUserId();
 
-        string cardId, amountStr;
-        ConsoleUI::print("Enter card id: ");
-        getline(cin, cardId);
+    auto userInputs = ConsoleUI::inputLists({
+        "card id", "amount"
+    });
 
-        ConsoleUI::print("Enter amount: ");
-        getline(cin, amountStr);
+    _paymentUC->execute(userId, userInputs[0], stoi(userInputs[1]));
 
-        int amount = std::stoi(amountStr);
-        _paymentUC->execute(userId, cardId, amount);
-
-        ConsoleUI::print("Payment successful");
-    }
-    catch (std::exception& e) {
-        cout << "Error: " << e.what() << "\n";
-    }
+    ConsoleUI::printNotice("Payment successful");
 }

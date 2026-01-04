@@ -1,6 +1,11 @@
 #include "Transaction.h"
 #include "../../../infrastructure/utils/TimeUtils.h"
 
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
+
 Transaction::Transaction(
     string id, string userId, int amount
 ) : _id(id),

@@ -30,7 +30,7 @@ public:
         const string& userId,
         const string& fromAccountId,
         int amount,
-        const string& inf
+        const string& info
     );
 
 public:

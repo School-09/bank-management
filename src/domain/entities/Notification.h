@@ -1,13 +1,10 @@
 #ifndef _NOTIFICATION_H_
 #define _NOTIFICATION_H_
 
-#include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
 using std::string;
 using std::vector;
-using std::shared_ptr, std::make_shared;
 
 class Notification {
 private:

@@ -2,9 +2,8 @@
 #define _ACCOUNT_H_
 
 #include "../Enum.h"
-#include "../../visitors/AccountVisitor.h"
+#include "../../visitors/IAccountVisitor.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 using std::string;
@@ -23,7 +22,7 @@ public:
     virtual ~Account() = default;
 
 public: // Visitor Pattern
-    virtual void accept(AccountVisitor& visitor) = 0;
+    virtual void accept(IAccountVisitor& visitor) = 0;
 
 public:
     virtual bool canWithdraw(int amount) = 0;

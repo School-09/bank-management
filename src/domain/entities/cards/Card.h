@@ -2,9 +2,8 @@
 #define _CARD_H_
 
 #include "../Enum.h"
-#include "../../visitors/CardVisitor.h"
+#include "../../visitors/ICardVisitor.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 using std::vector;
@@ -26,7 +25,7 @@ public:
     virtual ~Card() = default;
 
 public: // Visitor Pattern
-    virtual void accept(CardVisitor& visitor) = 0;
+    virtual void accept(ICardVisitor& visitor) = 0;
 
 public:
     // ===== PERSISTENCE =====

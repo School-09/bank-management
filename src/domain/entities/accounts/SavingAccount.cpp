@@ -16,7 +16,7 @@ SavingAccount::SavingAccount(
     _balance(balance),
     _interestRate(0.05) {}
 
-void SavingAccount::accept(AccountVisitor& visitor) { 
+void SavingAccount::accept(IAccountVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

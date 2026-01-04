@@ -2,9 +2,8 @@
 #define _USER_H_
 
 #include "../Enum.h"
-#include "../../visitors/UserVisitor.h"
+#include "../../visitors/IUserVisitor.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 using std::vector;
@@ -33,7 +32,7 @@ public:
     virtual ~User() = default;
 
 public: // Visitor Pattern
-    virtual void accept(UserVisitor& visitor) = 0;
+    virtual void accept(IUserVisitor& visitor) = 0;
 
 public:
     // =========== PASSWORD MANAGEMENT ===========

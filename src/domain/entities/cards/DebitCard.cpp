@@ -10,7 +10,7 @@ DebitCard::DebitCard(
     string userId, string accountId
 ) : Card(IdUtils::newDebitCardId(), userId, accountId) {}
 
-void DebitCard::accept(CardVisitor& visitor) { 
+void DebitCard::accept(ICardVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

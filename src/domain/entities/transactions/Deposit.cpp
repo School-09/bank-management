@@ -1,6 +1,11 @@
 #include "Deposit.h"
 #include "../../../infrastructure/utils/IdUtils.h"
 
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
+
 Deposit::Deposit(
     string userId, int amount,
     string toAccountId

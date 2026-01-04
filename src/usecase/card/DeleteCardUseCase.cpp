@@ -9,11 +9,12 @@ void DeleteCardUseCase::execute(
     const string& cardId
 ) {
     auto card = _cardRepo->findByCardId(cardId);
+
     if (!card)
-        throw std::runtime_error("Card not found");
+        throw std::runtime_error("Card not found"); //TODO: throw
 
     if (card->getUserId() != userId)
-        throw std::runtime_error("Permission denied");
+        throw std::runtime_error("Permission denied"); //TODO: throw
 
     // Nếu là credit card → kiểm tra dư nợ
     auto creditCard = dynamic_pointer_cast<CreditCard>(card);
@@ -22,7 +23,7 @@ void DeleteCardUseCase::execute(
             dynamic_pointer_cast<CreditAccount> (_accountRepo->findByAccountId(card->getAccountId()));
 
         if (creditAcc && creditAcc->getUsed() > 0)
-            throw std::runtime_error("Cannot delete card with outstanding debt");
+            throw std::runtime_error("Cannot delete card with outstanding debt"); //TODO: throw
     }
 
     _cardRepo->remove(cardId);

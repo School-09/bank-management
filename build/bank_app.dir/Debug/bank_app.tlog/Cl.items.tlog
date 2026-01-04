@@ -1,3 +1,4 @@
+D:\bank-management\src\application\bootstrap\AppContext.cpp;D:\bank-management\build\bank_app.dir\Debug\AppContext.obj
 D:\bank-management\src\application\controllers\AccountController.cpp;D:\bank-management\build\bank_app.dir\Debug\AccountController.obj
 D:\bank-management\src\application\controllers\AuthController.cpp;D:\bank-management\build\bank_app.dir\Debug\AuthController.obj
 D:\bank-management\src\application\controllers\CardController.cpp;D:\bank-management\build\bank_app.dir\Debug\CardController.obj
@@ -5,7 +6,6 @@ D:\bank-management\src\application\controllers\MenuController.cpp;D:\bank-manage
 D:\bank-management\src\application\controllers\TransactionController.cpp;D:\bank-management\build\bank_app.dir\Debug\TransactionController.obj
 D:\bank-management\src\application\menu\AdminMenu.cpp;D:\bank-management\build\bank_app.dir\Debug\AdminMenu.obj
 D:\bank-management\src\application\menu\CustomerMenu.cpp;D:\bank-management\build\bank_app.dir\Debug\CustomerMenu.obj
-D:\bank-management\src\application\menu\MenuFactory.cpp;D:\bank-management\build\bank_app.dir\Debug\MenuFactory.obj
 D:\bank-management\src\application\ui\ConsoleUI.cpp;D:\bank-management\build\bank_app.dir\Debug\ConsoleUI.obj
 D:\bank-management\src\application\ui\MenuPrinter.cpp;D:\bank-management\build\bank_app.dir\Debug\MenuPrinter.obj
 D:\bank-management\src\domain\entities\Notification.cpp;D:\bank-management\build\bank_app.dir\Debug\Notification.obj

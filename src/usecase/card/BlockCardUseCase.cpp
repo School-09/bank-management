@@ -8,16 +8,15 @@ void BlockCardUseCase::execute(
     bool block
 ) {
     auto card = _cardRepo->findByCardId(cardId);
+
     if (!card)
-        throw std::runtime_error("Card not found");
+        throw std::runtime_error("Card not found"); //TODO: throw
 
     if (card->getUserId() != userId)
-        throw std::runtime_error("Permission denied");
+        throw std::runtime_error("Permission denied"); //TODO: throw
 
-    if (block)
-        card->lock();
-    else
-        card->unlock();
+    if (block) card->lock();
+    else card->unlock();
 
     _cardRepo->save(card);
 }

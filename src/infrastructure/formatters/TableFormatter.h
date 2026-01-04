@@ -1,5 +1,5 @@
-#ifndef TABLEFORMATTER_H
-#define TABLEFORMATTER_H
+#ifndef _TABLE_FORMATTER_H_
+#define _TABLE_FORMATTER_H_
 
 #include "RowFormatter.h"
 #include "ColumnFormat.h"

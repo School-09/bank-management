@@ -10,7 +10,7 @@ public:
     ~CreditCard() override = default;
 
 public: // Visitor Pattern
-    void accept(CardVisitor& visitor) override;
+    void accept(ICardVisitor& visitor) override;
 
 public:
     string serialize() const override;

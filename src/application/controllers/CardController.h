@@ -7,7 +7,6 @@
 #include "../../usecase/card/BlockCardUseCase.h"
 #include "../../usecase/card/CardPaymentUseCase.h"
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../ui/MenuPrinter.h"
 #include "../ui/ConsoleUI.h"
 
 #include <iostream>

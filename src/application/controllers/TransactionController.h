@@ -5,7 +5,6 @@
 #include "../../usecase/transaction/WithdrawUseCase.h"
 #include "../../usecase/transaction/TransferUseCase.h"
 #include "../../domain/repositories/ISessionRepository.h"
-#include "../ui/MenuPrinter.h"
 #include "../ui/ConsoleUI.h"
 
 #include <iostream>

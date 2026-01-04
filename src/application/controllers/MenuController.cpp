@@ -13,11 +13,7 @@ void MenuController::run() {
             _authController->registerAction();
         }
         else if (option == AuthMenuOption::LOGIN) {
-            _authController->loginAction();
-
-            string role;
-            cout << "Nhập vai trò: ";
-            getline(cin, role);
+            string role = _authController->loginAction();
 
             auto menu = MenuFactory::create(
                 role,

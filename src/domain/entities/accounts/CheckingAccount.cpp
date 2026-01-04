@@ -11,7 +11,7 @@ CheckingAccount::CheckingAccount(
 ) : Account(IdUtils::newCheckingAccountId(), userId),
     _balance(balance) {}
 
-void CheckingAccount::accept(AccountVisitor& visitor) { 
+void CheckingAccount::accept(IAccountVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

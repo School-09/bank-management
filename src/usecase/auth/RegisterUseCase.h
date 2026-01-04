@@ -18,7 +18,7 @@ public:
     shared_ptr<User> execute(
         const string& username,
         const string& email,
-        const string& inf
+        const string& info
     );
 
 public:

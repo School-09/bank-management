@@ -5,7 +5,7 @@
 ResetPasswordToken ResetPasswordUseCase::requestToken(const string& email) {
     shared_ptr<User> user = _userRepo->findByEmail(email);
     if (!user)
-        throw std::runtime_error("User email not found.");
+        throw std::runtime_error("User email not found."); //TODO: throw
 
     ResetPasswordToken token(user->getId());
 
@@ -19,16 +19,17 @@ void ResetPasswordUseCase::resetPassword(const string& tokenId, const string& ne
     ResetPasswordToken token = _tokenRepo->findByTokenId(tokenId);
 
     if (token.getTokenId().empty())
-        throw std::runtime_error("Invalid token.");
+        throw std::runtime_error("Invalid token."); //TODO: throw
 
     if (token.isExpired())
-        throw std::runtime_error("Token expired.");
+        throw std::runtime_error("Token expired."); //TODO: throw
 
     shared_ptr<User> user = _userRepo->findById(token.getUserId());
     if (!user)
-        throw std::runtime_error("User not found.");
+        throw std::runtime_error("User not found."); //TODO: throw
 
     user->setPassword(newPassword);
+    
     _userRepo->save(user);
 
     _tokenRepo->remove(tokenId);

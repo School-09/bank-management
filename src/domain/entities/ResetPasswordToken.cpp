@@ -7,7 +7,6 @@
 #include <regex>
 #include <map>
 #include <functional>
-#include <filesystem>
 
 ResetPasswordToken::ResetPasswordToken(
     string userId

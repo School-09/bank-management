@@ -1,6 +1,11 @@
 #include "Transfer.h"
 #include "../../../infrastructure/utils/IdUtils.h"
 
+#include <sstream>
+#include <regex>
+#include <map>
+#include <functional>
+
 Transfer::Transfer(
     string userId, int amount,
     string fromAccountId, string toAccountId

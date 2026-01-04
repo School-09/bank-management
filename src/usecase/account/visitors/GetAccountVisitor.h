@@ -1,7 +1,7 @@
 #ifndef _GET_ACCOUNT_VISITOR_H_
 #define _GET_ACCOUNT_VISITOR_H_
 
-#include "../../../domain/visitors/AccountVisitor.h"
+#include "../../../domain/visitors/IAccountVisitor.h"
 #include <string>
 #include <vector>
 #include <format>
@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 using std::format;
 
-class GetAccountVisitor : public AccountVisitor {
+class GetAccountVisitor : public IAccountVisitor {
 private:
     vector<vector<string>> _results;
 

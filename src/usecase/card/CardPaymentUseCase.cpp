@@ -10,18 +10,19 @@ void CardPaymentUseCase::execute(
     int amount
 ) {
     auto card = _cardRepo->findByCardId(cardId);
+
     if (!card)
-        throw std::runtime_error("Card not found");
+        throw std::runtime_error("Card not found"); //TODO: throw
 
     if (card->getUserId() != userId)
-        throw std::runtime_error("Permission denied");
+        throw std::runtime_error("Permission denied"); //TODO: throw
 
     if (card->isLocked())
-        throw std::runtime_error("Card is locked");
+        throw std::runtime_error("Card is locked"); //TODO: throw
 
     auto withdrawUseCase  = make_shared<WithdrawUseCase>(_accountRepo, _txRepo, _notifyRepo);
 
-    string inf = std::format("{}|{}|{}", userId, card->getAccountId(), amount);
+    string info = std::format("{}|{}|{}", userId, card->getAccountId(), amount);
     
-    withdrawUseCase->execute(userId, card->getAccountId(), amount, inf);
+    withdrawUseCase->execute(userId, card->getAccountId(), amount, info);
 }

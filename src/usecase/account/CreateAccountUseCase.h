@@ -20,7 +20,7 @@ public:
     shared_ptr<Account> execute(
         const string& userId,
         const string& typeAcc,
-        const string& inf
+        const string& info
     );
 
 public:

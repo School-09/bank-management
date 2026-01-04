@@ -1,7 +1,4 @@
 #include "FileAccountRepository.h"
-#include "../../domain/entities/accounts/CheckingAccount.h"
-#include "../../domain/entities/accounts/CreditAccount.h"
-#include "../../domain/entities/accounts/SavingAccount.h"
 #include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"

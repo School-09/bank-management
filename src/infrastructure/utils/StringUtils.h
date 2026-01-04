@@ -15,6 +15,7 @@ public:
                     [](unsigned char c){ return std::tolower(c); });
         return result;
     }
+
     // Ghép vector các input thành 1 chuỗi ngăn cách bởi delimiter
     static std::string join(const std::vector<std::string>& inputs, const std::string& delimiter = "|") {
         std::ostringstream oss;
@@ -25,6 +26,20 @@ public:
             }
         }
         return oss.str();
+    }
+
+    // Hàm hỗ trợ để cắt Key và Value
+    static bool extract_key_value(const string& line, string& key, string& val) {
+        auto pos = line.find(":");
+        if (pos == string::npos) return false;
+        
+        // Cắt Key (bỏ các khoảng trắng nếu có)
+        key = line.substr(0, pos);
+        // Cắt Value (bắt đầu từ pos + 2 để bỏ ": ")
+        val = line.substr(pos + 2); 
+        
+        // Xóa khoảng trắng thừa (trim) cho key và value nếu cần, nhưng tạm thời bỏ qua để giữ đơn giản
+        return true;
     }
 };
 

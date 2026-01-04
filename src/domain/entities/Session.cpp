@@ -7,11 +7,11 @@
 #include <regex>
 #include <map>
 #include <functional>
-#include <filesystem>
 
 Session::Session(
-    string userId
+    string userId, string role
 ) : _userId(userId),
+    _role(role),
     _sessionId(IdUtils::newSessionId()),
     _createdAt(TimeUtils::toString(time(nullptr))),
     _expiredAt(TimeUtils::toString(time(nullptr) + 3600)) {}
@@ -35,6 +35,7 @@ string Session::serialize() const {
 
     oss << "SessionId: " << _sessionId << "\n";
     oss << "UserId: " << _userId << "\n";
+    oss << "Role: " << _role << "\n";
     oss << "CreatedAt: " << _createdAt << "\n";
     oss << "ExpiredAt: " << _expiredAt << "\n";
 
@@ -47,6 +48,7 @@ void Session::deserialize(const vector<string>& lines) {
     std::map<string, std::function<void(const string&)>> handlers = {
         {"SessionId", [this](const string& v) { _sessionId = v; }},
         {"UserId", [this](const string& v) { _userId = v; }},
+        {"Role", [this](const string& v) { _role = v; }},
         {"CreatedAt", [this](const string& v) { _createdAt = v; }},
         {"ExpiredAt", [this](const string& v) { _expiredAt = v; }}
     };

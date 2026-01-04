@@ -14,7 +14,7 @@ public:
     ~CreditAccount() override = default;
 
 public: // Visitor Pattern
-    void accept(AccountVisitor& visitor) override;
+    void accept(IAccountVisitor& visitor) override;
 
 public:
     bool canWithdraw(int amount) override {

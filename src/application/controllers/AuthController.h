@@ -5,7 +5,6 @@
 #include "../../usecase/auth/LogoutUseCase.h"
 #include "../../usecase/auth/RegisterUseCase.h"
 #include "../../usecase/auth/ResetPasswordUseCase.h"
-#include "../ui/MenuPrinter.h"
 #include "../ui/ConsoleUI.h"
 
 #include <string>
@@ -45,7 +44,7 @@ public:
     // ===============================
     // LOGIN
     // ===============================
-    void loginAction();
+    string loginAction();
 
     // ===============================
     // LOGOUT

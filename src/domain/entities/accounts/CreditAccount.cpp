@@ -5,7 +5,6 @@
 #include <map>
 #include <regex>
 #include <functional>
-#include <stdexcept>
 
 CreditAccount::CreditAccount(
     string userId, int creditLimit
@@ -13,7 +12,7 @@ CreditAccount::CreditAccount(
     _creditLimit(creditLimit),
     _used(0) {}
 
-void CreditAccount::accept(AccountVisitor& visitor) { 
+void CreditAccount::accept(IAccountVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

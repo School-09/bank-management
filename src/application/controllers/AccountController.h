@@ -5,6 +5,7 @@
 #include "../../usecase/account/CreateAccountUseCase.h"
 #include "../../usecase/account/CloseAccountUseCase.h"
 #include "../../domain/repositories/ISessionRepository.h"
+#include "../ui/ConsoleUI.h"
 
 #include <iostream>
 #include <stdexcept>

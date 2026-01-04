@@ -19,7 +19,7 @@ public:
         const string& userId,
         const string& accountId,
         const string& typeCard,
-        const string& inf
+        const string& info
     );
 
 public:

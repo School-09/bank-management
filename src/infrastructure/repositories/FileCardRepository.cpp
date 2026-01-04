@@ -1,6 +1,4 @@
 #include "FileCardRepository.h"
-#include "../../domain/entities/cards/DebitCard.h"
-#include "../../domain/entities/cards/CreditCard.h"
 #include "../../domain/factories/BaseFactory.h"
 #include "../utils/FileUtils.h"
 #include "../utils/StringUtils.h"

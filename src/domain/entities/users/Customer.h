@@ -16,7 +16,7 @@ public:
     ~Customer() override = default;
 
 public: // Visitor Pattern
-    void accept(UserVisitor& visitor) override;
+    void accept(IUserVisitor& visitor) override;
 
 public:
     string serialize() const override;

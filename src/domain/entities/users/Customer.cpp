@@ -20,7 +20,7 @@ Customer::Customer(
     phone,
     rawPassword) {}
 
-void Customer::accept(UserVisitor& visitor) { 
+void Customer::accept(IUserVisitor& visitor) { 
     visitor.visit(*this); 
 }
 

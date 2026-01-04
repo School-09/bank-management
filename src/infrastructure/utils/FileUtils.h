@@ -15,33 +15,21 @@ public:
         vector<string> lines;
         ifstream in(path);
 
-        //if (!in.is_open()) continue;
+        if (!in.is_open()) {
+            throw std::runtime_error("Không thể mở file: " + path); //TODO: throw
+        }
 
         string s;
+        while (getline(in, s)) {
+            lines.push_back(s);
+        }
 
-        while (getline(in, s)) lines.push_back(s);
-
-        // in.close()
         return lines;
     }
 
     static void writeText(const string& path, const string& content) {
         ofstream out(path);
         out << content;
-    }
-
-    // Hàm hỗ trợ để cắt Key và Value
-    static bool extract_key_value(const string& line, string& key, string& val) {
-        auto pos = line.find(":");
-        if (pos == string::npos) return false;
-        
-        // Cắt Key (bỏ các khoảng trắng nếu có)
-        key = line.substr(0, pos);
-        // Cắt Value (bắt đầu từ pos + 2 để bỏ ": ")
-        val = line.substr(pos + 2); 
-        
-        // Xóa khoảng trắng thừa (trim) cho key và value nếu cần, nhưng tạm thời bỏ qua để giữ đơn giản
-        return true;
     }
 };
 

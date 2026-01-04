@@ -1,31 +1,47 @@
 #include "ConsoleUI.h"
 
-void ConsoleUI::intro(string message) {
-    cout << message << "\n\n";
+void ConsoleUI::intro() {
+    cout << "\n";
+    cout << "=====================================================\n";
+    cout << "            WELCOME TO BANKING CORE SYSTEM\n";
+    cout << "=====================================================\n";
+    cout << "This application simulates core banking operations:\n";
+    cout << " - User authentication (Admin / Customer)\n";
+    cout << " - Account and Card management\n";
+    cout << " - Secure transactions and payments\n";
+    cout << "\n";
 }
 
 void ConsoleUI::outro() {
     cout << "\nChương trình đang kết thúc. Nhấn Enter để thoát...";
     cin.get();
+    cout << "\n=== EXIT PROGRAM ===\n";
 }
 
 string ConsoleUI::inputString(const string& label) {
-    cout << label;
+    cout << format("Enter {}: ", label);
     string s;
     getline(cin, s);
     return s;
 }
 
-void ConsoleUI::print(const string& message) {
-    cout << format("{}\n", message);
+vector<string> ConsoleUI::inputLists(const vector<string>& infos) {
+    vector<string> results;
+    for (auto info : infos) {
+        cout << format("Enter {}: ", info);
+        string s;
+        getline(cin, s);
+        results.push_back(s);
+    }
+    return results;
 }
 
-void ConsoleUI::showMessage(const string& msg) {
-    cout << msg << "\n";
+void ConsoleUI::printNotice(const string& message) {
+    cout << format("[Notice] {}\n", message);
 }
 
-void ConsoleUI::showError(const string& err) {
-    cout << "[ERROR] " << err << "\n";
+void ConsoleUI::printError(const string& err) {
+    cout << format("[Error] {}\n", err);
 }
 
 void ConsoleUI::waitEnter() {

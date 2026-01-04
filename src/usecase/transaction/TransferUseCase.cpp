@@ -1,6 +1,5 @@
 #include "TransferUseCase.h"
 #include "../../domain/entities/transactions/Transaction.h"
-#include "../../domain/entities/transactions/Transfer.h"
 #include "../../domain/factories/BaseFactory.h"
 
 void TransferUseCase::execute(
@@ -8,29 +7,29 @@ void TransferUseCase::execute(
     const string& fromAccountId,
     const string& toAccountId,
     int amount,
-    const string& inf
+    const string& info
 ) {
     if (amount <= 0)
-        throw std::runtime_error("Invalid amount");
+        throw std::runtime_error("Invalid amount"); //TODO: throw
 
     auto from = _accountRepo->findByAccountId(fromAccountId);
     auto to   = _accountRepo->findByAccountId(toAccountId);
 
     if (!from || !to)
-        throw std::runtime_error("Account not found");
+        throw std::runtime_error("Account not found"); //TODO: throw
 
     if (from->getUserId() != userId)
-        throw std::runtime_error("Permission denied");
+        throw std::runtime_error("Permission denied"); //TODO: throw
 
     if (!from->canWithdraw(amount))
-        throw std::runtime_error("Can't withdraw");
+        throw std::runtime_error("Can't withdraw"); //TODO: throw
 
     from->withdraw(amount);
     to->deposit(amount);
     _accountRepo->save(from);
     _accountRepo->save(to);
 
-    auto tx = BaseFactory<Transaction>::instance().create("transfer", inf);
+    auto tx = BaseFactory<Transaction>::instance().create("transfer", info);
 
     _txRepo->save(tx);
 
